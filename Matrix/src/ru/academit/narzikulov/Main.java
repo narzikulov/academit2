@@ -107,5 +107,29 @@ public class Main {
         Vector vector8 = new Vector(vector7);
         System.out.print("Vector8 = copy of Vector7 (constructor) = ");
         System.out.println(vector8.toString());
+
+        //Matrix
+        System.out.println();
+        System.out.println("--- Matrix class ---");
+        int column = 2;
+        int row = 5;
+        System.out.printf("Matrix1 = new matrix %dx%d: ", column, row);
+        Matrix matrix1 = new Matrix(column, row);
+        System.out.println(matrix1.toString());
+
+        Matrix matrix2 = new Matrix(matrix1);
+        System.out.print("Matrix2 = copy of Matrix1 (constructor) = ");
+        System.out.println(matrix2.toString());
+
+        double[][] matrixArray1 = {{5, 4, 3, 2, 1}, {1, 2, 3, 4, 5, 6}};
+        Matrix matrix3 = new Matrix(matrixArray1);
+        System.out.print("Matrix3: ");
+        System.out.println(matrix3.toString());
+
+        Vector[] vectorList1 = {vector5, vector8};
+        Matrix matrix4 = new Matrix(vectorList1);
+        System.out.print("Matrix4: ");
+        System.out.println(matrix4.toString());
+
     }
 }
