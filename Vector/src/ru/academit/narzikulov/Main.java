@@ -1,5 +1,4 @@
-package academit.narzikulov;
-import Vector;
+package ru.academit.narzikulov;
 
 /**
  * Created by tim on 20.10.2015.

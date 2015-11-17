@@ -1,4 +1,4 @@
-package academit.narzikulov;
+package ru.academit.narzikulov;
 
 /**
  * Created by tim on 13.11.2015.
