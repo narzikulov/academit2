@@ -1,3 +1,6 @@
+package academit.narzikulov;
+import Vector;
+
 /**
  * Created by tim on 20.10.2015.
  */

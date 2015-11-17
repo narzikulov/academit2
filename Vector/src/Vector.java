@@ -1,3 +1,5 @@
+package academit.narzikulov;
+
 /**
  * Created by tim on 21.10.2015.
  */
