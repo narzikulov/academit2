@@ -4,53 +4,81 @@ package ru.academit.narzikulov;
  * Created by tim on 13.11.2015.
  */
 public class Matrix {
-    private Vector[] matrixElements;
+    private Vector[] matrixRows;
 
-    public Matrix(int rowNumber, int columnNumber) {
-        if (rowNumber <= 0 || columnNumber <= 0) {
+    public Matrix(int rowsCount, int columnsCount) {
+        if (rowsCount <= 0 || columnsCount <= 0) {
             throw new IllegalArgumentException("Некорректное задание рамеров матрицы!");
         }
-        this.matrixElements = new Vector[columnNumber];
-        for (int i = 0; i < columnNumber; ++i) {
-            this.matrixElements[i] = new Vector(rowNumber);
+        this.matrixRows = new Vector[columnsCount];
+        for (int i = 0; i < columnsCount; ++i) {
+            this.matrixRows[i] = new Vector(rowsCount);
         }
     }
 
     public Matrix(Matrix matrixToCopy) {
-        Vector[] newMatrix = new Vector[matrixToCopy.matrixElements.length];
+        Vector[] newMatrix = new Vector[matrixToCopy.matrixRows.length];
         int newMatrixSize = newMatrix.length;
         for (int i = 0; i < newMatrixSize; ++i) {
-            newMatrix[i] = new Vector(matrixToCopy.matrixElements[i]);
+            newMatrix[i] = new Vector(matrixToCopy.matrixRows[i]);
         }
-        this.matrixElements = newMatrix;
+        this.matrixRows = newMatrix;
     }
 
     public Matrix(double[][] matrixArray) {
         int numOfMatrixRows = matrixArray.length;
-        this.matrixElements = new Vector[numOfMatrixRows];
+        this.matrixRows = new Vector[numOfMatrixRows];
         for (int i = 0; i < numOfMatrixRows; ++i) {
-            matrixElements[i] = new Vector(matrixArray[i]);
+            matrixRows[i] = new Vector(matrixArray[i]);
         }
     }
 
     public Matrix(Vector[] vectorsArray) {
-        this.matrixElements = new Vector[vectorsArray.length];
+        int matrixRowsLength = 0;
+        int indexOfVectorWithMaxSize = 0;
         for (int i = 0; i < vectorsArray.length; ++i) {
-            this.matrixElements[i] = new Vector(vectorsArray[i]);
+            if (vectorsArray[i].getSize() > matrixRowsLength) {
+                matrixRowsLength = vectorsArray[i].getSize();
+                indexOfVectorWithMaxSize = i;
+            }
+        }
+
+        this.matrixRows = new Vector[vectorsArray.length];
+        for (int i = 0; i < vectorsArray.length; ++i) {
+            this.matrixRows[i] = new Vector(vectorsArray[i]);
+            this.matrixRows[i].extVectorsToEqualSize(vectorsArray[indexOfVectorWithMaxSize]);
         }
     }
 
     public String toString() {
         StringBuilder s = new StringBuilder("{ ");
 
-        int matrixNumOfVectors = this.matrixElements.length;
+        int matrixNumOfVectors = this.matrixRows.length;
         for (int i = 0; i < matrixNumOfVectors - 1; ++i) {
-            s.append(matrixElements[i].toString());
+            s.append(matrixRows[i].toString());
             s.append(", ");
         }
-        s.append(matrixElements[matrixNumOfVectors - 1]);
+        s.append(matrixRows[matrixNumOfVectors - 1]);
         s.append(" }");
         return s.toString();
+    }
+
+    public int getRowsCount(){
+        return this.matrixRows.length;
+    }
+
+    public int getColumnsCount(){
+        return this.matrixRows[0].getSize();
+    }
+
+    public Vector getRowWithIndex(int indexOfRow) {
+        if (indexOfRow < 0) {
+            return this.matrixRows[0];
+        }
+        if (indexOfRow >= this.matrixRows.length) {
+            return this.matrixRows[this.matrixRows.length - 1];
+        }
+        return this.matrixRows[indexOfRow];
     }
 
 }

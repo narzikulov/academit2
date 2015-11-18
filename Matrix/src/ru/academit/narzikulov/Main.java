@@ -126,10 +126,23 @@ public class Main {
         System.out.print("Matrix3: ");
         System.out.println(matrix3.toString());
 
-        Vector[] vectorList1 = {vector5, vector8};
+        System.out.print("Vector4: ");
+        System.out.println(vector4.toString());
+        double[] vectorArray9 = {3, 3};
+        Vector vector9 = new Vector(vectorArray9);
+        System.out.print("Vector9: ");
+        System.out.println(vector9.toString());
+
+        Vector[] vectorList1 = {vector4, vector9};
         Matrix matrix4 = new Matrix(vectorList1);
-        System.out.print("Matrix4: ");
+        System.out.print("Matrix4(vector4, vector9): ");
         System.out.println(matrix4.toString());
+
+        System.out.println("Matrix4 size: " + matrix4.getRowsCount() + "x" + matrix4.getColumnsCount());
+
+        int indexOfRow = 5;
+        System.out.printf("Matrix4 vector with index %d : ", indexOfRow);
+        System.out.println(matrix4.getRowWithIndex(indexOfRow).toString());
 
     }
 }
