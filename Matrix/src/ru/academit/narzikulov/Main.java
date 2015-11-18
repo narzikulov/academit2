@@ -144,8 +144,25 @@ public class Main {
         System.out.printf("Matrix4 vector with index %d : ", indexOfRow);
         System.out.println(matrix4.getRowWithIndex(indexOfRow).toString());
 
+        vector9.subVector(vector4);
+
         indexOfRow = 0;
+        System.out.printf("Set Matrix4[%d] as:", indexOfRow);
+        System.out.println(vector9.toString());
         matrix4.setRowWithIndex(indexOfRow, vector9);
+        System.out.print("Matrix4: ");
         System.out.println(matrix4.toString());
+
+        int indexOfColumn = 2;
+        System.out.printf("Matrix4 column with index %d: ", indexOfColumn);
+        System.out.println(matrix4.getColumnWithIndex(indexOfColumn).toString());
+
+        System.out.print("Matrix4 transpose: ");
+        System.out.println(matrix4.transpose().toString());
+
+        double num1 = -2;
+        System.out.printf("Matrix4 mult to %.2f: ", num1);
+        System.out.println(matrix4.multToNum(num1).toString());
+
     }
 }

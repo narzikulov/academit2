@@ -63,11 +63,11 @@ public class Matrix {
         return s.toString();
     }
 
-    public int getRowsCount(){
+    public int getRowsCount() {
         return this.matrixRows.length;
     }
 
-    public int getColumnsCount(){
+    public int getColumnsCount() {
         return this.matrixRows[0].getSize();
     }
 
@@ -93,6 +93,36 @@ public class Matrix {
         for (int i = 0; i < this.matrixRows[indexOfRow].getSize(); ++i) {
             this.matrixRows[indexOfRow].setVectorElement(i, insertingVector.getVectorElement(i));
         }
+    }
+
+    public Vector getColumnWithIndex(int indexOfColumn) {
+        if (indexOfColumn < 0 || indexOfColumn >= this.matrixRows[0].getSize()) {
+            throw new IllegalArgumentException("Индекс выходит за границы диапазона матрицы");
+        }
+
+        int matrixColumnVectorLength = this.matrixRows.length;
+        Vector matrixColumnVector = new Vector(matrixColumnVectorLength);
+        for (int i = 0; i < matrixColumnVectorLength; ++i) {
+            matrixColumnVector.setVectorElement(i, matrixRows[i].getVectorElement(indexOfColumn));
+        }
+        return matrixColumnVector;
+    }
+
+    public Matrix transpose() {
+        Vector[] tMatrixVector = new Vector[this.matrixRows[0].getSize()];
+        for (int i = 0; i < this.matrixRows[0].getSize(); ++i) {
+            tMatrixVector[i] = new Vector(this.getColumnWithIndex(i));
+        }
+        return new Matrix(tMatrixVector);
+    }
+
+    public Matrix multToNum(double num) {
+        Vector[] newMatrixVector = new Vector[this.matrixRows.length];
+        for (int i = 0; i < this.matrixRows.length; ++i) {
+            newMatrixVector[i] = this.matrixRows[i];
+            newMatrixVector[i].multVectorToNum(num);
+        }
+        return new Matrix(newMatrixVector);
     }
 
 }
