@@ -3,7 +3,7 @@ package ru.academit.narzikulov;
 /**
  * Created by tim on 21.10.2015.
  */
-class Vector {
+public class Vector {
     private double[] vectorArray;
 
 

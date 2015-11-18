@@ -4,48 +4,51 @@ package ru.academit.narzikulov;
  * Created by tim on 13.11.2015.
  */
 public class Matrix {
-    private Vector[] matrix;
+    private Vector[] matrixElements;
 
-    public Matrix(int n, int m) throws NullPointerException {
-        try {
-            this.matrix = new Vector[m];
-            for (int i = 0; i < m; ++i) {
-                this.matrix[i] = new Vector(n);
-            }
-        } catch (NullPointerException e) {
-            System.out.println("Обнаружено деление на ноль!");
+    public Matrix(int rowNumber, int columnNumber) {
+        if (rowNumber <= 0 || columnNumber <= 0) {
+            throw new IllegalArgumentException("Некорректное задание рамеров матрицы!");
+        }
+        this.matrixElements = new Vector[columnNumber];
+        for (int i = 0; i < columnNumber; ++i) {
+            this.matrixElements[i] = new Vector(rowNumber);
         }
     }
 
     public Matrix(Matrix matrixToCopy) {
-        Vector[] newMatrix = new Vector[matrixToCopy.matrix.length];
+        Vector[] newMatrix = new Vector[matrixToCopy.matrixElements.length];
         int newMatrixSize = newMatrix.length;
-        System.arraycopy(matrixToCopy.matrix, 0, newMatrix, 0, newMatrixSize);
-        this.matrix = newMatrix;
+        for (int i = 0; i < newMatrixSize; ++i) {
+            newMatrix[i] = new Vector(matrixToCopy.matrixElements[i]);
+        }
+        this.matrixElements = newMatrix;
     }
 
     public Matrix(double[][] matrixArray) {
         int numOfMatrixRows = matrixArray.length;
-        this.matrix = new Vector[numOfMatrixRows];
+        this.matrixElements = new Vector[numOfMatrixRows];
         for (int i = 0; i < numOfMatrixRows; ++i) {
-            matrix[i] = new Vector(matrixArray[i]);
+            matrixElements[i] = new Vector(matrixArray[i]);
         }
     }
 
     public Matrix(Vector[] vectorsArray) {
-        this.matrix = new Vector[vectorsArray.length];
-        this.matrix = vectorsArray;
+        this.matrixElements = new Vector[vectorsArray.length];
+        for (int i = 0; i < vectorsArray.length; ++i) {
+            this.matrixElements[i] = new Vector(vectorsArray[i]);
+        }
     }
 
     public String toString() {
         StringBuilder s = new StringBuilder("{ ");
 
-        int matrixNumOfVectors = this.matrix.length;
+        int matrixNumOfVectors = this.matrixElements.length;
         for (int i = 0; i < matrixNumOfVectors - 1; ++i) {
-            s.append(matrix[i].toString());
+            s.append(matrixElements[i].toString());
             s.append(", ");
         }
-        s.append(matrix[matrixNumOfVectors - 1]);
+        s.append(matrixElements[matrixNumOfVectors - 1]);
         s.append(" }");
         return s.toString();
     }
