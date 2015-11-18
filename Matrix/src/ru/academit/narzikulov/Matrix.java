@@ -72,13 +72,27 @@ public class Matrix {
     }
 
     public Vector getRowWithIndex(int indexOfRow) {
-        if (indexOfRow < 0) {
-            return this.matrixRows[0];
+        if (indexOfRow < 0 || indexOfRow >= this.matrixRows.length) {
+            throw new IllegalArgumentException("Индекс выходит за границы диапазона матрицы");
         }
-        if (indexOfRow >= this.matrixRows.length) {
-            return this.matrixRows[this.matrixRows.length - 1];
+        return new Vector(this.matrixRows[indexOfRow]);
+    }
+
+    public void setRowWithIndex(int indexOfRow, Vector insertingVector) {
+        if (indexOfRow < 0 || indexOfRow >= this.matrixRows.length) {
+            throw new IllegalArgumentException("Индекс выходит за границы диапазона матрицы");
         }
-        return this.matrixRows[indexOfRow];
+        if (insertingVector.getSize() > this.matrixRows[indexOfRow].getVectorLength()) {
+            throw new IllegalArgumentException("Размер вектора больше размерности векторов матрицы");
+        }
+
+        if (insertingVector.getSize() < this.matrixRows[indexOfRow].getSize()) {
+            insertingVector.extVectorsToEqualSize(this.matrixRows[indexOfRow]);
+        }
+
+        for (int i = 0; i < this.matrixRows[indexOfRow].getSize(); ++i) {
+            this.matrixRows[indexOfRow].setVectorElement(i, insertingVector.getVectorElement(i));
+        }
     }
 
 }

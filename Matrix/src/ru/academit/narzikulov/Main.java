@@ -140,9 +140,12 @@ public class Main {
 
         System.out.println("Matrix4 size: " + matrix4.getRowsCount() + "x" + matrix4.getColumnsCount());
 
-        int indexOfRow = 5;
+        int indexOfRow = 1;
         System.out.printf("Matrix4 vector with index %d : ", indexOfRow);
         System.out.println(matrix4.getRowWithIndex(indexOfRow).toString());
 
+        indexOfRow = 0;
+        matrix4.setRowWithIndex(indexOfRow, vector9);
+        System.out.println(matrix4.toString());
     }
 }
