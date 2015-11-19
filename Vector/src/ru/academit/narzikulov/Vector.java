@@ -46,41 +46,44 @@ public class Vector {
         return s.toString();
     }
 
-    public void extVectorsToEqualSize(Vector vector1) {
-        if (this.vectorArray.length == vector1.vectorArray.length) {
-            return;
-        }
-
+    public double[] extVectorsToEqualSize(Vector vector1) {
         if (this.vectorArray.length < vector1.vectorArray.length) {
-            int newSize = vector1.vectorArray.length;
-            double[] newVectorArray = new double[newSize];
-            int minimalArraySize = this.vectorArray.length;
-            System.arraycopy(this.vectorArray, 0, newVectorArray, 0, minimalArraySize);
-            this.vectorArray = newVectorArray;
+            double[] newVectorArray = new double[vector1.vectorArray.length];
+            int newSize = this.vectorArray.length;
+            for (int i = 0; i < newSize; ++i) {
+                newVectorArray[i] = this.vectorArray[i];
+            }
+            return newVectorArray;
         }
 
         if (this.vectorArray.length > vector1.vectorArray.length) {
-            int newSize = this.vectorArray.length;
-            double[] newVectorArray = new double[newSize];
-            int minimalArraySize = vector1.vectorArray.length;
-            System.arraycopy(vector1.vectorArray, 0, newVectorArray, 0, minimalArraySize);
-            vector1.vectorArray = newVectorArray;
+            double[] newVectorArray = new double[this.vectorArray.length];
+            int newSize = vector1.vectorArray.length;
+            for (int i = 0; i < newSize; ++i) {
+                newVectorArray[i] = this.vectorArray[i];
+            }
+            return newVectorArray;
         }
+        double[] newVectorArray = new double[this.vectorArray.length];
+        return newVectorArray;
     }
 
     public void addVector(Vector addVector) {
-        this.extVectorsToEqualSize(addVector);
-        int vectorArraySize = this.vectorArray.length;
+        double[] newVectorArray = this.extVectorsToEqualSize(addVector);
+        int vectorArraySize = newVectorArray.length;
         for (int i = 0; i < vectorArraySize; ++i) {
-            this.vectorArray[i] += addVector.vectorArray[i];
+            newVectorArray[i] += addVector.vectorArray[i];
         }
+        this.vectorArray = newVectorArray;
     }
 
     public void subVector(Vector subVector) {
-        this.extVectorsToEqualSize(subVector);
+        double[] newVectorArray = this.extVectorsToEqualSize(subVector);
+        int vectorArraySize = newVectorArray.length;
         for (int i = 0; i < this.vectorArray.length; ++i) {
-            this.vectorArray[i] -= subVector.vectorArray[i];
+            newVectorArray[i] -= subVector.vectorArray[i];
         }
+        this.vectorArray = newVectorArray;
     }
 
     public void multVectorToNum(double num) {

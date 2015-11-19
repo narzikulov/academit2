@@ -7,12 +7,12 @@ public class Matrix {
     private Vector[] matrixRows;
 
     public Matrix(int rowsCount, int columnsCount) {
-        if (rowsCount <= 0 || columnsCount <= 0) {
+        if (columnsCount <= 0 || rowsCount <= 0) {
             throw new IllegalArgumentException("Некорректное задание рамеров матрицы!");
         }
-        this.matrixRows = new Vector[columnsCount];
-        for (int i = 0; i < columnsCount; ++i) {
-            this.matrixRows[i] = new Vector(rowsCount);
+        this.matrixRows = new Vector[rowsCount];
+        for (int i = 0; i < rowsCount; ++i) {
+            this.matrixRows[i] = new Vector(columnsCount);
         }
     }
 

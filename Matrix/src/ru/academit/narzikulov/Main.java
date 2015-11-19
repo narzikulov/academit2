@@ -15,8 +15,8 @@ public class Main {
         System.out.print("Vector2: ");
         System.out.println(vector2.toString());
 
-        vector1.addVector(vector2);
         System.out.print("Vector1 = Vector1 + Vector2: ");
+        vector1.addVector(vector2);
         System.out.println(vector1.toString());
 
         double[] vectorArray11 = {7, 6, 5, 4, 3, 2, 1};
@@ -89,8 +89,8 @@ public class Main {
         System.out.print("Vector4 = ");
         System.out.println(vector4.toString());
 
-        Vector vector5 = Vector.addTwoVectorsToNewOne(vector2, vector4);
         System.out.print("Vector5 = Vector2 + Vector4 = ");
+        Vector vector5 = Vector.addTwoVectorsToNewOne(vector2, vector4);
         System.out.println(vector5.toString());
 
         Vector vector6 = Vector.subVectorsToNewOne(vector2, vector4);
