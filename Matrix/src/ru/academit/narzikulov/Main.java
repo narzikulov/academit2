@@ -60,7 +60,7 @@ public class Main {
         System.out.print("Vector4 = ");
         System.out.println(vector4.toString());
         if (vector3.isEqualTo(vector4)) {
-            System.out.println("Vectors are equal");
+            System.out.println("Vector3 are equal Vector4");
         } else {
             System.out.println("Vectors are not equal");
         }
@@ -141,8 +141,8 @@ public class Main {
         System.out.println("Matrix4 size: " + matrix4.getRowsCount() + "x" + matrix4.getColumnsCount());
 
         int indexOfRow = 1;
-        System.out.printf("Matrix4 vector with index %d : ", indexOfRow);
-        System.out.println(matrix4.getRowWithIndex(indexOfRow).toString());
+        System.out.printf("Matrix4 row with index %d : ", indexOfRow);
+        System.out.println(matrix4.getRow(indexOfRow).toString());
 
         vector9.subVector(vector4);
 
@@ -153,9 +153,9 @@ public class Main {
         System.out.print("Matrix4: ");
         System.out.println(matrix4.toString());
 
-        int indexOfColumn = 2;
+        int indexOfColumn = 1;
         System.out.printf("Matrix4 column with index %d: ", indexOfColumn);
-        System.out.println(matrix4.getColumnWithIndex(indexOfColumn).toString());
+        System.out.println(matrix4.getColumn(indexOfColumn).toString());
 
         System.out.print("Matrix4 transpose: ");
         System.out.println(matrix4.transpose().toString());
@@ -163,6 +163,11 @@ public class Main {
         double num1 = -2;
         System.out.printf("Matrix4 mult to %.2f: ", num1);
         System.out.println(matrix4.multToNum(num1).toString());
+
+        indexOfRow = 0;
+        indexOfColumn = 3;
+        System.out.printf("Matrix4[%d, %d] element = ", indexOfRow, indexOfColumn);
+        System.out.println(matrix4.getElement(indexOfRow, indexOfColumn));
 
     }
 }

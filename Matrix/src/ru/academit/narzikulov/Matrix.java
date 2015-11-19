@@ -45,8 +45,8 @@ public class Matrix {
 
         this.matrixRows = new Vector[vectorsArray.length];
         for (int i = 0; i < vectorsArray.length; ++i) {
-            this.matrixRows[i] = new Vector(vectorsArray[i]);
-            this.matrixRows[i].extVectorsToEqualSize(vectorsArray[indexOfVectorWithMaxSize]);
+            this.matrixRows[i] = new Vector(vectorsArray[indexOfVectorWithMaxSize].getSize());
+            this.matrixRows[i].addVector(vectorsArray[i]);
         }
     }
 
@@ -71,16 +71,16 @@ public class Matrix {
         return this.matrixRows[0].getSize();
     }
 
-    public Vector getRowWithIndex(int indexOfRow) {
+    public Vector getRow(int indexOfRow) {
         if (indexOfRow < 0 || indexOfRow >= this.matrixRows.length) {
-            throw new IllegalArgumentException("Индекс выходит за границы диапазона матрицы");
+            throw new IndexOutOfBoundsException("Индекс выходит за границы диапазона матрицы");
         }
         return new Vector(this.matrixRows[indexOfRow]);
     }
 
     public void setRowWithIndex(int indexOfRow, Vector insertingVector) {
         if (indexOfRow < 0 || indexOfRow >= this.matrixRows.length) {
-            throw new IllegalArgumentException("Индекс выходит за границы диапазона матрицы");
+            throw new IndexOutOfBoundsException("Индекс выходит за границы диапазона матрицы");
         }
         if (insertingVector.getSize() > this.matrixRows[indexOfRow].getVectorLength()) {
             throw new IllegalArgumentException("Размер вектора больше размерности векторов матрицы");
@@ -95,9 +95,9 @@ public class Matrix {
         }
     }
 
-    public Vector getColumnWithIndex(int indexOfColumn) {
+    public Vector getColumn(int indexOfColumn) {
         if (indexOfColumn < 0 || indexOfColumn >= this.matrixRows[0].getSize()) {
-            throw new IllegalArgumentException("Индекс выходит за границы диапазона матрицы");
+            throw new IndexOutOfBoundsException("Индекс выходит за границы диапазона матрицы");
         }
 
         int matrixColumnVectorLength = this.matrixRows.length;
@@ -108,10 +108,21 @@ public class Matrix {
         return matrixColumnVector;
     }
 
+    public double getElement(int rowIndex, int columnIndex) {
+        if (rowIndex < 0 || rowIndex > this.matrixRows.length) {
+            throw new IndexOutOfBoundsException("Индекс строки выходит за границы диапазона матрицы");
+        }
+        if (columnIndex < 0 || columnIndex > this.matrixRows[0].getSize()) {
+            throw new IndexOutOfBoundsException("Индекс строки выходит за границы диапазона матрицы");
+        }
+
+        return this.matrixRows[rowIndex].getVectorElement(columnIndex);
+    }
+
     public Matrix transpose() {
         Vector[] tMatrixVector = new Vector[this.matrixRows[0].getSize()];
         for (int i = 0; i < this.matrixRows[0].getSize(); ++i) {
-            tMatrixVector[i] = new Vector(this.getColumnWithIndex(i));
+            tMatrixVector[i] = new Vector(this.getColumn(i));
         }
         return new Matrix(tMatrixVector);
     }
