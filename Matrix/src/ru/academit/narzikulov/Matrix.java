@@ -136,4 +136,14 @@ public class Matrix {
         return new Matrix(newMatrixVector);
     }
 
+    public double maxVectorLength() {
+        double maxLength = 0;
+        for (Vector matrixRow : this.matrixRows) {
+            double curVectorLength = matrixRow.getVectorLength();
+            if (curVectorLength > maxLength) maxLength = curVectorLength;
+        }
+        return maxLength;
+    }
+
+
 }

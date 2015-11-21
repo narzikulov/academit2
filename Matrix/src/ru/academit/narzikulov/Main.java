@@ -169,5 +169,8 @@ public class Main {
         System.out.printf("Matrix4[%d, %d] element = ", indexOfRow, indexOfColumn);
         System.out.println(matrix4.getElement(indexOfRow, indexOfColumn));
 
+        System.out.printf("Matrix4 max vector length = %.2f%n", matrix4.maxVectorLength());
+
+
     }
 }
