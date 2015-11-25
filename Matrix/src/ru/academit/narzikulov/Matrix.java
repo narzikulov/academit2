@@ -63,6 +63,14 @@ public class Matrix {
         return s.toString();
     }
 
+    public void printAsMatrix() {
+        int matrixNumOfVectors = this.matrixRows.length;
+        for (int i = 0; i < matrixNumOfVectors; ++i) {
+            System.out.println(matrixRows[i].toString());
+        }
+        System.out.println("-------------------------------------------");
+    }
+
     public int getRowsCount() {
         return this.matrixRows.length;
     }
@@ -145,5 +153,47 @@ public class Matrix {
         return maxLength;
     }
 
+    public void changeVectors(int i, int j) {
+        Vector savedVector = new Vector(this.matrixRows.length);
+        savedVector = matrixRows[i];
+        matrixRows[i] = matrixRows[j];
+        matrixRows[j] = savedVector;
+    }
 
+    public Matrix gauss() {
+        if (this.matrixRows.length != this.matrixRows[0].getSize()) {
+            throw new ArrayIndexOutOfBoundsException("Определитель можно вычислить только у квадратных матриц!");
+        }
+        double epsilon = 0.00001;
+
+        Matrix matrix = new Matrix(this.matrixRows);
+
+        int matrixSize = matrix.matrixRows.length;
+        double matrixElement0;
+        double matrixElement1;
+        int k = 0;
+        for (int j = 0; j < matrixSize - 1; ++j) {
+            for (int i = j; i < matrixSize - 1; ++i) {
+                matrixElement0 = matrix.matrixRows[k].getVectorElement(j);
+                matrixElement1 = matrix.matrixRows[i + 1].getVectorElement(j);
+                /*if (Math.abs(matrixElement0) < epsilon) {
+                    changeVectors(i,i + 1);
+                    ++j;
+                    continue;
+                }*/
+                System.out.println(matrixElement0);
+                System.out.println(matrixElement1);
+                matrix.printAsMatrix();
+                matrix.matrixRows[i + 1].multVectorToNum(matrixElement0);
+                matrix.matrixRows[k].multVectorToNum(matrixElement1);
+
+                matrix.matrixRows[i + 1].subVector(matrix.matrixRows[k]);
+
+                matrix.printAsMatrix();
+            }
+            ++k;
+        }
+
+        return matrix;
+    }
 }

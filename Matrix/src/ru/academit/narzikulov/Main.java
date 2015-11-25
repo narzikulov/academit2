@@ -171,6 +171,14 @@ public class Main {
 
         System.out.printf("Matrix4 max vector length = %.2f%n", matrix4.maxVectorLength());
 
+        double[][] matrixArray5 = {{1, 2, 3, 4}, {2, 3, 4, 1}, {3, 4, 1, 2}, {4, 1, 2, 3}};
+        Matrix matrix5 = new Matrix(matrixArray5);
+        System.out.print("Matrix5: ");
+        System.out.println(matrix5.toString());
+
+        System.out.println("Matrix6 (gauss): ");
+        Matrix matrix6 = matrix5.gauss();
+
 
     }
 }
