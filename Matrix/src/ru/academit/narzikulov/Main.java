@@ -178,7 +178,8 @@ public class Main {
 
         System.out.println("Matrix6 (gauss): ");
         Matrix matrix6 = matrix5.gauss();
-
+        System.out.print("Determinant = ");
+        System.out.println(Matrix.det(matrix6));
 
     }
 }
