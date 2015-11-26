@@ -171,14 +171,20 @@ public class Main {
 
         System.out.printf("Matrix4 max vector length = %.2f%n", matrix4.maxVectorLength());
 
-        double[][] matrixArray5 = {{1, 2, 3, 4}, {2, 3, 4, 1}, {3, 4, 1, 2}, {4, 1, 2, 3}};
+        //double[][] matrixArray5 = {{1, 2, 3, 4}, {2, 3, 4, 1}, {3, 4, 1, 2}, {4, 1, 2, 3}}; //det = 160
+        //double[][] matrixArray5 = {{2, 1, 0, 0}, {0, 1, 3, 2}, {0, 0, 0, 5}, {-1, 2, 0, 0}}; // det = 75
+        //double[][] matrixArray5 = {{2, 6, 5, 3, 2}, {-1, 3, 0, 1, -2}, {6, 5, 4, 0, 2}, {0, 1, 5, 3, -2}, {5, 3, 0, 1, 0}}; //det = -1500
+        //double[][] matrixArray5 = {{5, -1, 3}, {4, 9, 0}, {0, 4, 1}}; //det = 97
+        //double[][] matrixArray5 = {{4, 2, -1}, {5, 3, -2}, {3, 2, -3}}; //det = -3
+        //double[][] matrixArray5 = {{-2, 1, 3, 2}, {3, 0, -1, 2}, {-5, 2, 3, 0}, {4, -1, 2, -3}}; // det = -80
+        //double[][] matrixArray5 = {{9, 8, 7, 6}, {5, 4, 3, 2}, {1, 0, 1, 2}, {3, 4, 5, 6}}; // det = 0
+        double[][] matrixArray5 = {{11, -2}, {7, 5}}; //det = 69
         Matrix matrix5 = new Matrix(matrixArray5);
         System.out.print("Matrix5: ");
         System.out.println(matrix5.toString());
 
-        System.out.println("Matrix6 (gauss): ");
         Matrix matrix6 = matrix5.gauss();
-        System.out.print("Determinant = ");
+        System.out.print("Matrix5 determinant = ");
         System.out.println(Matrix.det(matrix6));
 
     }

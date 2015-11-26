@@ -65,8 +65,8 @@ public class Matrix {
 
     public void printAsMatrix() {
         int matrixNumOfVectors = this.matrixRows.length;
-        for (int i = 0; i < matrixNumOfVectors; ++i) {
-            System.out.println(matrixRows[i].toString());
+        for (Vector matrixRow : this.matrixRows) {
+            System.out.println(matrixRow.toString());
         }
         System.out.println("-------------------------------------------");
     }
@@ -155,9 +155,19 @@ public class Matrix {
 
     public void changeVectors(int i, int j) {
         Vector savedVector = new Vector(this.matrixRows.length);
-        savedVector = matrixRows[i];
-        matrixRows[i] = matrixRows[j];
-        matrixRows[j] = savedVector;
+        savedVector = this.matrixRows[i];
+        this.matrixRows[i] = this.matrixRows[j];
+        this.matrixRows[j] = savedVector;
+/*      int vectorLength = this.matrixRows[0].getSize();
+        for (int k = 0; k < vectorLength; ++k) {
+            double curVectorElement = this.matrixRows[i].getVectorElement(k);
+            System.out.println("curVectorElement" + curVectorElement);
+            this.matrixRows[i].setVectorElement(k, this.matrixRows[j].getVectorElement(k));
+            System.out.println("matrixRows[i] element = " + this.matrixRows[j].getVectorElement(k));
+            this.matrixRows[j].setVectorElement(k, curVectorElement);
+            System.out.println("matrix[j] element = " + this.matrixRows[j].getVectorElement(k));
+        }
+*/
     }
 
     public Matrix gauss() {
@@ -175,35 +185,48 @@ public class Matrix {
             for (int i = j; i < matrixSize - 1; ++i) {
                 matrixElement0 = matrix.matrixRows[j].getVectorElement(j);
                 matrixElement1 = matrix.matrixRows[i + 1].getVectorElement(j);
-                System.out.println(matrixElement0);
-                System.out.println(matrixElement1);
-                matrix.printAsMatrix();
+
                 if (Math.abs(matrixElement1) < epsilon) {
                     continue;
                 }
-                matrix.matrixRows[i + 1].multVectorToNum(matrixElement0);
-                matrix.matrixRows[j].multVectorToNum(matrixElement1);
+                if (Math.abs(matrixElement0) < epsilon && i == j) {
+                    matrix.matrixRows[i].reverseVector();
+                    matrix.changeVectors(i, j + 1);
+                    continue;
+                }
+
+                if (Math.abs(matrixElement0 - matrixElement1) > epsilon) {
+                    matrix.matrixRows[i + 1].multVectorToNum(matrixElement0);
+                    matrix.matrixRows[j].multVectorToNum(matrixElement1);
+                }
 
                 matrix.matrixRows[i + 1].subVector(matrix.matrixRows[j]);
 
-                matrix.matrixRows[i + 1].multVectorToNum(1 / matrixElement0);
-                matrix.matrixRows[j].multVectorToNum(1 / matrixElement1);
-
-
-                matrix.printAsMatrix();
+                if (Math.abs(matrixElement0 - matrixElement1) > epsilon) {
+                    matrix.matrixRows[i + 1].multVectorToNum(1 / matrixElement0);
+                    matrix.matrixRows[j].multVectorToNum(1 / matrixElement1);
+                }
             }
         }
-
         return matrix;
     }
 
     public static double det(Matrix matrix) {
         Matrix newMatrix = matrix.gauss();
         int matrixSize = newMatrix.matrixRows.length;
-        double det = newMatrix.matrixRows[0].getVectorElement(0);;
-        for (int i = 1; i < matrixSize; ++i) {
+        double det = 1;
+        for (int i = 0; i < matrixSize; ++i) {
             det *= newMatrix.matrixRows[i].getVectorElement(i);
         }
         return det;
+    }
+
+    public Vector multToVector(Vector vector) {
+        int newVectorSize = this.matrixRows.length;
+        Vector newVector = new Vector(newVectorSize);
+        for(int i = 0; i < newVectorSize; ++i) {
+            
+        }
+        return newVector;
     }
 }
