@@ -1,5 +1,7 @@
 package ru.academit.narzikulov;
 
+import com.sun.xml.internal.bind.v2.runtime.output.SAXOutput;
+
 /**
  * Created by tim on 20.10.2015.
  */
@@ -186,6 +188,36 @@ public class Main {
         Matrix matrix6 = matrix5.gauss();
         System.out.print("Matrix5 determinant = ");
         System.out.println(Matrix.det(matrix6));
+
+        double[][] matrixArray7 = {{1, 2, 3}, {4, 5, 6}};
+        Matrix matrix7 = new Matrix(matrixArray7);
+        double[] vectorList12 = {7, 8, 9};
+        Vector vector12 = new Vector(vectorList12);
+        System.out.println("Matrix7:");
+        matrix7.printAsMatrix();
+        System.out.println("Vector12");
+        System.out.print(vector12.toString());
+        System.out.println();
+        System.out.print("Matrix 7 x Vector12: ");
+        System.out.println(matrix7.multToVector(vector12).toString());
+
+        double[][] matrixArray8 = {{1, 2, 3, 4}, {2, 3, 4, 1}, {3, 4, 1, 2}, {4, 1, 2, 3}};
+        Matrix matrix8 = new Matrix(matrixArray8);
+        double[][] matrixArray9 = {{2, 1, 0, 0}, {0, 1, 3, 2}, {0, 0, 0, 5}, {-1, 2, 0, 0}};
+        Matrix matrix9 = new Matrix(matrixArray9);
+
+        System.out.println("Matrix8:");
+        matrix8.printAsMatrix();
+        System.out.println("Matrix9:");
+        matrix9.printAsMatrix();
+
+        System.out.println("Matrix8 = Matrix8 + Matrix9:");
+        matrix8.addMatrix(matrix9);
+        matrix8.printAsMatrix();
+
+        System.out.println("Matrix8 = Matrix8 - Matrix9:");
+        matrix8.subMatrix(matrix9);
+        matrix8.printAsMatrix();
 
     }
 }

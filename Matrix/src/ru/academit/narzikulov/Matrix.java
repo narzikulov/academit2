@@ -64,11 +64,9 @@ public class Matrix {
     }
 
     public void printAsMatrix() {
-        int matrixNumOfVectors = this.matrixRows.length;
         for (Vector matrixRow : this.matrixRows) {
             System.out.println(matrixRow.toString());
         }
-        System.out.println("-------------------------------------------");
     }
 
     public int getRowsCount() {
@@ -224,9 +222,40 @@ public class Matrix {
     public Vector multToVector(Vector vector) {
         int newVectorSize = this.matrixRows.length;
         Vector newVector = new Vector(newVectorSize);
-        for(int i = 0; i < newVectorSize; ++i) {
-            
+        for (int j = 0; j < newVectorSize; ++j) {
+
+            int matrixColumns = this.matrixRows[j].getSize();
+            if (matrixColumns != vector.getSize()) {
+                throw new ArrayIndexOutOfBoundsException("Размерность матрицы и вектора не подходят для перемножения");
+            }
+
+            double newVectorElement = 0;
+            for (int i = 0; i < matrixColumns; ++i) {
+                newVectorElement += this.matrixRows[j].getVectorElement(i) * vector.getVectorElement(i);
+            }
+            newVector.setVectorElement(j, newVectorElement);
         }
         return newVector;
     }
+
+    public void addMatrix(Matrix addMatrix) {
+        if (this.matrixRows.length != addMatrix.matrixRows.length) {
+            throw new ArrayIndexOutOfBoundsException("Размерности матриц не идентичные. Сложение невозможно!");
+        }
+
+        for (int i = 0; i < this.matrixRows.length; ++i) {
+            if (this.matrixRows[i].getSize() != addMatrix.matrixRows[i].getSize()) {
+                throw new ArrayIndexOutOfBoundsException("Размерности матриц не идентичные. Сложение невозможно!");
+            }
+
+            this.matrixRows[i].addVector(addMatrix.matrixRows[i]);
+        }
+    }
+
+    public void subMatrix(Matrix addMatrix) {
+        this.multToNum(-1);
+        this.addMatrix(addMatrix);
+        this.multToNum(-1);
+    }
+
 }
