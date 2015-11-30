@@ -1,5 +1,7 @@
 package ru.academit.narzikulov;
 
+import java.util.Arrays;
+
 /**
  * Created by tim on 21.10.2015.
  */
@@ -9,7 +11,6 @@ public class Vector {
 
     public Vector(int vectorSize) {
         this.vectorArray = new double[vectorSize];
-        System.arraycopy(vectorArray, 0, this.vectorArray, 0, vectorSize);
     }
 
     public Vector(double[] vectorArray) {
@@ -53,8 +54,12 @@ public class Vector {
         int thisVectorArraySize = this.vectorArray.length;
         int addVectorArraySize = addVector.vectorArray.length;
         for (int i = 0; i < newArraySize; ++i) {
-            if (i < thisVectorArraySize) newVectorArray[i] += this.vectorArray[i];
-            if (i < addVectorArraySize) newVectorArray[i] += addVector.vectorArray[i];
+            if (i < thisVectorArraySize) {
+                newVectorArray[i] += this.vectorArray[i];
+            }
+            if (i < addVectorArraySize) {
+                newVectorArray[i] += addVector.vectorArray[i];
+            }
         }
         this.vectorArray = newVectorArray;
     }
@@ -66,8 +71,12 @@ public class Vector {
         int thisVectorArraySize = this.vectorArray.length;
         int addVectorArraySize = subVector.vectorArray.length;
         for (int i = 0; i < newArraySize; ++i) {
-            if (i < thisVectorArraySize) newVectorArray[i] = this.vectorArray[i];
-            if (i < addVectorArraySize) newVectorArray[i] -= subVector.vectorArray[i];
+            if (i < thisVectorArraySize) {
+                newVectorArray[i] = this.vectorArray[i];
+            }
+            if (i < addVectorArraySize) {
+                newVectorArray[i] -= subVector.vectorArray[i];
+            }
         }
         this.vectorArray = newVectorArray;
     }
@@ -99,12 +108,16 @@ public class Vector {
         vectorArray[index] = num;
     }
 
-    public boolean isEqualTo(Vector comparedVector) {
-        if (comparedVector == this) {
+    public boolean equals(Vector comparedVector) {
+        if (this == comparedVector || this.vectorArray == comparedVector.vectorArray) {
             return true;
         }
 
-        if (comparedVector == null || comparedVector.getClass() != this.getClass()) {
+        if (comparedVector.getClass() != this.getClass()) {
+            return false;
+        }
+
+        if (this.vectorArray.length != comparedVector.vectorArray.length) {
             return false;
         }
 
@@ -118,6 +131,11 @@ public class Vector {
             }
         }
         return true;
+    }
+
+    public int hashCode() {
+        final int prime = 19;
+        return prime + Arrays.hashCode(vectorArray);
     }
 
     public static Vector copyVector(Vector vector) {

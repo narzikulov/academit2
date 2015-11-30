@@ -1,7 +1,5 @@
 package ru.academit.narzikulov;
 
-import com.sun.xml.internal.bind.v2.runtime.output.SAXOutput;
-
 /**
  * Created by tim on 20.10.2015.
  */
@@ -61,14 +59,16 @@ public class Main {
         System.out.println(vector3.toString());
         System.out.print("Vector4 = ");
         System.out.println(vector4.toString());
-        if (vector3.isEqualTo(vector4)) {
+        if (vector3.equals(vector4)) {
             System.out.println("Vector3 are equal Vector4");
         } else {
             System.out.println("Vectors are not equal");
         }
+        System.out.println("Vector3 hash code = " + vector3.hashCode());
+        System.out.println("Vector4 hash code = " + vector4.hashCode());
 
         System.out.println("Is Vector3 equal Vector3?");
-        if (vector3.isEqualTo(vector3)) {
+        if (vector3.equals(vector3)) {
             System.out.println("Vectors are equal");
         } else {
             System.out.println("Vectors are not equal");
@@ -77,11 +77,13 @@ public class Main {
         System.out.println();
         System.out.println(vector2.toString());
         System.out.println(vector4.toString());
-        if (vector2.isEqualTo(vector4)) {
+        if (vector2.equals(vector4)) {
             System.out.println("Vectors are equal");
         } else {
             System.out.println("Vectors are not equal");
         }
+        System.out.println("Vector2 hash code = " + vector2.hashCode());
+        System.out.println("Vector4 hash code = " + vector4.hashCode());
 
         System.out.println();
         System.out.println("Vectors addition:");
