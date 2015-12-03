@@ -214,6 +214,14 @@ public class Main {
         System.out.println("Matrix9:");
         matrix9.printAsMatrix();
 
+        System.out.println("Matrix10 = Matrix8 + Matrix9:");
+        Matrix matrix10 = Matrix.addMatrixToNeOne(matrix8, matrix9);
+        matrix10.printAsMatrix();
+
+        System.out.println("Matrix11 = Matrix9 - Matrix10:");
+        Matrix matrix11 = Matrix.subMatrixToNeOne(matrix9, matrix10);
+        matrix11.printAsMatrix();
+
         System.out.println("Matrix8 = Matrix8 + Matrix9:");
         matrix8.addMatrix(matrix9);
         matrix8.printAsMatrix();
@@ -221,6 +229,27 @@ public class Main {
         System.out.println("Matrix8 = Matrix8 - Matrix9:");
         matrix8.subMatrix(matrix9);
         matrix8.printAsMatrix();
+
+        // Matrixes multipication
+        //double[][] matrixArray12 = {{1, 2}, {0, 1}};
+        //double[][] matrixArray12 = {{1, 3, 2}, {0, 4, -1}};
+        //double[][] matrixArray12 = {{-2, 1}, {5, 4}};
+        double[][] matrixArray12 = {{3, -1}};
+        Matrix matrix12 = new Matrix(matrixArray12);
+        //double[][] matrixArray13 = {{2, 1}, {3, 2}};
+        //double[][] matrixArray13 = {{2, 0, -1, 1}, {3, -2, 1, 2}, {0, 1, 2, 3}};
+        //double[][] matrixArray13 = {{3}, {-1}};
+        double[][] matrixArray13 = {{-2, 1}, {5, 4}};
+        Matrix matrix13 = new Matrix(matrixArray13);
+
+        System.out.println("Matrix12:");
+        matrix12.printAsMatrix();
+        System.out.println("Matrix13:");
+        matrix13.printAsMatrix();
+
+        System.out.println("Matrix14 = Matrix12 * Matrix13:");
+        Matrix matrix14 = Matrix.multMatrixes(matrix12, matrix13);
+        matrix14.printAsMatrix();
 
     }
 }

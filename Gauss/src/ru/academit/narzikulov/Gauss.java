@@ -70,4 +70,6 @@ public class Gauss extends Matrix {
         }
         return det;
     }
+
+
 }

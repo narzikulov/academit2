@@ -201,4 +201,37 @@ public class Matrix {
         this.addMatrix(copyOfAddMatrix);
     }
 
+    public static Matrix addMatrixToNeOne(Matrix matrix1, Matrix matrix2) {
+        Matrix newMatrix1 = new Matrix(matrix1);
+        newMatrix1.addMatrix(matrix2);
+        return newMatrix1;
+    }
+
+    public static Matrix subMatrixToNeOne(Matrix matrix1, Matrix matrix2) {
+        Matrix newMatrix1 = new Matrix(matrix1);
+        newMatrix1.subMatrix(matrix2);
+        return newMatrix1;
+    }
+
+    public static Matrix multMatrixes(Matrix matrix1, Matrix matrix2) {
+        int newMatrixRowsNum = matrix1.matrixRows.length;
+        int newMatrixColumnsNum = matrix2.vectorsMaxSize(matrix2.matrixRows);
+        Matrix newMatrix = new Matrix (newMatrixRowsNum, newMatrixColumnsNum);
+
+        for (int i = 0; i < newMatrixRowsNum; ++i) {
+            double matrixElement = 0;
+            if (matrix1.matrixRows[i].getSize() != matrix2.matrixRows.length ) {
+                System.out.println(matrix1.matrixRows.length + "x " + matrix2.matrixRows[i].getSize());
+                throw new ArrayIndexOutOfBoundsException("Размерности матриц не идентичные. Перемножение невозможно!");
+            }
+
+            for (int j = 0; j < newMatrixColumnsNum; ++j) {
+                matrixElement = Vector.multVectors(matrix1.matrixRows[i], matrix2.getColumn(j));
+                newMatrix.matrixRows[i].setVectorElement(j, matrixElement);
+            }
+        }
+
+        return newMatrix;
+    }
+
 }
