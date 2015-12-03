@@ -4,7 +4,7 @@ package ru.academit.narzikulov;
  * Created by tim on 13.11.2015.
  */
 public class Matrix {
-    private Vector[] matrixRows;
+    public Vector[] matrixRows;
 
     public Matrix(int rowsCount, int columnsCount) {
         if (columnsCount <= 0 || rowsCount <= 0) {
@@ -29,23 +29,25 @@ public class Matrix {
         int numOfMatrixRows = matrixArray.length;
         this.matrixRows = new Vector[numOfMatrixRows];
         for (int i = 0; i < numOfMatrixRows; ++i) {
-            matrixRows[i] = new Vector(matrixArray[i]);
+            this.matrixRows[i] = new Vector(matrixArray[i]);
         }
     }
 
-    public Matrix(Vector[] vectorsArray) {
-        int matrixRowsLength = 0;
-        int indexOfVectorWithMaxSize = 0;
-        for (int i = 0; i < vectorsArray.length; ++i) {
-            if (vectorsArray[i].getSize() > matrixRowsLength) {
-                matrixRowsLength = vectorsArray[i].getSize();
-                indexOfVectorWithMaxSize = i;
+    private int vectorsMaxSize(Vector[] vectorsArray) {
+        int maxSize = 0;
+        for (Vector aVectorsArray : vectorsArray) {
+            if (aVectorsArray.getSize() > maxSize) {
+                maxSize = aVectorsArray.getSize();
             }
         }
+        return maxSize;
+    }
 
+    public Matrix(Vector[] vectorsArray) {
         this.matrixRows = new Vector[vectorsArray.length];
+        int vectorsMaxSize = vectorsMaxSize(vectorsArray);
         for (int i = 0; i < vectorsArray.length; ++i) {
-            this.matrixRows[i] = new Vector(vectorsArray[indexOfVectorWithMaxSize].getSize());
+            this.matrixRows[i] = new Vector(vectorsMaxSize);
             this.matrixRows[i].addVector(vectorsArray[i]);
         }
     }
@@ -84,32 +86,38 @@ public class Matrix {
         return new Vector(this.matrixRows[indexOfRow]);
     }
 
-    public void setRowWithIndex(int indexOfRow, Vector insertingVector) {
-        if (indexOfRow < 0 || indexOfRow >= this.matrixRows.length) {
+    public void setRow(int index, Vector insertingVector) {
+        if (index < 0 || index >= this.matrixRows.length) {
             throw new IndexOutOfBoundsException("Индекс выходит за границы диапазона матрицы");
         }
-        if (insertingVector.getSize() > this.matrixRows[indexOfRow].getVectorLength()) {
+        if (insertingVector.getSize() > this.matrixRows[index].getVectorLength()) {
             throw new IllegalArgumentException("Размер вектора больше размерности векторов матрицы");
         }
 
-        if (insertingVector.getSize() < this.matrixRows[indexOfRow].getSize()) {
-            insertingVector.extVectorsToEqualSize(this.matrixRows[indexOfRow]);
+        if (insertingVector.getSize() < this.matrixRows[index].getSize()) {
+            double[] newVectorArray = insertingVector.extVectorsToEqualSize(this.matrixRows[index]);
+            int newVectorArrayLength = newVectorArray.length;
+            for (int i = 0; i < newVectorArrayLength; ++i) {
+                newVectorArray[i] = insertingVector.getVectorElement(i);
+            }
+            this.matrixRows[index] = new Vector(newVectorArray);
+            return;
         }
 
-        for (int i = 0; i < this.matrixRows[indexOfRow].getSize(); ++i) {
-            this.matrixRows[indexOfRow].setVectorElement(i, insertingVector.getVectorElement(i));
+        for (int i = 0; i < this.matrixRows[index].getSize(); ++i) {
+            this.matrixRows[index].setVectorElement(i, insertingVector.getVectorElement(i));
         }
     }
 
-    public Vector getColumn(int indexOfColumn) {
-        if (indexOfColumn < 0 || indexOfColumn >= this.matrixRows[0].getSize()) {
+    public Vector getColumn(int index) {
+        if (index < 0 || index >= this.matrixRows[0].getSize()) {
             throw new IndexOutOfBoundsException("Индекс выходит за границы диапазона матрицы");
         }
 
         int matrixColumnVectorLength = this.matrixRows.length;
         Vector matrixColumnVector = new Vector(matrixColumnVectorLength);
         for (int i = 0; i < matrixColumnVectorLength; ++i) {
-            matrixColumnVector.setVectorElement(i, matrixRows[i].getVectorElement(indexOfColumn));
+            matrixColumnVector.setVectorElement(i, matrixRows[i].getVectorElement(index));
         }
         return matrixColumnVector;
     }
@@ -119,7 +127,7 @@ public class Matrix {
             throw new IndexOutOfBoundsException("Индекс строки выходит за границы диапазона матрицы");
         }
         if (columnIndex < 0 || columnIndex > this.matrixRows[0].getSize()) {
-            throw new IndexOutOfBoundsException("Индекс строки выходит за границы диапазона матрицы");
+            throw new IndexOutOfBoundsException("Индекс столбца выходит за границы диапазона матрицы");
         }
 
         return this.matrixRows[rowIndex].getVectorElement(columnIndex);
@@ -133,13 +141,10 @@ public class Matrix {
         return new Matrix(tMatrixVector);
     }
 
-    public Matrix multToNum(double num) {
-        Vector[] newMatrixVector = new Vector[this.matrixRows.length];
-        for (int i = 0; i < this.matrixRows.length; ++i) {
-            newMatrixVector[i] = this.matrixRows[i];
-            newMatrixVector[i].multVectorToNum(num);
+    public void multToNum(double num) {
+        for (Vector matrixRow : this.matrixRows) {
+            matrixRow.multVectorToNum(num);
         }
-        return new Matrix(newMatrixVector);
     }
 
     public double maxVectorLength() {
@@ -152,71 +157,9 @@ public class Matrix {
     }
 
     public void changeVectors(int i, int j) {
-        Vector savedVector = new Vector(this.matrixRows.length);
-        savedVector = this.matrixRows[i];
+        Vector savedVector = this.matrixRows[i];
         this.matrixRows[i] = this.matrixRows[j];
         this.matrixRows[j] = savedVector;
-/*      int vectorLength = this.matrixRows[0].getSize();
-        for (int k = 0; k < vectorLength; ++k) {
-            double curVectorElement = this.matrixRows[i].getVectorElement(k);
-            System.out.println("curVectorElement" + curVectorElement);
-            this.matrixRows[i].setVectorElement(k, this.matrixRows[j].getVectorElement(k));
-            System.out.println("matrixRows[i] element = " + this.matrixRows[j].getVectorElement(k));
-            this.matrixRows[j].setVectorElement(k, curVectorElement);
-            System.out.println("matrix[j] element = " + this.matrixRows[j].getVectorElement(k));
-        }
-*/
-    }
-
-    public Matrix gauss() {
-        if (this.matrixRows.length != this.matrixRows[0].getSize()) {
-            throw new ArrayIndexOutOfBoundsException("Определитель можно вычислить только у квадратных матриц!");
-        }
-        double epsilon = 0.00001;
-
-        Matrix matrix = new Matrix(this.matrixRows);
-
-        int matrixSize = matrix.matrixRows.length;
-        double matrixElement0;
-        double matrixElement1;
-        for (int j = 0; j < matrixSize - 1; ++j) {
-            for (int i = j; i < matrixSize - 1; ++i) {
-                matrixElement0 = matrix.matrixRows[j].getVectorElement(j);
-                matrixElement1 = matrix.matrixRows[i + 1].getVectorElement(j);
-
-                if (Math.abs(matrixElement1) < epsilon) {
-                    continue;
-                }
-                if (Math.abs(matrixElement0) < epsilon && i == j) {
-                    matrix.matrixRows[i].reverseVector();
-                    matrix.changeVectors(i, j + 1);
-                    continue;
-                }
-
-                if (Math.abs(matrixElement0 - matrixElement1) > epsilon) {
-                    matrix.matrixRows[i + 1].multVectorToNum(matrixElement0);
-                    matrix.matrixRows[j].multVectorToNum(matrixElement1);
-                }
-
-                matrix.matrixRows[i + 1].subVector(matrix.matrixRows[j]);
-
-                if (Math.abs(matrixElement0 - matrixElement1) > epsilon) {
-                    matrix.matrixRows[i + 1].multVectorToNum(1 / matrixElement0);
-                    matrix.matrixRows[j].multVectorToNum(1 / matrixElement1);
-                }
-            }
-        }
-        return matrix;
-    }
-
-    public static double det(Matrix matrix) {
-        Matrix newMatrix = matrix.gauss();
-        int matrixSize = newMatrix.matrixRows.length;
-        double det = 1;
-        for (int i = 0; i < matrixSize; ++i) {
-            det *= newMatrix.matrixRows[i].getVectorElement(i);
-        }
-        return det;
     }
 
     public Vector multToVector(Vector vector) {
@@ -253,9 +196,9 @@ public class Matrix {
     }
 
     public void subMatrix(Matrix addMatrix) {
-        this.multToNum(-1);
-        this.addMatrix(addMatrix);
-        this.multToNum(-1);
+        Matrix copyOfAddMatrix = new Matrix(addMatrix);
+        copyOfAddMatrix.multToNum(-1);
+        this.addMatrix(copyOfAddMatrix);
     }
 
 }

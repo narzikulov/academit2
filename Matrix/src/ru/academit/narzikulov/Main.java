@@ -153,7 +153,7 @@ public class Main {
         indexOfRow = 0;
         System.out.printf("Set Matrix4[%d] as:", indexOfRow);
         System.out.println(vector9.toString());
-        matrix4.setRowWithIndex(indexOfRow, vector9);
+        matrix4.setRow(indexOfRow, vector9);
         System.out.print("Matrix4: ");
         System.out.println(matrix4.toString());
 
@@ -166,7 +166,8 @@ public class Main {
 
         double num1 = -2;
         System.out.printf("Matrix4 mult to %.2f: ", num1);
-        System.out.println(matrix4.multToNum(num1).toString());
+        matrix4.multToNum(num1);
+        System.out.println(matrix4.toString());
 
         indexOfRow = 0;
         indexOfColumn = 3;
@@ -178,18 +179,18 @@ public class Main {
         //double[][] matrixArray5 = {{1, 2, 3, 4}, {2, 3, 4, 1}, {3, 4, 1, 2}, {4, 1, 2, 3}}; //det = 160
         //double[][] matrixArray5 = {{2, 1, 0, 0}, {0, 1, 3, 2}, {0, 0, 0, 5}, {-1, 2, 0, 0}}; // det = 75
         //double[][] matrixArray5 = {{2, 6, 5, 3, 2}, {-1, 3, 0, 1, -2}, {6, 5, 4, 0, 2}, {0, 1, 5, 3, -2}, {5, 3, 0, 1, 0}}; //det = -1500
-        //double[][] matrixArray5 = {{5, -1, 3}, {4, 9, 0}, {0, 4, 1}}; //det = 97
+        double[][] matrixArray5 = {{5, -1, 3}, {4, 9, 0}, {0, 4, 1}}; //det = 97
         //double[][] matrixArray5 = {{4, 2, -1}, {5, 3, -2}, {3, 2, -3}}; //det = -3
         //double[][] matrixArray5 = {{-2, 1, 3, 2}, {3, 0, -1, 2}, {-5, 2, 3, 0}, {4, -1, 2, -3}}; // det = -80
         //double[][] matrixArray5 = {{9, 8, 7, 6}, {5, 4, 3, 2}, {1, 0, 1, 2}, {3, 4, 5, 6}}; // det = 0
-        double[][] matrixArray5 = {{11, -2}, {7, 5}}; //det = 69
-        Matrix matrix5 = new Matrix(matrixArray5);
+        //double[][] matrixArray5 = {{11, -2}, {7, 5}}; //det = 69
+        Gauss matrix5 = new Gauss(matrixArray5);
         System.out.print("Matrix5: ");
         System.out.println(matrix5.toString());
 
-        Matrix matrix6 = matrix5.gauss();
+        Gauss matrix6 = matrix5.gauss();
         System.out.print("Matrix5 determinant = ");
-        System.out.println(Matrix.det(matrix6));
+        System.out.println(Gauss.det(matrix6));
 
         double[][] matrixArray7 = {{1, 2, 3}, {4, 5, 6}};
         Matrix matrix7 = new Matrix(matrixArray7);
