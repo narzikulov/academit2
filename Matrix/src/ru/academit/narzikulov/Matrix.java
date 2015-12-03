@@ -221,7 +221,7 @@ public class Matrix {
         for (int i = 0; i < newMatrixRowsNum; ++i) {
             double matrixElement = 0;
             if (matrix1.matrixRows[i].getSize() != matrix2.matrixRows.length) {
-                throw new ArrayIndexOutOfBoundsException("Размерности матриц не идентичные. Перемножение невозможно!");
+                throw new ArrayIndexOutOfBoundsException("Размерности матриц не подходят для перемножения!");
             }
 
             for (int j = 0; j < newMatrixColumnsNum; ++j) {
