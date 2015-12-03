@@ -216,11 +216,11 @@ public class Matrix {
     public static Matrix multMatrixes(Matrix matrix1, Matrix matrix2) {
         int newMatrixRowsNum = matrix1.matrixRows.length;
         int newMatrixColumnsNum = matrix2.vectorsMaxSize(matrix2.matrixRows);
-        Matrix newMatrix = new Matrix (newMatrixRowsNum, newMatrixColumnsNum);
+        Matrix newMatrix = new Matrix(newMatrixRowsNum, newMatrixColumnsNum);
 
         for (int i = 0; i < newMatrixRowsNum; ++i) {
             double matrixElement = 0;
-            if (matrix1.matrixRows[i].getSize() != matrix2.matrixRows.length ) {
+            if (matrix1.matrixRows[i].getSize() != matrix2.matrixRows.length) {
                 System.out.println(matrix1.matrixRows.length + "x " + matrix2.matrixRows[i].getSize());
                 throw new ArrayIndexOutOfBoundsException("Размерности матриц не идентичные. Перемножение невозможно!");
             }
