@@ -113,6 +113,10 @@ public class Vector {
             return true;
         }
 
+        if (comparedVector == null) {
+            return false;
+        }
+
         if (comparedVector.getClass() != this.getClass()) {
             return false;
         }
@@ -124,7 +128,7 @@ public class Vector {
         Vector newComparedVector = (Vector) comparedVector;
 
         double epsilon = 0.0001;
-        int vectorArraySize = newComparedVector.vectorArray.length;
+        int vectorArraySize = this.vectorArray.length;
         for (int i = 0; i < vectorArraySize; ++i) {
             if (Math.abs(this.vectorArray[i] - comparedVector.vectorArray[i]) > epsilon) {
                 return false;
