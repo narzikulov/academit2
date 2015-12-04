@@ -108,8 +108,8 @@ public class Vector {
         vectorArray[index] = num;
     }
 
-    public boolean equals(Vector comparedVector) {
-        if (this == comparedVector || this.vectorArray == comparedVector.vectorArray) {
+    public boolean equals(Object comparedVector) {
+        if (this == comparedVector) {
             return true;
         }
 
@@ -121,16 +121,17 @@ public class Vector {
             return false;
         }
 
-        if (this.vectorArray.length != comparedVector.vectorArray.length) {
+        Vector newComparedVector = (Vector) comparedVector;
+
+        if (this.vectorArray.length != newComparedVector.vectorArray.length) {
             return false;
         }
 
-        Vector newComparedVector = (Vector) comparedVector;
 
         double epsilon = 0.0001;
         int vectorArraySize = this.vectorArray.length;
         for (int i = 0; i < vectorArraySize; ++i) {
-            if (Math.abs(this.vectorArray[i] - comparedVector.vectorArray[i]) > epsilon) {
+            if (Math.abs(this.vectorArray[i] - newComparedVector.vectorArray[i]) > epsilon) {
                 return false;
             }
         }
@@ -139,7 +140,7 @@ public class Vector {
 
     public int hashCode() {
         final int prime = 19;
-        return prime + Arrays.hashCode(vectorArray);
+        return prime + Arrays.hashCode(this.vectorArray);
     }
 
     public static Vector copyVector(Vector vector) {
