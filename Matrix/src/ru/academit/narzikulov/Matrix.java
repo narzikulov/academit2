@@ -233,4 +233,49 @@ public class Matrix {
         return newMatrix;
     }
 
+    private Matrix minor(int matrixColumnIndex, Matrix matrix) {
+        int minorSize = matrix.matrixRows.length - 1;
+        int matrixSize = matrix.matrixRows.length;
+        Matrix minor = new Matrix(minorSize, minorSize);
+        int minorIndex = 0;
+        for (int i = 0; i < matrixSize; ++i) {
+            if (i != matrixColumnIndex) {
+                ++minorIndex;
+                minor.matrixRows[minorIndex] = matrix.matrixRows[i];
+            }
+        }
+
+        return minor;
+    }
+
+    public static double determinant(Matrix matrix) {
+        double det = 0;
+
+        if (matrix.matrixRows.length == 2) {
+            return det = matrix.matrixRows[0].getVectorElement(0) * matrix.matrixRows[1].getVectorElement(1) -
+                    matrix.matrixRows[0].getVectorElement(1) * matrix.matrixRows[1].getVectorElement(0);
+        }
+
+        int minorSize = matrix.matrixRows.length - 1;
+        Matrix minor = new Matrix(minorSize, minorSize);
+        System.out.println("Minor size = " + minorSize);
+
+        int matrixLength = matrix.matrixRows.length;
+        int k = 0;
+
+        for (int i = 1; i < matrixLength; ++i) {
+            for (int j = 0; j < matrixLength; ++j ) {
+                if (j != k) {
+                    minor.matrixRows[i - 1].setVectorElement(j, matrix.matrixRows[i].getVectorElement(j));
+                }
+            }
+        }
+
+        minor.printAsMatrix();
+
+
+        //det = Math.pow(-1, k + 2) * matrix.matrixRows[0].getVectorElement(k) * determinant(minor);
+        //++k;
+        return det;
+    }
 }

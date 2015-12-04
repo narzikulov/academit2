@@ -251,5 +251,10 @@ public class Main {
         Matrix matrix14 = Matrix.multMatrixes(matrix12, matrix13);
         matrix14.printAsMatrix();
 
+        //double[][] matrixArray15 = {{11, -2}, {7, 5}}; //det = 69
+        double[][] matrixArray15 = {{4, 2, -1}, {5, 3, -2}, {3, 2, -3}}; //det = -3
+        Matrix matrix15 = new Matrix(matrixArray15);
+        matrix15.printAsMatrix();
+        System.out.println(Matrix.determinant(matrix15));
     }
 }
