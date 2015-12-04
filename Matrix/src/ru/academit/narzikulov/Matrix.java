@@ -239,8 +239,6 @@ public class Matrix {
         Matrix minor = new Matrix(minorSize, minorSize);
         double curMatrixElement = 0;
 
-        System.out.println("-------------------");
-        matrix.printAsMatrix();
         for (int i = 1; i < matrixSize; ++i) {
             int minorColumnIndex = 0;
             for (int j = 0; j < matrixSize; ++j) {
@@ -248,11 +246,8 @@ public class Matrix {
                 if (j != matrixColumnIndex) {
                     minor.matrixRows[i - 1].setVectorElement(minorColumnIndex, curMatrixElement);
                     ++minorColumnIndex;
-                    System.out.println(minorColumnIndex);
                 }
             }
-            minor.printAsMatrix();
-            System.out.println("-------------------");
         }
 
         return minor;
@@ -265,8 +260,12 @@ public class Matrix {
             return det = matrix.matrixRows[0].getVectorElement(0) * matrix.matrixRows[1].getVectorElement(1) -
                     matrix.matrixRows[0].getVectorElement(1) * matrix.matrixRows[1].getVectorElement(0);
         }
-
-        Matrix.minor(0, matrix).printAsMatrix();
+        System.out.println("-----------------");
+        matrix.printAsMatrix();
+        for (int i = 0; i < matrix.matrixRows.length; ++i) {
+            System.out.println("-----------------");
+            Matrix.minor(i, matrix).printAsMatrix();
+        }
 
         //det = Math.pow(-1, k + 2) * matrix.matrixRows[0].getVectorElement(k) * determinant(minor);
         //++k;
