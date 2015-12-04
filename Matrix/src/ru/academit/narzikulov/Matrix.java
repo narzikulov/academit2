@@ -237,15 +237,22 @@ public class Matrix {
         int minorSize = matrix.matrixRows.length - 1;
         int matrixSize = matrix.matrixRows.length;
         Matrix minor = new Matrix(minorSize, minorSize);
-        int minorColumnIndex = 0;
-        for (int i = 1; i < matrixSize; ++i) {
-            for (int j = 0; j < matrixSize; ++j) {
-                if (j != matrixColumnIndex) {
-                    minor.matrixRows[i - 1].setVectorElement(minorColumnIndex, matrix.matrixRows[i].getVectorElement(j));
-                    ++minorColumnIndex;
-                }
+        double curMatrixElement = 0;
 
+        System.out.println("-------------------");
+        matrix.printAsMatrix();
+        for (int i = 1; i < matrixSize; ++i) {
+            int minorColumnIndex = 0;
+            for (int j = 0; j < matrixSize; ++j) {
+                curMatrixElement = matrix.matrixRows[i].getVectorElement(j);
+                if (j != matrixColumnIndex) {
+                    minor.matrixRows[i - 1].setVectorElement(minorColumnIndex, curMatrixElement);
+                    ++minorColumnIndex;
+                    System.out.println(minorColumnIndex);
+                }
             }
+            minor.printAsMatrix();
+            System.out.println("-------------------");
         }
 
         return minor;
