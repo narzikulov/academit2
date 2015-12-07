@@ -260,6 +260,6 @@ public class Main {
 
         Matrix matrix15 = new Matrix(matrixArray15);
         matrix15.printAsMatrix();
-        System.out.println(Matrix.determinant(matrix15));
+        System.out.println(matrix15.determinant());
     }
 }

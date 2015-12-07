@@ -219,16 +219,16 @@ public class Matrix {
         return newMatrix;
     }
 
-    public static Matrix minor(int matrixColumnIndex, Matrix matrix) {
-        int minorSize = matrix.matrixRows.length - 1;
-        int matrixSize = matrix.matrixRows.length;
+    public Matrix minor(int matrixColumnIndex) {
+        int minorSize = this.matrixRows.length - 1;
+        int matrixSize = this.matrixRows.length;
         Matrix minor = new Matrix(minorSize, minorSize);
         double curMatrixElement = 0;
 
         for (int i = 1; i < matrixSize; ++i) {
             int minorColumnIndex = 0;
             for (int j = 0; j < matrixSize; ++j) {
-                curMatrixElement = matrix.matrixRows[i].getVectorElement(j);
+                curMatrixElement = this.matrixRows[i].getVectorElement(j);
                 if (j != matrixColumnIndex) {
                     minor.matrixRows[i - 1].setVectorElement(minorColumnIndex, curMatrixElement);
                     ++minorColumnIndex;
@@ -239,16 +239,16 @@ public class Matrix {
         return minor;
     }
 
-    public static double determinant(Matrix matrix) {
+    public double determinant() {
         double det = 0;
 
-        if (matrix.matrixRows.length == 2) {
-            return det = matrix.matrixRows[0].getVectorElement(0) * matrix.matrixRows[1].getVectorElement(1) -
-                    matrix.matrixRows[0].getVectorElement(1) * matrix.matrixRows[1].getVectorElement(0);
+        if (this.matrixRows.length == 2) {
+            return det = this.matrixRows[0].getVectorElement(0) * this.matrixRows[1].getVectorElement(1) -
+                    this.matrixRows[0].getVectorElement(1) * this.matrixRows[1].getVectorElement(0);
         }
 
-        for (int i = 0; i < matrix.matrixRows.length; ++i) {
-            det += Math.pow(-1, i + 2) * matrix.matrixRows[0].getVectorElement(i) * determinant(Matrix.minor(i, matrix));
+        for (int i = 0; i < this.matrixRows.length; ++i) {
+            det += Math.pow(-1, i + 2) * this.matrixRows[0].getVectorElement(i) * this.minor(i).determinant();
         }
 
         return det;
