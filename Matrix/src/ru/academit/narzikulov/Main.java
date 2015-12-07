@@ -251,8 +251,15 @@ public class Main {
         Matrix matrix14 = Matrix.multMatrixes(matrix12, matrix13);
         matrix14.printAsMatrix();
 
+        //double[][] matrixArray15 = {{1, 2, 3, 4}, {2, 3, 4, 1}, {3, 4, 1, 2}, {4, 1, 2, 3}}; //det = 160
+        //double[][] matrixArray15 = {{2, 1, 0, 0}, {0, 1, 3, 2}, {0, 0, 0, 5}, {-1, 2, 0, 0}}; // det = 75
+        //double[][] matrixArray15 = {{2, 6, 5, 3, 2}, {-1, 3, 0, 1, -2}, {6, 5, 4, 0, 2}, {0, 1, 5, 3, -2}, {5, 3, 0, 1, 0}}; //det = -1500
+        //double[][] matrixArray15 = {{5, -1, 3}, {4, 9, 0}, {0, 4, 1}}; //det = 97
+        //double[][] matrixArray15 = {{4, 2, -1}, {5, 3, -2}, {3, 2, -3}}; //det = -3
+        double[][] matrixArray15 = {{-2, 1, 3, 2}, {3, 0, -1, 2}, {-5, 2, 3, 0}, {4, -1, 2, -3}}; // det = -80
+        //double[][] matrixArray15 = {{9, 8, 7, 6}, {5, 4, 3, 2}, {1, 0, 1, 2}, {3, 4, 5, 6}}; // det = 0
         //double[][] matrixArray15 = {{11, -2}, {7, 5}}; //det = 69
-        double[][] matrixArray15 = {{4, 2, -1}, {5, 3, -2}, {3, 2, -3}}; //det = -3
+
         Matrix matrix15 = new Matrix(matrixArray15);
         matrix15.printAsMatrix();
         System.out.println(Matrix.determinant(matrix15));
