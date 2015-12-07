@@ -44,6 +44,8 @@ public class Matrix {
     }
 
     public Matrix(Vector[] vectorsArray) {
+        this.matrixRows = new Vector(vectorsArray.length, vectorsArray);
+
         this.matrixRows = new Vector[vectorsArray.length];
         int vectorsMaxSize = vectorsMaxSize(vectorsArray);
         for (int i = 0; i < vectorsArray.length; ++i) {
@@ -147,21 +149,6 @@ public class Matrix {
         }
     }
 
-    public double maxVectorLength() {
-        double maxLength = 0;
-        for (Vector matrixRow : this.matrixRows) {
-            double curVectorLength = matrixRow.getVectorLength();
-            if (curVectorLength > maxLength) maxLength = curVectorLength;
-        }
-        return maxLength;
-    }
-
-    public void changeVectors(int i, int j) {
-        Vector savedVector = this.matrixRows[i];
-        this.matrixRows[i] = this.matrixRows[j];
-        this.matrixRows[j] = savedVector;
-    }
-
     public Vector multToVector(Vector vector) {
         int newVectorSize = this.matrixRows.length;
         Vector newVector = new Vector(newVectorSize);
@@ -201,13 +188,13 @@ public class Matrix {
         this.addMatrix(copyOfAddMatrix);
     }
 
-    public static Matrix addMatrixToNeOne(Matrix matrix1, Matrix matrix2) {
+    public static Matrix addMatrixesToNeOne(Matrix matrix1, Matrix matrix2) {
         Matrix newMatrix1 = new Matrix(matrix1);
         newMatrix1.addMatrix(matrix2);
         return newMatrix1;
     }
 
-    public static Matrix subMatrixToNeOne(Matrix matrix1, Matrix matrix2) {
+    public static Matrix subMatrixesToNewOne(Matrix matrix1, Matrix matrix2) {
         Matrix newMatrix1 = new Matrix(matrix1);
         newMatrix1.subMatrix(matrix2);
         return newMatrix1;
@@ -217,15 +204,14 @@ public class Matrix {
         int newMatrixRowsNum = matrix1.matrixRows.length;
         int newMatrixColumnsNum = matrix2.vectorsMaxSize(matrix2.matrixRows);
         Matrix newMatrix = new Matrix(newMatrixRowsNum, newMatrixColumnsNum);
+        if (matrix1.matrixRows[0].getSize() != matrix2.matrixRows.length) {
+            throw new ArrayIndexOutOfBoundsException("Размерности матриц не подходят для перемножения!");
+        }
 
         for (int i = 0; i < newMatrixRowsNum; ++i) {
-            double matrixElement = 0;
-            if (matrix1.matrixRows[i].getSize() != matrix2.matrixRows.length) {
-                throw new ArrayIndexOutOfBoundsException("Размерности матриц не подходят для перемножения!");
-            }
 
             for (int j = 0; j < newMatrixColumnsNum; ++j) {
-                matrixElement = Vector.multVectors(matrix1.matrixRows[i], matrix2.getColumn(j));
+                double matrixElement = Vector.multVectors(matrix1.matrixRows[i], matrix2.getColumn(j));
                 newMatrix.matrixRows[i].setVectorElement(j, matrixElement);
             }
         }

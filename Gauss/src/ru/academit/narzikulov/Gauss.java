@@ -20,6 +20,15 @@ public class Gauss extends Matrix {
         super(vectorsArray);
     }
 
+    private void swapVectors(int i, int j) {
+        if (i != j) {
+            throw new ArrayIndexOutOfBoundsException("Размерность векторов не совпадает. Их перестановка невозможна!");
+        }
+        Vector savedVector = this.matrixRows[i];
+        this.matrixRows[i] = this.matrixRows[j];
+        this.matrixRows[j] = savedVector;
+    }
+
     public Gauss gauss() {
         if (this.matrixRows.length != this.matrixRows[0].getSize()) {
             throw new ArrayIndexOutOfBoundsException("Определитель можно вычислить только у квадратных матриц!");
@@ -41,7 +50,7 @@ public class Gauss extends Matrix {
                 }
                 if (Math.abs(matrixElement0) < epsilon && i == j) {
                     matrix.matrixRows[i].reverseVector();
-                    matrix.changeVectors(i, j + 1);
+                    matrix.swapVectors(i, j + 1);
                     continue;
                 }
 

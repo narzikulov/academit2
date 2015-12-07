@@ -174,8 +174,6 @@ public class Main {
         System.out.printf("Matrix4[%d, %d] element = ", indexOfRow, indexOfColumn);
         System.out.println(matrix4.getElement(indexOfRow, indexOfColumn));
 
-        System.out.printf("Matrix4 max vector length = %.2f%n", matrix4.maxVectorLength());
-
         //double[][] matrixArray5 = {{1, 2, 3, 4}, {2, 3, 4, 1}, {3, 4, 1, 2}, {4, 1, 2, 3}}; //det = 160
         //double[][] matrixArray5 = {{2, 1, 0, 0}, {0, 1, 3, 2}, {0, 0, 0, 5}, {-1, 2, 0, 0}}; // det = 75
         //double[][] matrixArray5 = {{2, 6, 5, 3, 2}, {-1, 3, 0, 1, -2}, {6, 5, 4, 0, 2}, {0, 1, 5, 3, -2}, {5, 3, 0, 1, 0}}; //det = -1500
@@ -215,11 +213,11 @@ public class Main {
         matrix9.printAsMatrix();
 
         System.out.println("Matrix10 = Matrix8 + Matrix9:");
-        Matrix matrix10 = Matrix.addMatrixToNeOne(matrix8, matrix9);
+        Matrix matrix10 = Matrix.addMatrixesToNeOne(matrix8, matrix9);
         matrix10.printAsMatrix();
 
         System.out.println("Matrix11 = Matrix9 - Matrix10:");
-        Matrix matrix11 = Matrix.subMatrixToNeOne(matrix9, matrix10);
+        Matrix matrix11 = Matrix.subMatrixesToNewOne(matrix9, matrix10);
         matrix11.printAsMatrix();
 
         System.out.println("Matrix8 = Matrix8 + Matrix9:");
