@@ -44,7 +44,7 @@ public class Matrix {
     }
 
     public Matrix(Vector[] vectorsArray) {
-        this.matrixRows = new Vector(vectorsArray.length, vectorsArray);
+        //this.matrixRows = new Vector(vectorsArray.length, vectorsArray);
 
         this.matrixRows = new Vector[vectorsArray.length];
         int vectorsMaxSize = vectorsMaxSize(vectorsArray);
