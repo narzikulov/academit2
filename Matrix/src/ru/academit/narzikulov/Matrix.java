@@ -240,13 +240,12 @@ public class Matrix {
     }
 
     public double determinant() {
-        double det = 0;
-
         if (this.matrixRows.length == 2) {
-            return det = this.matrixRows[0].getVectorElement(0) * this.matrixRows[1].getVectorElement(1) -
+            return this.matrixRows[0].getVectorElement(0) * this.matrixRows[1].getVectorElement(1) -
                     this.matrixRows[0].getVectorElement(1) * this.matrixRows[1].getVectorElement(0);
         }
 
+        double det = 0;
         for (int i = 0; i < this.matrixRows.length; ++i) {
             det += Math.pow(-1, i + 2) * this.matrixRows[0].getVectorElement(i) * this.minor(i).determinant();
         }
