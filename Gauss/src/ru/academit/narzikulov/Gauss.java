@@ -30,8 +30,8 @@ public class Gauss extends Matrix {
     }
 
     public Gauss gauss() {
-        if (this.matrixRows.length != this.matrixRows[0].getSize()) {
-            throw new ArrayIndexOutOfBoundsException("Определитель можно вычислить только у квадратных матриц!");
+        if (this.matrixRows.length + 1 != this.matrixRows[0].getSize()) {
+            throw new ArrayIndexOutOfBoundsException("Некорректное задание СЛАУ!");
         }
         double epsilon = 0.00001;
 
@@ -40,7 +40,7 @@ public class Gauss extends Matrix {
         int matrixSize = matrix.matrixRows.length;
         double matrixElement0;
         double matrixElement1;
-        for (int j = 0; j < matrixSize - 1; ++j) {
+        for (int j = 0; j < matrixSize; ++j) {
             for (int i = j; i < matrixSize - 1; ++i) {
                 matrixElement0 = matrix.matrixRows[j].getVectorElement(j);
                 matrixElement1 = matrix.matrixRows[i + 1].getVectorElement(j);
@@ -70,14 +70,35 @@ public class Gauss extends Matrix {
         return matrix;
     }
 
-    public static double det(Gauss matrix) {
-        Matrix newMatrix = matrix.gauss();
+    public double det() {
+        Matrix newMatrix = this.gauss();
         int matrixSize = newMatrix.matrixRows.length;
         double det = 1;
         for (int i = 0; i < matrixSize; ++i) {
             det *= newMatrix.matrixRows[i].getVectorElement(i);
         }
         return det;
+    }
+
+    public Vector linearSystem() {
+        Matrix gaussMatrix = this.gauss();
+        int variablesNum = gaussMatrix.matrixRows.length;
+        Vector solution = new Vector(variablesNum);
+
+        double curSolution = gaussMatrix.matrixRows[variablesNum - 1].getVectorElement(variablesNum) /
+                gaussMatrix.matrixRows[variablesNum - 1].getVectorElement(variablesNum - 1);
+        solution.setVectorElement(variablesNum - 1, curSolution);
+
+        for (int i = variablesNum - 2 ; i > 0; --i) {
+            for (int j = i ; j < variablesNum; ++j) {
+                curSolution += gaussMatrix.matrixRows[i].getVectorElement(j) * solution.getVectorElement(i);
+                System.out.println("curSolution = " + curSolution);
+
+            }
+            solution.setVectorElement(i, curSolution);
+        }
+
+        return solution;
     }
 
 

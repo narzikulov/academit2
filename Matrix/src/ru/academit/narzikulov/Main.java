@@ -174,22 +174,6 @@ public class Main {
         System.out.printf("Matrix4[%d, %d] element = ", indexOfRow, indexOfColumn);
         System.out.println(matrix4.getElement(indexOfRow, indexOfColumn));
 
-        //double[][] matrixArray5 = {{1, 2, 3, 4}, {2, 3, 4, 1}, {3, 4, 1, 2}, {4, 1, 2, 3}}; //det = 160
-        //double[][] matrixArray5 = {{2, 1, 0, 0}, {0, 1, 3, 2}, {0, 0, 0, 5}, {-1, 2, 0, 0}}; // det = 75
-        //double[][] matrixArray5 = {{2, 6, 5, 3, 2}, {-1, 3, 0, 1, -2}, {6, 5, 4, 0, 2}, {0, 1, 5, 3, -2}, {5, 3, 0, 1, 0}}; //det = -1500
-        double[][] matrixArray5 = {{5, -1, 3}, {4, 9, 0}, {0, 4, 1}}; //det = 97
-        //double[][] matrixArray5 = {{4, 2, -1}, {5, 3, -2}, {3, 2, -3}}; //det = -3
-        //double[][] matrixArray5 = {{-2, 1, 3, 2}, {3, 0, -1, 2}, {-5, 2, 3, 0}, {4, -1, 2, -3}}; // det = -80
-        //double[][] matrixArray5 = {{9, 8, 7, 6}, {5, 4, 3, 2}, {1, 0, 1, 2}, {3, 4, 5, 6}}; // det = 0
-        //double[][] matrixArray5 = {{11, -2}, {7, 5}}; //det = 69
-        Gauss matrix5 = new Gauss(matrixArray5);
-        System.out.print("Matrix5: ");
-        System.out.println(matrix5.toString());
-
-        Gauss matrix6 = matrix5.gauss();
-        System.out.print("Matrix5 determinant = ");
-        System.out.println(Gauss.det(matrix6));
-
         double[][] matrixArray7 = {{1, 2, 3}, {4, 5, 6}};
         Matrix matrix7 = new Matrix(matrixArray7);
         double[] vectorList12 = {7, 8, 9};
@@ -252,14 +236,23 @@ public class Main {
         //double[][] matrixArray15 = {{1, 2, 3, 4}, {2, 3, 4, 1}, {3, 4, 1, 2}, {4, 1, 2, 3}}; //det = 160
         //double[][] matrixArray15 = {{2, 1, 0, 0}, {0, 1, 3, 2}, {0, 0, 0, 5}, {-1, 2, 0, 0}}; // det = 75
         //double[][] matrixArray15 = {{2, 6, 5, 3, 2}, {-1, 3, 0, 1, -2}, {6, 5, 4, 0, 2}, {0, 1, 5, 3, -2}, {5, 3, 0, 1, 0}}; //det = -1500
-        //double[][] matrixArray15 = {{5, -1, 3}, {4, 9, 0}, {0, 4, 1}}; //det = 97
+        double[][] matrixArray15 = {{5, -1, 3}, {4, 9, 0}, {0, 4, 1}}; //det = 97
         //double[][] matrixArray15 = {{4, 2, -1}, {5, 3, -2}, {3, 2, -3}}; //det = -3
-        double[][] matrixArray15 = {{-2, 1, 3, 2}, {3, 0, -1, 2}, {-5, 2, 3, 0}, {4, -1, 2, -3}}; // det = -80
+        //double[][] matrixArray15 = {{-2, 1, 3, 2}, {3, 0, -1, 2}, {-5, 2, 3, 0}, {4, -1, 2, -3}}; // det = -80
         //double[][] matrixArray15 = {{9, 8, 7, 6}, {5, 4, 3, 2}, {1, 0, 1, 2}, {3, 4, 5, 6}}; // det = 0
         //double[][] matrixArray15 = {{11, -2}, {7, 5}}; //det = 69
 
         Matrix matrix15 = new Matrix(matrixArray15);
         matrix15.printAsMatrix();
         System.out.println(matrix15.determinant());
+
+
+        double[][] matrixArray16 = {{2, 1, -1, 8}, {-3, -1, 2, -11}, {-2, 1, 2, -3}};
+        Gauss matrix16 = new Gauss(matrixArray16);
+        matrix16.printAsMatrix();
+        System.out.println("----------------------");
+        matrix16.gauss().printAsMatrix();
+        System.out.println("----------------------");
+        System.out.println(matrix16.linearSystem().toString());
     }
 }
