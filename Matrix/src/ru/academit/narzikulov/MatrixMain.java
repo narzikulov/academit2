@@ -1,12 +1,10 @@
 package ru.academit.narzikulov;
 
 /**
- * Created by tim on 20.10.2015.
+ * Created by tim on 08.12.2015.
  */
-public class Main {
+public class MatrixMain {
     public static void main(String[] args) {
-
-
         System.out.println();
         System.out.println("--- Matrix class ---");
         int column = 2;
@@ -138,8 +136,8 @@ public class Main {
         //double[][] matrixArray15 = {{9, 8, 7, 6}, {5, 4, 3, 2}, {1, 0, 1, 2}, {3, 4, 5, 6}}; // det = 0
         //double[][] matrixArray15 = {{11, -2}, {7, 5}}; //det = 69
         Matrix matrix15 = new Matrix(matrixArray15);
+        System.out.println("Matrix15:");
         matrix15.printAsMatrix();
-        System.out.println("Определитель = " + matrix15.determinant());
-
+        System.out.println("Определитель Matrix15 = " + matrix15.determinant());
     }
 }
