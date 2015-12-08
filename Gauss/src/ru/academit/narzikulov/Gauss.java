@@ -3,85 +3,73 @@ package ru.academit.narzikulov;
 /**
  * Created by tim on 02.12.2015.
  */
-public class Gauss extends Matrix {
-    public Gauss(int rowsCount, int columnsCount) {
-        super(rowsCount, columnsCount);
-    }
+public class Gauss {
+    public static boolean solve = true;
 
-    public Gauss(Matrix matrixToCopy) {
-        super(matrixToCopy);
-    }
-
-    public Gauss(double[][] matrixArray) {
-        super(matrixArray);
-    }
-
-    public Gauss(Vector[] vectorsArray) {
-        super(vectorsArray);
-    }
-
-    private void swapVectors(int i, int j) {
-        if (i != j) {
-            throw new ArrayIndexOutOfBoundsException("Размерность векторов не совпадает. Их перестановка невозможна!");
+    public static Matrix extendMatrix(Matrix matrix, Vector vector) {
+        if (matrix.matrixRows.length != vector.getSize() || matrix.matrixRows[0].getSize() != vector.getSize()) {
+            throw new ArrayIndexOutOfBoundsException("Невозможно расширить матрицу из несовпадения размеров матрицы и вектора!");
         }
-        Vector savedVector = this.matrixRows[i];
-        this.matrixRows[i] = this.matrixRows[j];
-        this.matrixRows[j] = savedVector;
+
+        int extendMatrixRowsNum = matrix.matrixRows.length;
+        int extendMatrixColumnsNum = matrix.matrixRows.length + 1;
+        Matrix extendedMatrix = new Matrix(extendMatrixRowsNum, extendMatrixColumnsNum);
+        for (int i = 0; i < extendMatrixRowsNum; ++i) {
+            for (int j = 0; j < extendMatrixColumnsNum - 1; ++j) {
+                extendedMatrix.matrixRows[i].setVectorElement(j, matrix.matrixRows[i].getVectorElement(j));
+            }
+            extendedMatrix.matrixRows[i].setVectorElement(extendMatrixColumnsNum - 1, vector.getVectorElement(i));
+        }
+        return extendedMatrix;
     }
 
-    public Gauss gauss() {
-        if (this.matrixRows.length + 1 != this.matrixRows[0].getSize()) {
-            throw new ArrayIndexOutOfBoundsException("Некорректное задание СЛАУ!");
-        }
+    public static Matrix gauss(Matrix matrix, Vector vector) {
         double epsilon = 0.00001;
+        Matrix extMatrix = extendMatrix(matrix, vector);
 
-        Gauss matrix = new Gauss(this.matrixRows);
-
-        int matrixSize = matrix.matrixRows.length;
+        int matrixSize = extMatrix.matrixRows.length;
         double matrixElement0;
         double matrixElement1;
         for (int j = 0; j < matrixSize; ++j) {
             for (int i = j; i < matrixSize - 1; ++i) {
-                matrixElement0 = matrix.matrixRows[j].getVectorElement(j);
-                matrixElement1 = matrix.matrixRows[i + 1].getVectorElement(j);
+                matrixElement0 = extMatrix.matrixRows[j].getVectorElement(j);
+                matrixElement1 = extMatrix.matrixRows[i + 1].getVectorElement(j);
 
                 if (Math.abs(matrixElement1) < epsilon) {
                     continue;
                 }
                 if (Math.abs(matrixElement0) < epsilon && i == j) {
-                    matrix.matrixRows[i].reverseVector();
-                    matrix.swapVectors(i, j + 1);
+                    extMatrix.matrixRows[i].reverseVector();
+                    extMatrix.swapVectors(i, j + 1);
                     continue;
                 }
 
                 if (Math.abs(matrixElement0 - matrixElement1) > epsilon) {
-                    matrix.matrixRows[i + 1].multVectorToNum(matrixElement0);
-                    matrix.matrixRows[j].multVectorToNum(matrixElement1);
+                    extMatrix.matrixRows[i + 1].multVectorToNum(matrixElement0);
+                    extMatrix.matrixRows[j].multVectorToNum(matrixElement1);
                 }
 
-                matrix.matrixRows[i + 1].subVector(matrix.matrixRows[j]);
+                extMatrix.matrixRows[i + 1].subVector(extMatrix.matrixRows[j]);
 
                 if (Math.abs(matrixElement0 - matrixElement1) > epsilon) {
-                    matrix.matrixRows[i + 1].multVectorToNum(1 / matrixElement0);
-                    matrix.matrixRows[j].multVectorToNum(1 / matrixElement1);
+                    extMatrix.matrixRows[i + 1].multVectorToNum(1 / matrixElement0);
+                    extMatrix.matrixRows[j].multVectorToNum(1 / matrixElement1);
                 }
             }
+            if (extMatrix.matrixRows[j].getVectorLengthWithoutLastElement() < epsilon &&
+                    Math.abs(extMatrix.matrixRows[j].getVectorElement(matrixSize)) > epsilon) {
+                solve = false;
+            }
         }
-        return matrix;
+        return extMatrix;
     }
 
-    public double det() {
-        Matrix newMatrix = this.gauss();
-        int matrixSize = newMatrix.matrixRows.length;
-        double det = 1;
-        for (int i = 0; i < matrixSize; ++i) {
-            det *= newMatrix.matrixRows[i].getVectorElement(i);
+    public static Vector linearSystem(Matrix matrix, Vector vector) {
+        if (!solve) {
+            System.out.println("Система не имеет решений");
+            return new Vector(vector.getSize());
         }
-        return det;
-    }
-
-    public Vector linearSystem() {
-        Matrix gaussMatrix = this.gauss();
+        Matrix gaussMatrix = gauss(matrix, vector);
         int variablesNum = gaussMatrix.matrixRows.length;
         Vector solution = new Vector(variablesNum);
 

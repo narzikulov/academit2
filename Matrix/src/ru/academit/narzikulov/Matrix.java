@@ -252,4 +252,14 @@ public class Matrix {
 
         return det;
     }
+
+    public void swapVectors(int i, int j) {
+        if (i != j) {
+            throw new ArrayIndexOutOfBoundsException("Размерность векторов не совпадает. Их перестановка невозможна!");
+        }
+        Vector savedVector = this.matrixRows[i];
+        this.matrixRows[i] = this.matrixRows[j];
+        this.matrixRows[j] = savedVector;
+    }
+
 }

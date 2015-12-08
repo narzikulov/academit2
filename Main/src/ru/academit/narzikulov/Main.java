@@ -5,8 +5,8 @@ package ru.academit.narzikulov;
  */
 public class Main {
     public static void main(String[] args) {
-        VectorMain.main();
-        MatrixMain.main();
+        //VectorMain.main();
+        //MatrixMain.main();
         GaussMain.main();
     }
 }

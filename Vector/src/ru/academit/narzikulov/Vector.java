@@ -100,6 +100,16 @@ public class Vector {
         return Math.sqrt(vectorLength);
     }
 
+    public double getVectorLengthWithoutLastElement() {
+        double vectorLength = 0;
+        double[] vectorArray1 = this.vectorArray;
+        for (int i = 0; i < vectorArray1.length - 1; i++) {
+            double aVectorArray = vectorArray1[i];
+            vectorLength += aVectorArray * aVectorArray;
+        }
+        return Math.sqrt(vectorLength);
+    }
+
     public double getVectorElement(int index) {
         return vectorArray[index];
     }
