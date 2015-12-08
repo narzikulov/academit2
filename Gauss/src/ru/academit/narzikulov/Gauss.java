@@ -85,15 +85,14 @@ public class Gauss extends Matrix {
         int variablesNum = gaussMatrix.matrixRows.length;
         Vector solution = new Vector(variablesNum);
 
-        //double curSolution = gaussMatrix.matrixRows[variablesNum - 1].getVectorElement(variablesNum) /
-        //        gaussMatrix.matrixRows[variablesNum - 1].getVectorElement(variablesNum - 1);
-        //solution.setVectorElement(variablesNum - 1, curSolution);
+        double curSolution = gaussMatrix.matrixRows[variablesNum - 1].getVectorElement(variablesNum) /
+                gaussMatrix.matrixRows[variablesNum - 1].getVectorElement(variablesNum - 1);
+        solution.setVectorElement(variablesNum - 1, curSolution);
 
-        for (int i = variablesNum - 1 ; i > 0; --i) {
-            for (int j = i ; j < variablesNum ; ++j) {
-                curSolution -= gaussMatrix.matrixRows[i].getVectorElement(j) * solution.getVectorElement(j) ;
-                System.out.println("curSolution = " + curSolution);
-
+        for (int i = variablesNum - 2; i >= 0; --i) {
+            curSolution = gaussMatrix.matrixRows[i].getVectorElement(variablesNum);
+            for (int j = variablesNum - 1; j >= 0; --j) {
+                curSolution -= gaussMatrix.matrixRows[i].getVectorElement(j) * solution.getVectorElement(j);
             }
             solution.setVectorElement(i, curSolution / gaussMatrix.matrixRows[i].getVectorElement(i));
         }
