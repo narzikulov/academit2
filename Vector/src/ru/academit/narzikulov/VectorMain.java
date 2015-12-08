@@ -4,7 +4,7 @@ package ru.academit.narzikulov;
  * Created by tim on 08.12.2015.
  */
 public class VectorMain {
-    public static void main(String[] args) {
+    public static void main() {
         double[] vectorArray1 = {5, 4, 3, 2, 1};
         Vector vector1 = new Vector(vectorArray1);
         System.out.print("Vector1: ");

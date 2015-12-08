@@ -4,7 +4,7 @@ package ru.academit.narzikulov;
  * Created by tim on 08.12.2015.
  */
 public class GaussMain {
-    public static void main(String[] args) {
+    public static void main() {
         System.out.println();
         System.out.println("Метода Гаусса:");
         //double[][] matrixArray16 = {{2, 1, -1, 8}, {-3, -1, 2, -11}, {-2, 1, 2, -3}}; //x = 2, y = 3, z = -1

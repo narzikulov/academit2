@@ -4,7 +4,7 @@ package ru.academit.narzikulov;
  * Created by tim on 08.12.2015.
  */
 public class MatrixMain {
-    public static void main(String[] args) {
+    public static void main() {
         System.out.println();
         System.out.println("--- Matrix class ---");
         int column = 2;
