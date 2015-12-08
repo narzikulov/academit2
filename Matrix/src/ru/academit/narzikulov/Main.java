@@ -241,12 +241,12 @@ public class Main {
         //double[][] matrixArray15 = {{-2, 1, 3, 2}, {3, 0, -1, 2}, {-5, 2, 3, 0}, {4, -1, 2, -3}}; // det = -80
         //double[][] matrixArray15 = {{9, 8, 7, 6}, {5, 4, 3, 2}, {1, 0, 1, 2}, {3, 4, 5, 6}}; // det = 0
         //double[][] matrixArray15 = {{11, -2}, {7, 5}}; //det = 69
-
         Matrix matrix15 = new Matrix(matrixArray15);
         matrix15.printAsMatrix();
-        System.out.println(matrix15.determinant());
+        System.out.println("Определитель = " + matrix15.determinant());
 
-
+        System.out.println();
+        System.out.println("Метода Гаусса:");
         //double[][] matrixArray16 = {{2, 1, -1, 8}, {-3, -1, 2, -11}, {-2, 1, 2, -3}}; //x = 2, y = 3, z = -1
         //double[][] matrixArray16 = {{2, -2, 1, -3}, {1, 3, -2, 1}, {3, -1, -1, 2}}; //x = -1.4, y = -2, z = -4.2
         //double[][] matrixArray16 = {{2, -1, 0, 0}, {-1, 1, 4, 13}, {1, 2, 3, 14}}; //x = 1, y = 2, z = 3
@@ -254,7 +254,7 @@ public class Main {
         Gauss matrix16 = new Gauss(matrixArray16);
         System.out.println("СЛАУ:");
         matrix16.printAsMatrix();
-        System.out.println("Приведение расширенной матрицу к треугольному виду (методом Гаусса)");
+        System.out.println("Приведение расширенной матрицу к треугольному виду");
         matrix16.gauss().printAsMatrix();
         System.out.println("Решение СЛАУ:");
         System.out.println(matrix16.linearSystem().toString());
