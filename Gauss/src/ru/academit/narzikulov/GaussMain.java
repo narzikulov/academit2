@@ -6,7 +6,7 @@ package ru.academit.narzikulov;
 public class GaussMain {
     public static void main() {
         System.out.println();
-        System.out.println("Метода Гаусса:");
+        System.out.println("Решение СЛАУ методом Гаусса:");
         //double[][] matrixArray16 = {{2, 1, -1, 8}, {-3, -1, 2, -11}, {-2, 1, 2, -3}}; //x = 2, y = 3, z = -1
         //double[][] matrixArray16 = {{2, -2, 1, -3}, {1, 3, -2, 1}, {3, -1, -1, 2}}; //x = -1.4, y = -2, z = -4.2
         //double[][] matrixArray16 = {{2, -1, 0, 0}, {-1, 1, 4, 13}, {1, 2, 3, 14}}; //x = 1, y = 2, z = 3

@@ -8,6 +8,5 @@ public class Main {
         VectorMain.main();
         MatrixMain.main();
         GaussMain.main();
-
     }
 }
