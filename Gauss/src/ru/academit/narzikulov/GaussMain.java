@@ -27,7 +27,7 @@ public class GaussMain {
         //double[][] matrixArray16 = {{4, -3, 2, -1}, {3, -2, 1, -3}, {5, -3, 1, -8}, {0, 0, 0, 5}};
         //double[] vectorArray16 = {8, 7, 1, 3};
 
-        //система имеет
+        //система имеет множество решений
         double[][] matrixArray16 = {{2, 3, -1, 1}, {8, 12, -9, 8}, {4, 6, 3, -2}, {2, 3, 9, -7}};
         double[] vectorArray16 = {1, 3, 3, 3};
 
