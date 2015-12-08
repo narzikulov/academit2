@@ -5,6 +5,7 @@ package ru.academit.narzikulov;
  */
 public class Gauss {
     public static boolean solve = true;
+    private static final double epsilon = 0.00001;
 
     public static Matrix extendMatrix(Matrix matrix, Vector vector) {
         if (matrix.matrixRows.length != vector.getSize() || matrix.matrixRows[0].getSize() != vector.getSize()) {
@@ -24,7 +25,6 @@ public class Gauss {
     }
 
     public static Matrix gauss(Matrix matrix, Vector vector) {
-        double epsilon = 0.00001;
         Matrix extMatrix = extendMatrix(matrix, vector);
 
         int matrixSize = extMatrix.matrixRows.length;
@@ -64,12 +64,29 @@ public class Gauss {
         return extMatrix;
     }
 
+    public static double detGauss(Matrix extMatrix) {
+        int matrixSize = extMatrix.matrixRows.length;
+        double det = 1;
+        for (int i = 0; i < matrixSize; ++i) {
+            det *= extMatrix.matrixRows[i].getVectorElement(i);
+        }
+        return det;
+    }
+
     public static Vector linearSystem(Matrix matrix, Vector vector) {
         if (!solve) {
             System.out.println("Система не имеет решений");
             return new Vector(vector.getSize());
         }
+
         Matrix gaussMatrix = gauss(matrix, vector);
+
+        if (Math.abs(detGauss(gaussMatrix)) < epsilon) {
+            System.out.println("Система имеет множество решений");
+            return new Vector(vector.getSize());
+        }
+
+
         int variablesNum = gaussMatrix.matrixRows.length;
         Vector solution = new Vector(variablesNum);
 

@@ -24,8 +24,12 @@ public class GaussMain {
         //double[] vectorArray16 = {5, 4, 6, 3};
 
         //система не имеет решений
-        double[][] matrixArray16 = {{4, -3, 2, -1}, {3, -2, 1, -3}, {5, -3, 1, -8}, {0, 0, 0, 5}};
-        double[] vectorArray16 = {8, 7, 1, 3};
+        //double[][] matrixArray16 = {{4, -3, 2, -1}, {3, -2, 1, -3}, {5, -3, 1, -8}, {0, 0, 0, 5}};
+        //double[] vectorArray16 = {8, 7, 1, 3};
+
+        //система имеет
+        double[][] matrixArray16 = {{2, 3, -1, 1}, {8, 12, -9, 8}, {4, 6, 3, -2}, {2, 3, 9, -7}};
+        double[] vectorArray16 = {1, 3, 3, 3};
 
 
         Matrix matrix16 = new Matrix (matrixArray16);
