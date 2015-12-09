@@ -4,28 +4,41 @@ package ru.academit.narzikulov;
  * Created by tim on 02.12.2015.
  */
 public class Gauss {
-    public static boolean solve = true;
+    private Matrix matrix;
+    private Vector vector;
+
+    public Gauss(Matrix matrix, Vector vector) {
+        this.matrix = matrix;
+        this.vector = vector;
+    }
+
+    public Gauss(double[][] matrixArray, double[] vectorArray) {
+        this.matrix = new Matrix(matrixArray);
+        this.vector = new Vector(vectorArray);
+    }
+
     private static final double epsilon = 0.00001;
 
-    public static Matrix extendMatrix(Matrix matrix, Vector vector) {
-        if (matrix.matrixRows.length != vector.getSize() || matrix.matrixRows[0].getSize() != vector.getSize()) {
+    private Matrix extendMatrix() {
+        if (this.matrix.matrixRows.length != this.vector.getSize() ||
+                this.matrix.matrixRows[0].getSize() != this.vector.getSize()) {
             throw new ArrayIndexOutOfBoundsException("Невозможно расширить матрицу из несовпадения размеров матрицы и вектора!");
         }
 
-        int extendMatrixRowsNum = matrix.matrixRows.length;
-        int extendMatrixColumnsNum = matrix.matrixRows.length + 1;
+        int extendMatrixRowsNum = this.matrix.matrixRows.length;
+        int extendMatrixColumnsNum = this.matrix.matrixRows.length + 1;
         Matrix extendedMatrix = new Matrix(extendMatrixRowsNum, extendMatrixColumnsNum);
         for (int i = 0; i < extendMatrixRowsNum; ++i) {
             for (int j = 0; j < extendMatrixColumnsNum - 1; ++j) {
-                extendedMatrix.matrixRows[i].setVectorElement(j, matrix.matrixRows[i].getVectorElement(j));
+                extendedMatrix.matrixRows[i].setVectorElement(j, this.matrix.matrixRows[i].getVectorElement(j));
             }
             extendedMatrix.matrixRows[i].setVectorElement(extendMatrixColumnsNum - 1, vector.getVectorElement(i));
         }
         return extendedMatrix;
     }
 
-    public static Matrix gauss(Matrix matrix, Vector vector) {
-        Matrix extMatrix = extendMatrix(matrix, vector);
+    private Matrix gauss() {
+        Matrix extMatrix = extendMatrix();
 
         int matrixSize = extMatrix.matrixRows.length;
         double matrixElement0;
@@ -58,13 +71,13 @@ public class Gauss {
             }
             if (extMatrix.matrixRows[j].getVectorLengthWithoutLastElement() < epsilon &&
                     Math.abs(extMatrix.matrixRows[j].getVectorElement(matrixSize)) > epsilon) {
-                solve = false;
+                return null;
             }
         }
         return extMatrix;
     }
 
-    public static double detGauss(Matrix extMatrix) {
+    private double detGauss(Matrix extMatrix) {
         int matrixSize = extMatrix.matrixRows.length;
         double det = 1;
         for (int i = 0; i < matrixSize; ++i) {
@@ -73,19 +86,16 @@ public class Gauss {
         return det;
     }
 
-    public static Vector linearSystem(Matrix matrix, Vector vector) {
-        if (!solve) {
-            System.out.println("Система не имеет решений");
-            return new Vector(vector.getSize());
-        }
+    public Vector linearSystem() {
+        Matrix gaussMatrix = gauss();
 
-        Matrix gaussMatrix = gauss(matrix, vector);
+        if (gaussMatrix == null) {
+            return null;
+        }
 
         if (Math.abs(detGauss(gaussMatrix)) < epsilon) {
-            System.out.println("Система имеет множество решений");
-            return new Vector(vector.getSize());
+            return new Vector(0);
         }
-
 
         int variablesNum = gaussMatrix.matrixRows.length;
         Vector solution = new Vector(variablesNum);
@@ -104,6 +114,4 @@ public class Gauss {
 
         return solution;
     }
-
-
 }
