@@ -28,8 +28,12 @@ public class GaussMain {
         //double[] vectorArray16 = {8, 7, 1, 3};
 
         //система имеет множество решений
-        double[][] matrixArray16 = {{2, 3, -1, 1}, {8, 12, -9, 8}, {4, 6, 3, -2}, {2, 3, 9, -7}};
-        double[] vectorArray16 = {1, 3, 3, 3};
+        //double[][] matrixArray16 = {{2, 3, -1, 1}, {8, 12, -9, 8}, {4, 6, 3, -2}, {2, 3, 9, -7}};
+        //double[] vectorArray16 = {1, 3, 3, 3};
+
+        //x = 1, y = 2, z = 3
+        double[][] matrixArray16 = {{1, 1, 0}, {2, 2, 1}, {3, 1, 1}};
+        double[] vectorArray16 = {3, 9, 8};
 
 
         Matrix matrix16 = new Matrix(matrixArray16);
@@ -40,14 +44,9 @@ public class GaussMain {
         System.out.println("Вектор: ");
         System.out.println(vector16.toString());
         System.out.println("Решение СЛАУ:");
-        Vector linearSystemSolve = gausMatrix.linearSystem();
-        if (linearSystemSolve == null) {
-            System.out.println("Система не имеет решений");
-        } else if (linearSystemSolve.getSize() == 0) {
-            System.out.println("Система имеет множество решений");
-        } else {
-            System.out.println(linearSystemSolve.toString());
-        }
+        GaussResult linearSystemSolve = gausMatrix.linearSystemSolve();
+
+        System.out.println(linearSystemSolve.toString());
     }
 
 

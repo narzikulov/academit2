@@ -100,16 +100,6 @@ public class Vector {
         return Math.sqrt(vectorLength);
     }
 
-    public double getVectorLengthWithoutLastElement() {
-        double vectorLength = 0;
-        double[] vectorArray1 = this.vectorArray;
-        for (int i = 0; i < vectorArray1.length - 1; i++) {
-            double aVectorArray = vectorArray1[i];
-            vectorLength += aVectorArray * aVectorArray;
-        }
-        return Math.sqrt(vectorLength);
-    }
-
     public double getVectorElement(int index) {
         return vectorArray[index];
     }
@@ -137,11 +127,9 @@ public class Vector {
             return false;
         }
 
-
-        double epsilon = 0.0001;
         int vectorArraySize = this.vectorArray.length;
         for (int i = 0; i < vectorArraySize; ++i) {
-            if (Math.abs(this.vectorArray[i] - newComparedVector.vectorArray[i]) > epsilon) {
+            if (!DoubleNumsCompare.AreDoubleNumsEqual(this.vectorArray[i], newComparedVector.vectorArray[i])) {
                 return false;
             }
         }
