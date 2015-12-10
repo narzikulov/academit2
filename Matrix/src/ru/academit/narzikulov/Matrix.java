@@ -223,12 +223,11 @@ public class Matrix {
         int minorSize = this.matrixRows.length - 1;
         int matrixSize = this.matrixRows.length;
         Matrix minor = new Matrix(minorSize, minorSize);
-        double curMatrixElement = 0;
 
         for (int i = 1; i < matrixSize; ++i) {
             int minorColumnIndex = 0;
             for (int j = 0; j < matrixSize; ++j) {
-                curMatrixElement = this.matrixRows[i].getVectorElement(j);
+                double curMatrixElement = this.matrixRows[i].getVectorElement(j);
                 if (j != matrixColumnIndex) {
                     minor.matrixRows[i - 1].setVectorElement(minorColumnIndex, curMatrixElement);
                     ++minorColumnIndex;
