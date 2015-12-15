@@ -18,7 +18,6 @@ public class Gauss {
     }
 
 
-
     private Matrix extendMatrix() {
         if (this.matrix.matrixRows.length != this.vector.getSize() ||
                 this.matrix.matrixRows[0].getSize() != this.vector.getSize()) {
@@ -55,29 +54,30 @@ public class Gauss {
                 double matrixElement0 = extMatrix.matrixRows[j].getVectorElement(j);
                 double matrixElement1 = extMatrix.matrixRows[i + 1].getVectorElement(j);
 
-                if (DoubleNumsCompare.CompareNumWithZero(matrixElement1)) {
+                if (DoubleNumsCompare.areDoubleNumsEqual(matrixElement1, 0)) {
                     continue;
                 }
-                if (DoubleNumsCompare.CompareNumWithZero(matrixElement0) && i == j) {
+                if (DoubleNumsCompare.areDoubleNumsEqual(matrixElement0, 0) && i == j) {
                     extMatrix.matrixRows[i].reverseVector();
                     extMatrix.swapVectors(i, j + 1);
                     continue;
                 }
 
-                if (!DoubleNumsCompare.AreDoubleNumsEqual(matrixElement0, matrixElement1)) {
+                if (!DoubleNumsCompare.areDoubleNumsEqual(matrixElement0, matrixElement1)) {
                     extMatrix.matrixRows[i + 1].multVectorToNum(matrixElement0);
                     extMatrix.matrixRows[j].multVectorToNum(matrixElement1);
                 }
 
                 extMatrix.matrixRows[i + 1].subVector(extMatrix.matrixRows[j]);
 
-                if (!DoubleNumsCompare.AreDoubleNumsEqual(matrixElement0, matrixElement1)) {
+                if (!DoubleNumsCompare.areDoubleNumsEqual(matrixElement0, matrixElement1)) {
                     extMatrix.matrixRows[i + 1].multVectorToNum(1 / matrixElement0);
                     extMatrix.matrixRows[j].multVectorToNum(1 / matrixElement1);
                 }
             }
-            if (DoubleNumsCompare.CompareNumWithZero(getVectorLengthWithoutLastElement(extMatrix.matrixRows[j])) &&
-                    !DoubleNumsCompare.CompareNumWithZero(extMatrix.matrixRows[j].getVectorElement(matrixSize))) {
+            // NO SOLVES
+            if (DoubleNumsCompare.areDoubleNumsEqual(getVectorLengthWithoutLastElement(extMatrix.matrixRows[j]), 0) &&
+                    !DoubleNumsCompare.areDoubleNumsEqual(extMatrix.matrixRows[j].getVectorElement(matrixSize), 0)) {
                 return null;
             }
         }
@@ -93,15 +93,17 @@ public class Gauss {
         return det;
     }
 
-    public GaussResult linearSystemSolve() {
+    public GaussResult solveLinearSystem() {
         Matrix gaussMatrix = gauss();
 
         if (gaussMatrix == null) {
-            return new GaussResult(GaussLinearSystemSolveId.NOSOLVES);
+            LinearSystemSolveResultCode.NO_SOLVES.setMessage("Система не имеет решений");
+            return new GaussResult(LinearSystemSolveResultCode.NO_SOLVES);
         }
 
-        if (DoubleNumsCompare.CompareNumWithZero(detGauss(gaussMatrix))) {
-            return new GaussResult(GaussLinearSystemSolveId.MANYSOLVES);
+        if (DoubleNumsCompare.areDoubleNumsEqual(detGauss(gaussMatrix), 0)) {
+            LinearSystemSolveResultCode.MANY_SOLVES.setMessage("Система имеет множество решений");
+            return new GaussResult(LinearSystemSolveResultCode.MANY_SOLVES);
         }
 
         int variablesNum = gaussMatrix.matrixRows.length;
@@ -119,6 +121,6 @@ public class Gauss {
             solution.setVectorElement(i, curSolution / gaussMatrix.matrixRows[i].getVectorElement(i));
         }
 
-        return new GaussResult(solution, GaussLinearSystemSolveId.ONESOLVE);
+        return new GaussResult(solution, LinearSystemSolveResultCode.ONE_SOLVE);
     }
 }

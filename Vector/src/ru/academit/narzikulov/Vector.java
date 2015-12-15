@@ -129,7 +129,7 @@ public class Vector {
 
         int vectorArraySize = this.vectorArray.length;
         for (int i = 0; i < vectorArraySize; ++i) {
-            if (!DoubleNumsCompare.AreDoubleNumsEqual(this.vectorArray[i], newComparedVector.vectorArray[i])) {
+            if (!DoubleNumsCompare.areDoubleNumsEqual(this.vectorArray[i], newComparedVector.vectorArray[i])) {
                 return false;
             }
         }

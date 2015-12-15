@@ -5,29 +5,25 @@ package ru.academit.narzikulov;
  */
 public class GaussResult {
     private Vector gaussSolution;
-    private GaussLinearSystemSolveId resultId;
+    private LinearSystemSolveResultCode resultCode;
 
     public GaussResult(Vector gaussSolution) {
         this.gaussSolution = gaussSolution;
     }
 
-    public GaussResult(GaussLinearSystemSolveId resultId) {
-        this.resultId = resultId;
+    public GaussResult(LinearSystemSolveResultCode resultCode) {
+        this.resultCode = resultCode;
     }
 
-    public GaussResult(Vector gaussSolution, GaussLinearSystemSolveId resultId) {
+    public GaussResult(Vector gaussSolution, LinearSystemSolveResultCode resultCode) {
         this.gaussSolution = gaussSolution;
-        this.resultId = resultId;
+        this.resultCode = resultCode;
     }
 
     public String toString() {
-        switch (this.resultId) {
-            case NOSOLVES:
-                return "Система не имеет решений";
-            case MANYSOLVES:
-                return "Система имеет множество решений";
-            default:
-                return gaussSolution.toString();
+        if (this.resultCode == LinearSystemSolveResultCode.ONE_SOLVE) {
+            return this.gaussSolution.toString();
         }
+        return this.resultCode.getMessage();
     }
 }
