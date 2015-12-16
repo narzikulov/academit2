@@ -8,8 +8,8 @@ public class Gauss {
     private Vector vector;
 
     public Gauss(Matrix matrix, Vector vector) {
-        this.matrix = matrix;
-        this.vector = vector;
+        this.matrix = new Matrix(matrix);
+        this.vector = new Vector (vector);
     }
 
     public Gauss(double[][] matrixArray, double[] vectorArray) {
