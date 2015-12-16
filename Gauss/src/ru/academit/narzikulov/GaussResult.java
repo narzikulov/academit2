@@ -5,11 +5,7 @@ package ru.academit.narzikulov;
  */
 public class GaussResult {
     private Vector gaussSolution;
-    private LinearSystemSolveResultCode resultCode;
-
-    public GaussResult(Vector gaussSolution) {
-        this.gaussSolution = gaussSolution;
-    }
+    private LinearSystemSolveResultCode resultCode = LinearSystemSolveResultCode.ONE_SOLVE;
 
     public GaussResult(LinearSystemSolveResultCode resultCode) {
         this.resultCode = resultCode;

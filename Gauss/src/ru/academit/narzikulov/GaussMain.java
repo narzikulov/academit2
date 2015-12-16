@@ -20,12 +20,12 @@ public class GaussMain {
         //double[] vectorArray16 = {0, 13, 14};
 
         //x = 9, y = 18, z = 10, p = -16
-        double[][] matrixArray16 = {{1, -1, 3, 1}, {4, -1, 5, 4}, {2, -2, 4, 1}, {1, -4, 5, -1}};
-        double[] vectorArray16 = {5, 4, 6, 3};
+        //double[][] matrixArray16 = {{1, -1, 3, 1}, {4, -1, 5, 4}, {2, -2, 4, 1}, {1, -4, 5, -1}};
+        //double[] vectorArray16 = {5, 4, 6, 3};
 
         //система не имеет решений
-        //double[][] matrixArray16 = {{4, -3, 2, -1}, {3, -2, 1, -3}, {5, -3, 1, -8}, {0, 0, 0, 5}};
-        //double[] vectorArray16 = {8, 7, 1, 3};
+        double[][] matrixArray16 = {{4, -3, 2, -1}, {3, -2, 1, -3}, {5, -3, 1, -8}, {0, 0, 0, 5}};
+        double[] vectorArray16 = {8, 7, 1, 3};
 
         //система имеет множество решений
         //double[][] matrixArray16 = {{2, 3, -1, 1}, {8, 12, -9, 8}, {4, 6, 3, -2}, {2, 3, 9, -7}};
@@ -34,6 +34,10 @@ public class GaussMain {
         //x = 1, y = 2, z = 3
         //double[][] matrixArray16 = {{1, 1, 0}, {2, 2, 1}, {3, 1, 1}};
         //double[] vectorArray16 = {3, 9, 8};
+
+        //система имеет множество решений
+        //double[][] matrixArray16 = {{1, 2, 1, 1, 3, 1}, {1, 2, 1, 2, 1, -1}, {1, 2, 1, -1, 5, -1}, {1, 2, 1, -2, -4, 4}};
+        //double[] vectorArray16 = {7, 1, 2, -1};
 
 
         Matrix matrix16 = new Matrix(matrixArray16);

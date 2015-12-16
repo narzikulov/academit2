@@ -19,9 +19,13 @@ public class Gauss {
 
 
     private Matrix extendMatrix() {
-        if (this.matrix.matrixRows.length != this.vector.getSize() ||
-                this.matrix.matrixRows[0].getSize() != this.vector.getSize()) {
+        if (this.matrix.matrixRows.length != this.vector.getSize()) {
             throw new ArrayIndexOutOfBoundsException("Невозможно расширить матрицу из несовпадения размеров матрицы и вектора!");
+        }
+
+        if (this.matrix.matrixRows[0].getSize() != this.vector.getSize()) {
+            Vector zeroVector = new Vector(this.matrix.matrixRows[0].getSize());
+            this.vector.addVector(zeroVector);
         }
 
         int extendMatrixRowsNum = this.matrix.matrixRows.length;
@@ -97,12 +101,10 @@ public class Gauss {
         Matrix gaussMatrix = gauss();
 
         if (gaussMatrix == null) {
-            LinearSystemSolveResultCode.NO_SOLVES.setMessage("Система не имеет решений");
             return new GaussResult(LinearSystemSolveResultCode.NO_SOLVES);
         }
 
         if (DoubleNumsCompare.areDoubleNumsEqual(detGauss(gaussMatrix), 0)) {
-            LinearSystemSolveResultCode.MANY_SOLVES.setMessage("Система имеет множество решений");
             return new GaussResult(LinearSystemSolveResultCode.MANY_SOLVES);
         }
 
