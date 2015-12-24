@@ -57,12 +57,13 @@ public class ShapeMain {
         listOfShapes.add(rectangle);
         listOfShapes.add(triangle);
         int indexWithMaxWidth = findIndexWithMaxWidth(listOfShapes);
-        System.out.print("Shape with maximum width is: ");
-        System.out.print(listOfShapes.get(indexWithMaxWidth).getClass());
-        System.out.print(" with width = ");
-        System.out.println(listOfShapes.get(indexWithMaxWidth).getWidth());
+        if (indexWithMaxWidth != -1) {
+            System.out.print("Shape with maximum width is: ");
+            System.out.print(listOfShapes.get(indexWithMaxWidth).getClass());
+            System.out.print(" with width = ");
+            System.out.println(listOfShapes.get(indexWithMaxWidth).getWidth());
 
-        System.out.println("Total area of all shapes in list = " + countTotalArea(listOfShapes));
-
+            System.out.println("Total area of all shapes in list = " + countTotalArea(listOfShapes));
+        }
     }
 }
