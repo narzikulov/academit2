@@ -8,7 +8,7 @@ public class ShapeMain {
 
     public static int findIndexWithMaxWidth(ArrayList<Shape> shapesList) {
         double maxWidth = 0;
-        int indexWithMaxWidth = 0;
+        int indexWithMaxWidth = -1;
         for (int i = 0; i < shapesList.size(); ++i) {
             if (shapesList.get(i).getWidth() > maxWidth) {
                 maxWidth = shapesList.get(i).getWidth();
@@ -51,7 +51,7 @@ public class ShapeMain {
         System.out.printf("Triangle height = %.2f%n", triangle.getHeight());
         System.out.println();
 
-        ArrayList<Shape> listOfShapes = new ArrayList();
+        ArrayList<Shape> listOfShapes = new ArrayList<Shape>();
         listOfShapes.add(square);
         listOfShapes.add(circle);
         listOfShapes.add(rectangle);
