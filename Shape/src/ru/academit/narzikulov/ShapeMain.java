@@ -59,7 +59,7 @@ public class ShapeMain {
         int indexWithMaxWidth = findIndexWithMaxWidth(listOfShapes);
         if (indexWithMaxWidth != -1) {
             System.out.print("Shape with maximum width is: ");
-            System.out.print(listOfShapes.get(indexWithMaxWidth).getClass());
+            System.out.print(listOfShapes.get(indexWithMaxWidth).getClass().getSimpleName());
             System.out.print(" with width = ");
             System.out.println(listOfShapes.get(indexWithMaxWidth).getWidth());
 
