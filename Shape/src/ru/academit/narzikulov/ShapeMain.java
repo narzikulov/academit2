@@ -1,9 +1,34 @@
 package ru.academit.narzikulov;
 
+import com.sun.xml.internal.bind.v2.runtime.output.SAXOutput;
+
+import java.util.ArrayList;
+
 /**
  * Created by tim on 21.10.2015.
  */
 public class ShapeMain {
+
+    public static int findIndexWithMaxWidth(ArrayList<Shape> shapesList) {
+        double maxWidth = 0;
+        int indexWithMaxWidth = 0;
+        for (int i = 0; i < shapesList.size(); ++i) {
+            if (shapesList.get(i).getWidth() > maxWidth) {
+                maxWidth = shapesList.get(i).getWidth();
+                indexWithMaxWidth = i;
+            }
+        }
+        return indexWithMaxWidth;
+    }
+
+    public static double countTotalArea(ArrayList<Shape> shapesList) {
+        double area = 0;
+        for (int i = 0; i < shapesList.size(); ++i) {
+            area += shapesList.get(i).getArea();
+        }
+        return area;
+    }
+
     public static void main() {
         Square square = new Square(5);
         System.out.printf("Square area = %.2f%n", square.getArea());
@@ -28,5 +53,19 @@ public class ShapeMain {
         System.out.printf("Triangle width = %.2f%n", triangle.getWidth());
         System.out.printf("Triangle height = %.2f%n", triangle.getHeight());
         System.out.println();
+
+        ArrayList<Shape> listOfShapes = new ArrayList();
+        listOfShapes.add(square);
+        listOfShapes.add(circle);
+        listOfShapes.add(rectangle);
+        listOfShapes.add(triangle);
+        int indexWithMaxWidth = findIndexWithMaxWidth(listOfShapes);
+        System.out.print("Shape with maximum width is: ");
+        System.out.print(listOfShapes.get(indexWithMaxWidth).getClass());
+        System.out.print(" with width = ");
+        System.out.println(listOfShapes.get(indexWithMaxWidth).getWidth());
+
+        System.out.println("Total area of all shapes in list = " + countTotalArea(listOfShapes));
+
     }
 }

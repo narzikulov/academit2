@@ -28,7 +28,7 @@ public class Triangle implements Shape {
         return Math.max(y1, Math.max(y2, y3)) - Math.min(y1, Math.min(y2, y3));
     }
 
-    public double sideLength(double x1, double y1, double x2, double y2) {
+    private static double sideLength(double x1, double y1, double x2, double y2) {
         return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
     }
 
@@ -36,7 +36,7 @@ public class Triangle implements Shape {
         double sideA = sideLength(x1, y1, x2, y2);
         double sideB = sideLength(x1, y1, x3, y3);
         double sideC = sideLength(x2, y2, x3, y3);
-        double semiPerimetr = (sideA + sideB + sideC) / 2;
-        return Math.sqrt(semiPerimetr * (semiPerimetr - sideA) * (semiPerimetr - sideB) * (semiPerimetr - sideC));
+        double semiPerimeter = (sideA + sideB + sideC) / 2;
+        return Math.sqrt(semiPerimeter * (semiPerimeter - sideA) * (semiPerimeter - sideB) * (semiPerimeter - sideC));
     }
 }
