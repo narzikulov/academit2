@@ -1,7 +1,4 @@
 package ru.academit.narzikulov;
-
-import com.sun.xml.internal.bind.v2.runtime.output.SAXOutput;
-
 import java.util.ArrayList;
 
 /**
@@ -23,8 +20,8 @@ public class ShapeMain {
 
     public static double countTotalArea(ArrayList<Shape> shapesList) {
         double area = 0;
-        for (int i = 0; i < shapesList.size(); ++i) {
-            area += shapesList.get(i).getArea();
+        for (Shape aShapesList : shapesList) {
+            area += aShapesList.getArea();
         }
         return area;
     }
