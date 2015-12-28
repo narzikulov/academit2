@@ -50,7 +50,7 @@ public class HashTable<E> {
 
     public int countNumOfElements() {
         int num = 0;
-        for (int i = 0; i < lastElementIndex; ++i) {
+        for (int i = 0; i < HT_DIM; ++i) {
             if (hTable[i] != null) {
                 for (int j = 0; j < hTable[i].size(); ++j) {
                     if (hTable[i].get(j) != null) {
@@ -62,29 +62,12 @@ public class HashTable<E> {
         return num;
     }
 
-    public boolean equals(Object element) {
-        if (element == null) {
-            return false;
-        }
-
-        E comparedElement = (E) element;
-
-        if (comparedElement != element) {
-            return false;
-        }
-
-
-        return true;
-    }
-
     public boolean findElement(E element) {
         boolean elementIsInTable = false;
-        for (int i = 0; i < lastElementIndex; ++i) {
+        for (int i = 0; i < HT_DIM; ++i) {
             if (hTable[i] != null) {
-                for (int j = 0; j < hTable[i].size(); ++j) {
-                    if (hTable[i].get(j).equals(element))  {
-                        elementIsInTable = true;
-                    }
+                if (hTable[i].contains(element)) {
+                    elementIsInTable = true;
                 }
             }
         }
