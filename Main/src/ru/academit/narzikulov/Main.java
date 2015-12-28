@@ -10,6 +10,7 @@ public class Main {
         //VectorMain.main();
         //MatrixMain.main();
         //GaussMain.main();
-        ShapeMain.main();
+        //ShapeMain.main();
+        HashTableMain.main();
     }
 }
