@@ -5,7 +5,7 @@ package ru.academit.narzikulov;
  */
 public class HashTableMain {
     public static void main() {
-        HashTable hTable = new HashTable();
+        @SuppressWarnings("unchecked") HashTable<Object> hTable = new HashTable();
 
         hTable.addElement(-5);
         hTable.addElement("two");
@@ -21,6 +21,7 @@ public class HashTableMain {
         System.out.println(hTable.toString());
         System.out.println("Num of elements in Hash Table: " + hTable.countNumOfElements());
         System.out.println(hTable.findElement(5));
+        System.out.println(hTable.findElement("5"));
         hTable.delElement(5);
         hTable.delElement("two");
         System.out.println("Deleted elements: " + "5" + " and " + "two");

@@ -16,14 +16,14 @@ public class HashTable<E> {
 
     public HashTable(int hTableSize) {
         if (hTableSize <= 0) throw new IllegalArgumentException("Некорректно задана размерность хэш-таблицы");
+        //noinspection unchecked
         this.hTable = new ArrayList[hTableSize];
     }
 
     public String toString() {
         StringBuilder s = new StringBuilder("{");
         for (int i = 0; i < lastElementIndex; i++) {
-            E currentElement = (E) hTable[i];
-            s.append(currentElement);
+            s.append(hTable[i]);
             s.append(", ");
         }
         s.append(hTable[lastElementIndex]);
@@ -36,49 +36,46 @@ public class HashTable<E> {
     }
 
     public void addElement(E element) {
-        if (element != null) {
-            int curElementIndex = countHashCode(element);
-            if (hTable[curElementIndex] == null) {
-                hTable[curElementIndex] = new ArrayList<E>();
-                hTable[curElementIndex].add(element);
-            } else {
-                hTable[curElementIndex].add(element);
-            }
-            lastElementIndex = Math.max(lastElementIndex, curElementIndex);
+        if (element == null) {
+            return;
         }
+        int curElementIndex = countHashCode(element);
+        if (hTable[curElementIndex] == null) {
+            hTable[curElementIndex] = new ArrayList<E>();
+        }
+        hTable[curElementIndex].add(element);
+        lastElementIndex = Math.max(lastElementIndex, curElementIndex);
     }
 
     public int countNumOfElements() {
         int num = 0;
         for (int i = 0; i < HT_DIM; ++i) {
             if (hTable[i] != null) {
-                for (int j = 0; j < hTable[i].size(); ++j) {
-                    if (hTable[i].get(j) != null) {
-                        ++num;
-                    }
-                }
+                num += hTable[i].size();
             }
         }
         return num;
     }
 
     public boolean findElement(E element) {
-        boolean elementIsInTable = false;
         for (int i = 0; i < HT_DIM; ++i) {
             if (hTable[i] != null) {
                 if (hTable[i].contains(element)) {
-                    elementIsInTable = true;
+                    return true;
                 }
             }
         }
-        return elementIsInTable;
+        return false;
     }
 
     public void delElement(E element) {
-        if (element != null) {
-            int curElementIndex = countHashCode(element);
-            hTable[curElementIndex].remove(element);
-            lastElementIndex = Math.max(lastElementIndex, curElementIndex);
+        if (element == null) {
+            return;
         }
+        int curElementIndex = countHashCode(element);
+        if (hTable[curElementIndex] != null) {
+            hTable[curElementIndex].remove(element);
+        }
+        lastElementIndex = Math.max(lastElementIndex, curElementIndex);
     }
 }
