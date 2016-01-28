@@ -1,7 +1,6 @@
 package ru.academit.narzikulov;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 /**
  * Created by tim on 28.12.2015.
@@ -15,8 +14,9 @@ public class HashTable<E> {
         this.hTable = new ArrayList[HT_DIM];
     }
 
-    public int getLastIndex() {
-        return lastElementIndex;
+    public HashTable(int hTableSize) {
+        if (hTableSize <= 0) throw new IllegalArgumentException("Некорректно задана размерность хэш-таблицы");
+        this.hTable = new ArrayList[hTableSize];
     }
 
     public String toString() {
@@ -74,4 +74,11 @@ public class HashTable<E> {
         return elementIsInTable;
     }
 
+    public void delElement(E element) {
+        if (element != null) {
+            int curElementIndex = countHashCode(element);
+            hTable[curElementIndex].remove(element);
+            lastElementIndex = Math.max(lastElementIndex, curElementIndex);
+        }
+    }
 }

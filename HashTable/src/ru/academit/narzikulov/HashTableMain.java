@@ -20,6 +20,11 @@ public class HashTableMain {
 
         System.out.println(hTable.toString());
         System.out.println("Num of elements in Hash Table: " + hTable.countNumOfElements());
-        System.out.println(hTable.findElement("three"));
+        System.out.println(hTable.findElement(5));
+        hTable.delElement(5);
+        hTable.delElement("two");
+        System.out.println("Deleted elements: " + "5" + " and " + "two");
+        System.out.println(hTable.toString());
+        System.out.println("Num of elements in Hash Table: " + hTable.countNumOfElements());
     }
 }
