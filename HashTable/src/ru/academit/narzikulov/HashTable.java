@@ -21,6 +21,7 @@ public class HashTable<E> {
     }
 
     public String toString() {
+        if (lastElementIndex == 0) return "{empty}";
         StringBuilder s = new StringBuilder("{");
         for (int i = 0; i < lastElementIndex; i++) {
             s.append(hTable[i]);
@@ -31,15 +32,15 @@ public class HashTable<E> {
         return s.toString();
     }
 
-    private int countHashCode(E element) {
+    private int hashCode(E element) {
         return Math.abs(element.hashCode() % HT_DIM);
     }
 
-    public void addElement(E element) {
+    public void add(E element) {
         if (element == null) {
             return;
         }
-        int curElementIndex = countHashCode(element);
+        int curElementIndex = hashCode(element);
         if (hTable[curElementIndex] == null) {
             hTable[curElementIndex] = new ArrayList<E>();
         }
@@ -47,7 +48,7 @@ public class HashTable<E> {
         lastElementIndex = Math.max(lastElementIndex, curElementIndex);
     }
 
-    public int countNumOfElements() {
+    public int size() {
         int num = 0;
         for (int i = 0; i < HT_DIM; ++i) {
             if (hTable[i] != null) {
@@ -57,7 +58,24 @@ public class HashTable<E> {
         return num;
     }
 
-    public boolean findElement(E element) {
+    public boolean isEmpty() {
+        return this.lastElementIndex <= 0;
+    }
+
+    public void clear() {
+        for (int i = 0; i < lastElementIndex; ++i) {
+            if (hTable[i] == null) {
+                continue;
+            }
+            int hTableCurElementSize = hTable[i].size();
+            for (int j = 0; j < hTableCurElementSize; ++j) {
+                hTable[i].remove(j);
+            }
+        }
+        lastElementIndex = 0;
+    }
+
+    public boolean contains(E element) {
         for (int i = 0; i < HT_DIM; ++i) {
             if (hTable[i] != null) {
                 if (hTable[i].contains(element)) {
@@ -68,11 +86,11 @@ public class HashTable<E> {
         return false;
     }
 
-    public void delElement(E element) {
+    public void remove(E element) {
         if (element == null) {
             return;
         }
-        int curElementIndex = countHashCode(element);
+        int curElementIndex = hashCode(element);
         if (hTable[curElementIndex] != null) {
             hTable[curElementIndex].remove(element);
         }
