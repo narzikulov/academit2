@@ -58,6 +58,28 @@ public class HashTable<E> {
         return num;
     }
 
+    public Object[] toArray() {
+        int arraySize = this.size();
+        Object[] array = new Object[arraySize];
+        if (this.isEmpty()) {
+            throw new ArrayIndexOutOfBoundsException("Список пуст");
+        }
+        int k = 0;
+        for (int i = 0; i <= lastElementIndex; ++i) {
+            if (hTable[i] == null) {
+                continue;
+            }
+            for (int j = 0; j < hTable[i].size(); ++j) {
+                if (hTable[i].get(j) == null) {
+                    continue;
+                }
+                array[k] = hTable[i].get(j);
+                ++k;
+            }
+        }
+        return array;
+    }
+
     public boolean isEmpty() {
         return this.lastElementIndex <= 0;
     }

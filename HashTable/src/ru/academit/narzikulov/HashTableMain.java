@@ -27,8 +27,11 @@ public class HashTableMain {
         System.out.println(hTable.toString());
         System.out.println("Num of elements in Hash Table: " + hTable.size());
 
-        hTable.clear();
+        //hTable.clear();
         System.out.println(hTable.toString());
         System.out.println(hTable.isEmpty());
+
+        Object[] array = hTable.toArray();
+        for (Object anArray : array) System.out.print(anArray + "; ");
     }
 }
