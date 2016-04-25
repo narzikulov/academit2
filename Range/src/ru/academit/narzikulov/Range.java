@@ -6,7 +6,6 @@ package ru.academit.narzikulov;
 public class Range {
     private double from;
     private double to;
-    private double epsilon = 0.000001;
 
     public Range(double from, double to) {
         this.from = from;
