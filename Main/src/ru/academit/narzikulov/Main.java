@@ -13,11 +13,33 @@ public class Main {
         //ShapeMain.main();
         //HashTableMain.main();
 
-        Point p = new Point(0, 0);
-        Point p1 = new Point(3, 4);
-        p.printCoordinates();
-        p1.printCoordinates();
+        Range range1 = new Range(0, 3);
+        System.out.println("Range length: " + range1.length());
+
+        double num = 5;
+        System.out.printf("Is the num %.2f is inside range (%.2f; %.2f)? : %b", num, range1.getFrom(), range1.getTo(),
+                range1.isInside(num));
+
+        Range range2 = new Range(8, 15);
+
         System.out.println();
-        System.out.println("Dist:" + p.dist(p1));
+        System.out.println("Range1: " + range1.toString() + ", Range2: " + range2.toString());
+
+        Range range3 = range1.intersection(range2);
+        if (range3 == null) {
+            System.out.println("There is no intersection.");
+        } else {
+            System.out.println("Intersection: " + range3.toString());
+        }
+
+        System.out.println("Union: " + range1.union(range2).toString());
+
+        System.out.println("Subtraction:");
+        Range[] range4 = range1.subtraction(range2);
+        for (int i = 0; i < range4.length; ++i) {
+            if (range4[i] != null) {
+                System.out.println(range4[i].toString());
+            }
+        }
     }
 }

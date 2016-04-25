@@ -7,12 +7,5 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="Matrix" />
-    <orderEntry type="module" module-name="Vector" />
-    <orderEntry type="module" module-name="Gauss" />
-    <orderEntry type="module" module-name="Shape" />
-    <orderEntry type="module" module-name="HashTable" />
-    <orderEntry type="module" module-name="Point" />
-    <orderEntry type="module" module-name="Range" />
   </component>
 </module>
