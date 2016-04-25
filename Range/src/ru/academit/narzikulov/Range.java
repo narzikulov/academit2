@@ -39,7 +39,7 @@ public class Range {
     }
 
     public String toString() {
-        return new String ("(" + from + "; " + to + ")");
+        return new String("(" + from + "; " + to + ")");
     }
 
     public Range intersection(Range range) {
@@ -53,7 +53,7 @@ public class Range {
         return (new Range(Math.min(this.from, range.from), Math.max(this.to, range.to)));
     }
 
-    public Range[] subtraction (Range range) {
+    public Range[] subtraction(Range range) {
         Range[] subtractions = new Range[2];
 
         if (this.intersection(range) != null) {

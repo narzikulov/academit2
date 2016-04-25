@@ -13,14 +13,14 @@ public class Main {
         //ShapeMain.main();
         //HashTableMain.main();
 
-        Range range1 = new Range(0, 3);
+        Range range1 = new Range(10, 15);
         System.out.println("Range length: " + range1.length());
 
         double num = 5;
         System.out.printf("Is the num %.2f is inside range (%.2f; %.2f)? : %b", num, range1.getFrom(), range1.getTo(),
                 range1.isInside(num));
 
-        Range range2 = new Range(8, 15);
+        Range range2 = new Range(3, 8);
 
         System.out.println();
         System.out.println("Range1: " + range1.toString() + ", Range2: " + range2.toString());
