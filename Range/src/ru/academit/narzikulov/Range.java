@@ -9,12 +9,11 @@ public class Range {
 
     public Range(double from, double to) {
         this.from = from;
-        this.to = to;
+        this.to = to;;
     }
 
     public Range() {
-        this.from = 0;
-        this.to = 0;
+        //super();
     }
 
     public double getFrom() {
@@ -26,7 +25,7 @@ public class Range {
     }
 
     public double length() {
-        return Math.abs(Math.abs(from) - Math.abs(to));
+        return Math.abs(from - to);
     }
 
     public boolean isInside(double num) {
@@ -38,38 +37,48 @@ public class Range {
     }
 
     public String toString() {
-        return new String("(" + from + "; " + to + ")");
+        return String.format("(" + from + "; " + to + ")");
     }
 
     public Range intersection(Range range) {
         if (this.to < range.from || this.from > range.to) {
             return null;
         }
-        return (new Range(Math.max(this.from, range.from), Math.min(this.to, range.to)));
+        return new Range(Math.max(this.from, range.from), Math.min(this.to, range.to));
     }
 
     public Range union(Range range) {
-        return (new Range(Math.min(this.from, range.from), Math.max(this.to, range.to)));
+        return new Range(Math.min(this.from, range.from), Math.max(this.to, range.to));
     }
 
     public Range[] subtraction(Range range) {
-        Range[] subtractions = new Range[2];
-
         if (this.intersection(range) != null) {
             if (this.from <= range.from && this.to >= range.to) {
+                Range[] subtractions = new Range[2];
                 subtractions[0] = new Range(this.from, range.from);
                 subtractions[1] = new Range(range.to, this.to);
                 return subtractions;
             }
+
             if (this.from <= range.from && this.to <= range.to) {
+                Range[] subtractions = new Range[1];
                 subtractions[0] = new Range(this.from, range.from);
                 return subtractions;
             }
+
             if (this.from >= range.from && this.to >= range.to) {
+                Range[] subtractions = new Range[1];
                 subtractions[0] = new Range(range.to, this.to);
                 return subtractions;
             }
+
+            if (this.from >= range.from && this.to <= range.to) {
+                Range[] subtractions = new Range[0];
+                return subtractions;
+            }
         }
+
+        Range[] subtractions = new Range[1];
         subtractions[0] = this;
         return subtractions;
     }
