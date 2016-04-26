@@ -14,7 +14,7 @@ public class Range {
     }
 
     public Range() {
-        //super();
+        //super(0, 0);
     }
 
     public double getFrom() {
@@ -38,7 +38,7 @@ public class Range {
     }
 
     public String toString() {
-        return String.format("(" + from + "; " + to + ")");
+        return String.format("(%.2f; %.2f)", from, to);
     }
 
     public Range intersection(Range range) {
@@ -74,8 +74,7 @@ public class Range {
             }
 
             if (this.from >= range.from && this.to <= range.to) {
-                Range[] subtractions = new Range[0];
-                return subtractions;
+                return new Range[0];
             }
         }
 
