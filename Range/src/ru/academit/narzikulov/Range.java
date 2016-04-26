@@ -14,7 +14,7 @@ public class Range {
     }
 
     public Range() {
-        super(0.0, 0.0);
+        //super(0.0, 0.0);
     }
 
     public double getFrom() {
