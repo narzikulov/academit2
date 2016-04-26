@@ -13,7 +13,7 @@ public class Main {
         //ShapeMain.main();
         //HashTableMain.main();
 
-        Range range1 = new Range(3,8);
+        Range range1 = new Range(3, 8);
         System.out.println("Range length: " + range1.length());
 
         double num = 5;
@@ -36,7 +36,7 @@ public class Main {
 
         System.out.println("Subtraction:");
         Range[] range4 = range1.subtraction(range2);
-        if (range4.length != 0){
+        if (range4.length != 0) {
             for (int i = 0; i < range4.length; ++i) {
                 if (range4[i] != null) {
                     System.out.println(range4[i].toString());

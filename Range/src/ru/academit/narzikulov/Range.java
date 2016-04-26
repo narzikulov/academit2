@@ -9,7 +9,8 @@ public class Range {
 
     public Range(double from, double to) {
         this.from = from;
-        this.to = to;;
+        this.to = to;
+        ;
     }
 
     public Range() {
