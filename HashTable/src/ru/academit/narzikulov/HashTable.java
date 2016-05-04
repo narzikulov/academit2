@@ -2,15 +2,13 @@ package ru.academit.narzikulov;
 
 import java.util.ArrayList;
 
-/**
- * Created by tim on 28.12.2015.
- */
 public class HashTable<E> {
     private ArrayList<E>[] hTable;
     private final int HT_DIM = 100;
     private int lastElementIndex = 0;
 
     public HashTable() {
+        //noinspection unchecked
         this.hTable = new ArrayList[HT_DIM];
     }
 

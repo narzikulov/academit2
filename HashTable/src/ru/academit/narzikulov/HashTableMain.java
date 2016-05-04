@@ -5,7 +5,7 @@ package ru.academit.narzikulov;
  */
 public class HashTableMain {
     public static void main() {
-        @SuppressWarnings("unchecked") HashTable<Object> hTable = new HashTable<Object>();
+        HashTable<Object> hTable = new HashTable<Object>();
 
         hTable.add(-5);
         hTable.add("two");
