@@ -13,7 +13,6 @@ public class Temperature extends JFrame {
     private JButton button = new JButton("Calculate");
     private JTextField inputTemp = new JTextField("", 10);
     private JLabel outputTemp = new JLabel(inputTemp.getText());
-    //private ButtonGroup selectedScaleRButton = new ButtonGroup();
     private JRadioButton celsiusRButton = new JRadioButton("Celsius");
     private JRadioButton farengheitRButton = new JRadioButton("Farengheit");
     private JRadioButton kelvinRButton = new JRadioButton("Kelvin");
@@ -27,8 +26,6 @@ public class Temperature extends JFrame {
 
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
-
-        //Box box = Box.createVerticalBox();
 
         Dimension textFieldDim = new Dimension(200, 50);
         inputTemp.setMaximumSize(textFieldDim);
