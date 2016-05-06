@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
 /**
@@ -47,6 +48,10 @@ public class Temperature extends JFrame {
         panel.add(radioBox, BorderLayout.LINE_START);
         radioBox.setBorder(new TitledBorder("Select scale"));
 
+        celsiusRButton.addFocusListener(new FocusL());
+        farengheitRButton.addFocusListener(new FocusL());
+        kelvinRButton.addFocusListener(new FocusL());
+
         celsiusRButton.addMouseListener(new MouseL());
         farengheitRButton.addMouseListener(new MouseL());
         kelvinRButton.addMouseListener(new MouseL());
@@ -58,6 +63,7 @@ public class Temperature extends JFrame {
 
         Font font = new Font("arial", Font.BOLD, 15);
         outputTemp.setFont(font);
+        outputTemp.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(outputTemp, BorderLayout.LINE_END);
 
         setContentPane(panel);
@@ -103,6 +109,26 @@ public class Temperature extends JFrame {
     class FocusL implements FocusListener {
         @Override
         public void focusGained(FocusEvent e) {
+            try {
+                //Double.parseDouble(inputTemp.getText());
+                Double temp = Double.valueOf(inputTemp.getText());
+                if (celsiusRButton.isSelected()) {
+                    outputTemp.setText(temp.toString());
+                }
+                if (farengheitRButton.isSelected()) {
+                    temp = temp * 1.8 + 32;
+                    outputTemp.setText(temp.toString());
+                }
+                if (kelvinRButton.isSelected()) {
+                    temp += 273.15;
+                    outputTemp.setText(temp.toString());
+                }
+                outputTemp.setVisible(true);
+
+            } catch (NumberFormatException e1) {
+                outputTemp.setText("Not a temperature!");
+                inputTemp.requestFocus();
+            }
         }
 
         @Override
