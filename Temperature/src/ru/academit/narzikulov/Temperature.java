@@ -20,12 +20,16 @@ public class Temperature extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout());
+        panel.setLayout(new BorderLayout());
 
-        JButton button = new JButton("Scale");
-        button.setSize((int) x / 2, (int) y / 8);
-        button.setLocation((int) (x * 0.4), (int) (y * 0.7));
-        panel.add(button);
+        //Box box = Box.createVerticalBox();
+
+        Dimension textFieldDim = new Dimension(200, 50);
+        inputTemp.setMaximumSize(textFieldDim);
+        inputTemp.setLocation(50, 50);
+        inputTemp.setHorizontalAlignment(0);
+        inputTemp.setBorder(new TitledBorder("Input temperature"));
+        panel.add(inputTemp, BorderLayout.PAGE_START);
 
         JRadioButton celsiusRButton = new JRadioButton("Celsius");
         JRadioButton farengheitRButton = new JRadioButton("Farengheit");
@@ -34,23 +38,28 @@ public class Temperature extends JFrame {
         selectedScaleRButton.add(celsiusRButton);
         selectedScaleRButton.add(farengheitRButton);
         selectedScaleRButton.add(kelvinRButton);
-        Box box = Box.createVerticalBox();
-        box.add(celsiusRButton);
-        box.add(farengheitRButton);
-        box.add(kelvinRButton);
-        box.setBorder(new TitledBorder("Select scale"));
+        Box radioBox = Box.createVerticalBox();
+        radioBox.add(celsiusRButton);
+        radioBox.add(farengheitRButton, BorderLayout.LINE_START);
+        radioBox.add(kelvinRButton, BorderLayout.LINE_START);
+        panel.add(radioBox, BorderLayout.LINE_START);
+        radioBox.setBorder(new TitledBorder("Select scale"));
+
+        JButton button = new JButton("Scale");
+        button.setSize(x / 2, y / 8);
+        button.setLocation((int) (x * 0.4), (int) (y * 0.7));
+        //panel.add(button);
+        panel.add(button, BorderLayout.PAGE_END);
+        //box.setSize(50, 50);
+        //box.setLocation(50, 50);
 
         //panel.add(selectedScaleRButton);
 
-        JTextField inputTemp = new JTextField();
-        //inputTemp.setSize((int) x / 5, (int) y / 8);
-        //inputTemp.setLocation((int) (x * 0.4), (int) (y * 0.4));
-        //inputTemp.setHorizontalAlignment(0);
-        panel.add(inputTemp);
+        //JTextArea tempOutText = new JTextArea("");
+        //panel.add(tempOutText);
 
-
+        //setContentPane(panel);
         setContentPane(panel);
-        //setContentPane(box);
         //setSize(x, y);
     }
 }
