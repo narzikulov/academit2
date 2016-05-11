@@ -17,13 +17,12 @@ public class TemperatureFrame {
     private JRadioButton fahrenheitChoiceButton = new JRadioButton("Fahrenheit");
     private JRadioButton kelvinChoiceButton = new JRadioButton("Kelvin");
     private ButtonGroup selectedScaleRButton = new ButtonGroup();
+    private TemperatureCalc convertedTemp = new TemperatureCalc();
 
     public TemperatureFrame(int x, int y) {
         tempFrame.setBounds(400, 100, x, y);
         tempFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    }
 
-    public void setTempFrame(int x, int y) {
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
 
@@ -65,58 +64,48 @@ public class TemperatureFrame {
         outputTemp.setHorizontalAlignment(SwingConstants.CENTER);
 
         JPanel panelForOutputTemp = new JPanel();
-        panelForOutputTemp.setBorder(new TitledBorder("Conversed temperature:"));
+        panelForOutputTemp.setBorder(new TitledBorder("Converted temperature:"));
         panel.add(panelForOutputTemp);
         panelForOutputTemp.add(outputTemp);
 
-
         tempFrame.add(panel);
+    }
+
+    public void setTempFrame() {
         tempFrame.setVisible(true);
+    }
+
+    private void ResultPrinting() {
+        try {
+            Double temp = Double.valueOf(inputTemp.getText());
+            if (celsiusChoiceButton.isSelected()) {
+                outputTemp.setText(temp.toString());
+            }
+            if (fahrenheitChoiceButton.isSelected()) {
+                outputTemp.setText(String.valueOf(convertedTemp.celsiusToFahrenheit(temp)));
+            }
+            if (kelvinChoiceButton.isSelected()) {
+                outputTemp.setText(String.valueOf(convertedTemp.celsiusToKelvin(temp)));
+            }
+            outputTemp.setVisible(true);
+
+        } catch (NumberFormatException e1) {
+            outputTemp.setText("Not a temperature!");
+            inputTemp.requestFocus();
+        }
     }
 
     private class ActionListenerForButtons implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            try {
-                Double temp = Double.valueOf(inputTemp.getText());
-                if (celsiusChoiceButton.isSelected()) {
-                    outputTemp.setText(temp.toString());
-                }
-                if (fahrenheitChoiceButton.isSelected()) {
-                    outputTemp.setText(new TemperatureCalc().celsiusToFahrenheit(temp).toString());
-                }
-                if (kelvinChoiceButton.isSelected()) {
-                    outputTemp.setText(new TemperatureCalc().celsiusToKelvin(temp).toString());
-                }
-                outputTemp.setVisible(true);
-
-            } catch (NumberFormatException e1) {
-                outputTemp.setText("Not a temperature!");
-                inputTemp.requestFocus();
-            }
+            ResultPrinting();
         }
     }
 
     private class FocusListenerForChoiceButtons implements FocusListener {
         @Override
         public void focusGained(FocusEvent e) {
-            try {
-                Double temp = Double.valueOf(inputTemp.getText());
-                if (celsiusChoiceButton.isSelected()) {
-                    outputTemp.setText(temp.toString());
-                }
-                if (fahrenheitChoiceButton.isSelected()) {
-                    outputTemp.setText(new TemperatureCalc().celsiusToFahrenheit(temp).toString());
-                }
-                if (kelvinChoiceButton.isSelected()) {
-                    outputTemp.setText(new TemperatureCalc().celsiusToKelvin(temp).toString());
-                }
-                outputTemp.setVisible(true);
-
-            } catch (NumberFormatException e1) {
-                outputTemp.setText("Not a temperature!");
-                inputTemp.requestFocus();
-            }
+            ResultPrinting();
         }
 
         @Override

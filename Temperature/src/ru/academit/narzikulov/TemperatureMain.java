@@ -10,7 +10,7 @@ public class TemperatureMain {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 TemperatureFrame tempFrame = new TemperatureFrame(300, 200);
-                tempFrame.setTempFrame(300, 200);
+                tempFrame.setTempFrame();
             }
         });
     }

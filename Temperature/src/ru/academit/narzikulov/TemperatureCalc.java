@@ -7,11 +7,11 @@ public class TemperatureCalc {
     public TemperatureCalc() {
     }
 
-    public Double celsiusToFahrenheit(double temp) {
+    public double celsiusToFahrenheit(double temp) {
         return temp * 1.8 + 32;
     }
 
-    public Double celsiusToKelvin(double temp) {
+    public double celsiusToKelvin(double temp) {
         return temp + 273.15;
     }
 }
