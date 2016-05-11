@@ -110,13 +110,7 @@ public class TemperatureFrame {
 
         @Override
         public void focusLost(FocusEvent e) {
-            try {
-                //noinspection ResultOfMethodCallIgnored
-                Double.parseDouble(inputTemp.getText());
-            } catch (NumberFormatException e1) {
-                outputTemp.setText("Not a temperature!");
-                inputTemp.requestFocus();
-            }
+            ResultPrinting();
         }
     }
 }
