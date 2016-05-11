@@ -75,7 +75,7 @@ public class TemperatureFrame {
         tempFrame.setVisible(true);
     }
 
-    private void ResultPrinting() {
+    private void resultPrinting() {
         try {
             Double temp = Double.valueOf(inputTemp.getText());
             if (celsiusChoiceButton.isSelected()) {
@@ -98,19 +98,19 @@ public class TemperatureFrame {
     private class ActionListenerForButtons implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            ResultPrinting();
+            resultPrinting();
         }
     }
 
     private class FocusListenerForChoiceButtons implements FocusListener {
         @Override
         public void focusGained(FocusEvent e) {
-            ResultPrinting();
+            resultPrinting();
         }
 
         @Override
         public void focusLost(FocusEvent e) {
-            ResultPrinting();
+            resultPrinting();
         }
     }
 }
