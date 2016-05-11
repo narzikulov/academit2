@@ -10,7 +10,7 @@ import javax.swing.border.TitledBorder;
  */
 public class TemperatureFrame {
     private JFrame tempFrame = new JFrame("Temperature");
-    private JButton calcBatton = new JButton("Calculate");
+    private JButton calcButton = new JButton("Calculate");
     private JTextField inputTemp = new JTextField("", 10);
     private JLabel outputTemp = new JLabel(inputTemp.getText());
     private JRadioButton celsiusChoiceButton = new JRadioButton("Celsius");
@@ -55,10 +55,10 @@ public class TemperatureFrame {
         fahrenheitChoiceButton.addActionListener(new ActionListenerForButtons());
         kelvinChoiceButton.addActionListener(new ActionListenerForButtons());
 
-        calcBatton.setSize(x / 2, y / 8);
-        calcBatton.setLocation((int) (x * 0.4), (int) (y * 0.7));
-        panel.add(calcBatton, BorderLayout.SOUTH);
-        calcBatton.addActionListener(new ActionListenerForButtons());
+        calcButton.setSize(x / 2, y / 8);
+        calcButton.setLocation((int) (x * 0.4), (int) (y * 0.7));
+        panel.add(calcButton, BorderLayout.SOUTH);
+        calcButton.addActionListener(new ActionListenerForButtons());
 
         Font font = new Font("arial", Font.BOLD, 18);
         outputTemp.setFont(font);
