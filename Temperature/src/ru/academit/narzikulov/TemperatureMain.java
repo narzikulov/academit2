@@ -7,7 +7,11 @@ import javax.swing.*;
  */
 public class TemperatureMain {
     public static void main() {
-       Temperature tempFrame = new Temperature(300, 200);
-        tempFrame.setVisible(true);
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                TemperatureFrame tempFrame = new TemperatureFrame(300, 200);
+                tempFrame.setTempFrame(300, 200);
+            }
+        });
     }
 }
