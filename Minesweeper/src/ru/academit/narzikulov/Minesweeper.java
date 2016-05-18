@@ -19,7 +19,7 @@ public class Minesweeper {
         this.columns = columns;
         this.minesNum = minesNum;
         //Заполнение поля нулями
-        for(int i = 0; i < rows; ++i) {
+        for (int i = 0; i < rows; ++i) {
             mineField.add(new ArrayList<Integer>());
             for (int j = 0; j < columns; ++j) {
                 mineField.get(i).add(0);

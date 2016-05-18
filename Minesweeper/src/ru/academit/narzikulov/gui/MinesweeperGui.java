@@ -1,8 +1,12 @@
 package ru.academit.narzikulov.gui;
 
+import ru.academit.narzikulov.Minesweeper;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Created by tim on 18.05.2016.
@@ -14,34 +18,55 @@ public class MinesweeperGui {
     private JTextField columns = new JTextField();
     private JTextField numOfMines = new JTextField();
     private JPanel gameField = new JPanel();
+    private JButton okButton = new JButton("OK");
+    private Minesweeper minesweeper = new Minesweeper();
+    private Dimension cellSize = new Dimension();
 
     public MinesweeperGui(int x, int y) {
         minesweeperFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         minesweeperFrame.setSize(x, y);
-        minesweeperPanel.setSize(x, y);
-        minesweeperFrame.add(minesweeperPanel);
-        minesweeperFrame.setContentPane(minesweeperPanel);
+        cellSize.height = 50;
+        cellSize.width = 50;
 
-        minesweeperPanel.setLayout(new GridLayout(2, 1));
-
-        Box panelForSizeAndMinesNumTextFields = Box.createHorizontalBox();
+        minesweeperFrame.setLayout(new GridLayout(2, 2));
         rows.setBorder(new TitledBorder("Rows"));
-        panelForSizeAndMinesNumTextFields.add(rows);
+        minesweeperFrame.add(rows);
         columns.setBorder(new TitledBorder("Columns"));
-        panelForSizeAndMinesNumTextFields.add(columns);
+        minesweeperFrame.add(columns);
         numOfMines.setBorder(new TitledBorder("Mines"));
-        panelForSizeAndMinesNumTextFields.add(numOfMines);
-        minesweeperPanel.add(panelForSizeAndMinesNumTextFields);
+        minesweeperFrame.add(numOfMines);
+        minesweeperFrame.add(okButton);
 
-        gameField.setLayout(new GridLayout(5, 5));
+        okButton.addActionListener(new ActionListenerForButton());
+
+/*        gameField.setLayout(new GridLayout(5, 5));
         for (int i = 0; i <= 20; ++i) {
             gameField.add(new JButton());
         }
-        minesweeperPanel.add(gameField);
+        minesweeperPanel.add(gameField);*/
 
     }
 
     public void setFrame() {
         minesweeperFrame.setVisible(true);
+    }
+
+    private class ActionListenerForButton implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Integer rowsValue = Integer.valueOf(rows.getText());
+            Integer columnsValue = Integer.valueOf(columns.getText());
+            Integer numOfMinesValue = Integer.valueOf(numOfMines.getText());
+
+            minesweeperFrame.setSize((int) cellSize.getWidth() * rowsValue, (int) cellSize.getHeight() * columnsValue);
+            minesweeperPanel.setSize((int) cellSize.getWidth() * rowsValue, (int) cellSize.getHeight() * columnsValue);
+            minesweeperPanel.setLayout(new GridLayout(rowsValue, columnsValue, 5, 5));
+            for (int i = 1; i <= rowsValue * columnsValue; ++i) {
+                JButton button = new JButton(new String("" + i));
+                button.setSize(cellSize);
+                minesweeperPanel.add(button);
+            }
+            minesweeperFrame.setContentPane(minesweeperPanel);
+        }
     }
 }

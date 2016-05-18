@@ -13,7 +13,7 @@ public class MinesweeperMain {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 // Размер поля и кол-во строк и столбцов
-                MinesweeperGui minesweeperField = new MinesweeperGui(540, 600);
+                MinesweeperGui minesweeperField = new MinesweeperGui(200, 150);
                 minesweeperField.setFrame();
             }
         });
