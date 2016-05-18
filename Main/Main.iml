@@ -14,6 +14,7 @@
     <orderEntry type="module" module-name="HashTable" />
     <orderEntry type="module" module-name="Point" />
     <orderEntry type="module" module-name="Range" />
-    <orderEntry type="module" module-name="Temperature" exported="" />
+    <orderEntry type="module" module-name="Temperature" />
+    <orderEntry type="module" module-name="Minesweeper" />
   </component>
 </module>
