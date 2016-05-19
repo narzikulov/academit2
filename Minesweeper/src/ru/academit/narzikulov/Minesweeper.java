@@ -1,5 +1,7 @@
 package ru.academit.narzikulov;
 
+import ru.academit.narzikulov.text.MinesweeperText;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -54,8 +56,23 @@ public class Minesweeper {
             for (int j = 0; j < mineField.get(0).size(); ++j) {
                 if (mineField.get(i).get(j) == -1) {
                     setToCellNumberOfMinesAround(i, j);
+                    System.out.println();
+                    System.out.printf("i = %d, j = %d", i, j);
+                    System.out.println();
                 }
+                printMineField();
+                System.out.println("-----------------------");
             }
+        }
+    }
+
+    //Временный метод для debug
+    public void printMineField() {
+        for (int i = 0; i < mineField.size(); ++i) {
+            for (int j = 0; j < mineField.get(0).size(); ++j) {
+                System.out.printf("%3d", mineField.get(i).get(j));
+            }
+            System.out.println();
         }
     }
 
