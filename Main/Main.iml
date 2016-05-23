@@ -16,5 +16,6 @@
     <orderEntry type="module" module-name="Range" />
     <orderEntry type="module" module-name="Temperature" />
     <orderEntry type="module" module-name="Minesweeper" />
+    <orderEntry type="module" module-name="GenericsTask" />
   </component>
 </module>

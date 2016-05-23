@@ -19,7 +19,7 @@ public class MinesweeperMain {
         });*/
 
         MinesweeperText minesweeperText = new MinesweeperText();
-        minesweeperText.printMineField();
+        //minesweeperText.printMineField();
         //minesweeperText.startGame();
 
     }

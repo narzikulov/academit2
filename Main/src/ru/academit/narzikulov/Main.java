@@ -16,6 +16,8 @@ public class Main {
         //RangeMain.main();
         //TemperatureMain.main();
         MinesweeperMain.main();
+        //GenericsTaskMain.main();
+
 
     }
 }
