@@ -97,7 +97,7 @@ public class Minesweeper {
 
     private void addCellToList(int i, int j) {
         if (i >= 0 && j >= 0 && i < mineField.size() && j < mineField.get(0).size()) {
-            if (mineField.get(i).get(j) == 0) cellCoordinate.add(new CellCoordinate(i, j));
+            if (mineField.get(i).get(j) == 0 && mineField.get(i).get(j) != emptyCellIndex) cellCoordinate.add(new CellCoordinate(i, j));
         }
     }
 
@@ -122,6 +122,7 @@ public class Minesweeper {
             for (int j = 0; j < mineField.get(0).size(); ++j) {
                 if (mineField.get(i).get(j) == 0) {
                     cellCoordinate.add(new CellCoordinate(i, j));
+                    System.out.println("i = " + i + ", j = " + j);
                     firstFreeCellFound = true;
                     break;
                 }
