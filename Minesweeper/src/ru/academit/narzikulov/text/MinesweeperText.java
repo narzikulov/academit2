@@ -10,8 +10,8 @@ import java.util.Scanner;
  */
 public class MinesweeperText {
     private Minesweeper minesweeper = new Minesweeper();
-    private int iTurnCoordinate;
-    private int jTurnCoordinate;
+    private int iTurn;
+    private int jTurn;
 
     public MinesweeperText() {
         Scanner scn = new Scanner(System.in);
@@ -23,7 +23,7 @@ public class MinesweeperText {
             int numOfMines = scn.nextInt();
             minesweeper = new Minesweeper(rows, columns, numOfMines);
         }
-        //startGame();
+        startGame();
     }
 
     public void startGame() {
@@ -32,10 +32,18 @@ public class MinesweeperText {
 
         do {
             System.out.println("Enter you turn please (i, j): ");
-            iTurnCoordinate = scn.nextInt();
-            jTurnCoordinate = scn.nextInt();
+            iTurn = scn.nextInt();
+            jTurn = scn.nextInt();
 
-        } while (!minesweeper.isChoosenCellIsMine(iTurnCoordinate, jTurnCoordinate));
+            if (minesweeper.isChoosenCellIsMine(iTurn, jTurn)) {
+                System.out.println("You lose! It's mine.");
+                break;
+            }
+
+            minesweeper.openCell(iTurn, jTurn);
+            printClosedMineField();
+
+        } while (!minesweeper.isChoosenCellIsMine(iTurn, jTurn));
 
         printMineField();
         System.out.println("Game over!");
@@ -48,7 +56,7 @@ public class MinesweeperText {
         ArrayList<ArrayList<Integer>> mineField = minesweeper.getMineField();
         for (ArrayList<Integer> aMineField : mineField) {
             for (int j = 0; j < mineField.get(0).size(); ++j) {
-                System.out.printf("%3d", aMineField.get(j));
+                System.out.printf("%5d", aMineField.get(j));
             }
             System.out.println();
         }
@@ -56,9 +64,9 @@ public class MinesweeperText {
 
     public void printClosedMineField() {
         ArrayList<ArrayList<Integer>> mineField = minesweeper.getMineField();
-        for (ArrayList<Integer> aMineField : mineField) {
+        for (int i = 0; i < mineField.size(); ++i) {
             for (int j = 0; j < mineField.get(0).size(); ++j) {
-                System.out.printf("  x ");
+                    System.out.printf("  x ");
             }
             System.out.println();
         }
@@ -69,7 +77,7 @@ public class MinesweeperText {
         ArrayList<ArrayList<Integer>> mineField = ms.getMineField();
         for (int i = 0; i < ms.getMineField().size(); ++i) {
             for (int j = 0; j < mineField.get(0).size(); ++j) {
-                System.out.printf("%3d", mineField.get(i).get(j));
+                System.out.printf("%5d", mineField.get(i).get(j));
             }
             System.out.println();
         }
