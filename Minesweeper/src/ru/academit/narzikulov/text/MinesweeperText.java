@@ -1,5 +1,6 @@
 package ru.academit.narzikulov.text;
 
+import ru.academit.narzikulov.Cell;
 import ru.academit.narzikulov.Minesweeper;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class MinesweeperText {
     }
 
     public void startGame() {
-        printClosedMineField();
+        printMineField();
         Scanner scn = new Scanner(System.in);
 
         do {
@@ -41,10 +42,12 @@ public class MinesweeperText {
             }
 
             minesweeper.openCell(iTurn, jTurn);
-            printClosedMineField();
+            printMineField();
 
         } while (!minesweeper.isChoosenCellIsMine(iTurn, jTurn));
 
+        minesweeper.openAllCell();
+        System.out.println("-------------------------------");
         printMineField();
         System.out.println("Game over!");
 
@@ -53,20 +56,16 @@ public class MinesweeperText {
     }
 
     public void printMineField() {
-        ArrayList<ArrayList<Integer>> mineField = minesweeper.getMineField();
-        for (ArrayList<Integer> aMineField : mineField) {
-            for (int j = 0; j < mineField.get(0).size(); ++j) {
-                System.out.printf("%5d", aMineField.get(j));
-            }
-            System.out.println();
-        }
-    }
-
-    public void printClosedMineField() {
-        ArrayList<ArrayList<Integer>> mineField = minesweeper.getMineField();
+        ArrayList<ArrayList<Cell>> mineField = minesweeper.getMineField();
         for (int i = 0; i < mineField.size(); ++i) {
             for (int j = 0; j < mineField.get(0).size(); ++j) {
-                    System.out.printf("  x ");
+                if (mineField.get(i).get(j).getIsOpen()) {
+                    if (mineField.get(i).get(j).getIsMine()) {
+                        System.out.printf("%3s", "*");
+                    } else {
+                        System.out.printf("%3d", mineField.get(i).get(j).getMinesAround());
+                    }
+                } else System.out.printf("%3s", "x");
             }
             System.out.println();
         }
@@ -74,7 +73,7 @@ public class MinesweeperText {
 
     //Временный метод для debug GUI класса
     public static void printMineField(Minesweeper ms) {
-        ArrayList<ArrayList<Integer>> mineField = ms.getMineField();
+        ArrayList<ArrayList<Cell>> mineField = ms.getMineField();
         for (int i = 0; i < ms.getMineField().size(); ++i) {
             for (int j = 0; j < mineField.get(0).size(); ++j) {
                 System.out.printf("%5d", mineField.get(i).get(j));

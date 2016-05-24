@@ -10,7 +10,7 @@ public class Minesweeper {
     private int rows;
     private int columns;
     private int numOfMines;
-    private ArrayList<ArrayList<Integer>> mineField = new ArrayList<ArrayList<Integer>>();
+    private ArrayList<ArrayList<Cell>> mineField = new ArrayList<ArrayList<Cell>>();
     private ArrayList<CellCoordinate> cellCoordinate = new ArrayList<CellCoordinate>();
     //emptyCellIndex - начальное значение, введенное для обнаружения и отметки всех пустых областей
     //первая область помечается значением по умолчанию, все последующие увеличивают индекс на 1
@@ -29,14 +29,14 @@ public class Minesweeper {
 
         //Заполнение ячеек игрового поля нулями
         for (int i = 0; i < rows; ++i) {
-            mineField.add(new ArrayList<Integer>());
+            mineField.add(new ArrayList<Cell>());
             for (int j = 0; j < columns; ++j) {
-                mineField.get(i).add(0);
+                mineField.get(i).add(new Cell(0));
             }
         }
         setMines();
-        findAndMarkAllFreeSpaces();
-        printMineField();
+        //findAndMarkAllFreeSpaces();
+        //printMineField();
     }
 
     public Minesweeper() {
@@ -44,21 +44,20 @@ public class Minesweeper {
     }
 
     //Расстановка мин на поле методом вычисления рандомного индекса в двумерном списке
-    //значение = -1 означает мину
     public void setMines() {
         Random randomNumber = new Random();
         for (int i = 1; i <= numOfMines; ++i) {
             int iRandom = randomNumber.nextInt(mineField.size());
             int jRandom = randomNumber.nextInt(mineField.get(0).size());
-            if (mineField.get(iRandom).get(jRandom) == -1) {
+            if (mineField.get(iRandom).get(jRandom).getIsMine()) {
                 --i;
             }
-            mineField.get(iRandom).set(jRandom, -1);
+            mineField.get(iRandom).get(jRandom).setIsMine(true);
         }
 
         for (int i = 0; i < mineField.size(); ++i) {
             for (int j = 0; j < mineField.get(0).size(); ++j) {
-                if (mineField.get(i).get(j) == -1) {
+                if (mineField.get(i).get(j).getIsMine()) {
                     setNumbersAroundCellsWithMine(i, j);
                 }
 
@@ -70,15 +69,22 @@ public class Minesweeper {
     public void printMineField() {
         for (int i = 0; i < mineField.size(); ++i) {
             for (int j = 0; j < mineField.get(0).size(); ++j) {
-                System.out.printf("%5d", mineField.get(i).get(j));
+                if (mineField.get(i).get(j).getIsOpen()) {
+                    if (mineField.get(i).get(j).getIsMine()) {
+                        System.out.printf("%3s", "*");
+                    } else {
+                        System.out.printf("%3d", mineField.get(i).get(j).getMinesAround());
+                    }
+                } else System.out.printf("%3s", "x");
             }
             System.out.println();
         }
     }
 
     private void incValueInMineFieldCell(int i, int j) {
-        if (i >= 0 && j >= 0 && i < mineField.size() && j < mineField.get(0).size()) {
-            if (mineField.get(i).get(j) != -1) mineField.get(i).set(j, mineField.get(i).get(j) + 1);
+        if (i >= 0 && j >= 0 && i < mineField.size() && j < mineField.get(0).size() &&
+                !mineField.get(i).get(j).getIsMine()) {
+            mineField.get(i).get(j).setMinesAround(mineField.get(i).get(j).getMinesAround() + 1);
         }
     }
 
@@ -95,7 +101,7 @@ public class Minesweeper {
 
     private void addCellToList(int i, int j) {
         if (i >= 0 && j >= 0 && i < mineField.size() && j < mineField.get(0).size()) {
-            if (mineField.get(i).get(j) == 0 && mineField.get(i).get(j) != emptyCellIndex) {
+            if (mineField.get(i).get(j).getMinesAround() == 0) {
                 cellCoordinate.add(new CellCoordinate(i, j));
             }
         }
@@ -122,7 +128,7 @@ public class Minesweeper {
                 break;
             }
             for (int j = 0; j < mineField.get(0).size(); ++j) {
-                if (mineField.get(i).get(j) == 0) {
+                if (mineField.get(i).get(j).getMinesAround() == 0) {
                     cellCoordinate.add(new CellCoordinate(i, j));
                     findFreeCellsAroundIJCell(cellCoordinate.get(0));
                     firstFreeCellFound = true;
@@ -134,9 +140,9 @@ public class Minesweeper {
 
     private boolean isAnyUnmarkedFreeSpace() {
         //Наличие хотя бы одной пустой ячейки
-        for (ArrayList<Integer> aMineField : mineField) {
+        for (ArrayList<Cell> aMineField : mineField) {
             for (int j = 0; j < mineField.get(0).size(); ++j) {
-                if (aMineField.get(j) == 0) {
+                if (aMineField.get(j).getMinesAround() == 0) {
                     return true;
                 }
             }
@@ -147,13 +153,13 @@ public class Minesweeper {
     private void markFreeSpace() {
         //Цикл по списку пустых ячеек и изменение их значений с 0 на emptyCellIndex
         // с последующим удалением ячейки из списка
-        for (int k = 0; k < cellCoordinate.size(); ++k) {
+        /*for (int k = 0; k < cellCoordinate.size(); ++k) {
             findFreeCellsAroundIJCell(cellCoordinate.get(k));
             mineField.get(cellCoordinate.get(k).getI()).set(cellCoordinate.get(k).getJ(), emptyCellIndex);
             cellCoordinate.remove(k);
             k = 0;
         }
-        cellCoordinate.clear();
+        cellCoordinate.clear();*/
     }
 
     private void findAndMarkAllFreeSpaces() {
@@ -169,14 +175,22 @@ public class Minesweeper {
         if (i < 0 || j < 0 || i > mineField.size() || j > mineField.get(0).size()) {
             return false;
         }
-        return mineField.get(i).get(j) == -1;
+        return mineField.get(i).get(j).getIsMine();
     }
 
     public void openCell(int iTurn, int jTurn) {
-        //printMineField();
+        mineField.get(iTurn).get(jTurn).setIsOpen(true);
     }
 
-    public ArrayList<ArrayList<Integer>> getMineField() {
+    public void openAllCell() {
+        for (int i = 0; i < mineField.size(); ++i) {
+            for (int j = 0; j < mineField.get(0).size(); ++j) {
+                mineField.get(i).get(j).setIsOpen(true);
+            }
+        }
+    }
+
+    public ArrayList<ArrayList<Cell>> getMineField() {
         return mineField;
     }
 
