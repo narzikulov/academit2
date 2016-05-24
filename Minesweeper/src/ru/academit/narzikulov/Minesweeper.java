@@ -12,6 +12,8 @@ public class Minesweeper {
     private int numOfMines;
     private ArrayList<ArrayList<Integer>> mineField = new ArrayList<ArrayList<Integer>>();
     private ArrayList<CellCoordinate> cellCoordinate = new ArrayList<CellCoordinate>();
+    //emptyCellIndex - начальное значение, введенное для обнаружения и отметки всех пустых областей
+    //первая область помечается значением по умолчанию, все последующие увеличивают индекс на 1
     int emptyCellIndex = 100;
 
 
@@ -33,7 +35,7 @@ public class Minesweeper {
             }
         }
         setMines();
-        markFreeSpaces();
+        findAndMarkAllFreeSpaces();
         printMineField();
     }
 
@@ -57,11 +59,7 @@ public class Minesweeper {
         for (int i = 0; i < mineField.size(); ++i) {
             for (int j = 0; j < mineField.get(0).size(); ++j) {
                 if (mineField.get(i).get(j) == -1) {
-                    //System.out.printf("i = %d, j = %d", i, j);
-                    //System.out.println();
                     setNumbersAroundCellsWithMine(i, j);
-                    //printMineField();
-                    //System.out.println("----------------------------------");
                 }
 
             }
@@ -97,7 +95,10 @@ public class Minesweeper {
 
     private void addCellToList(int i, int j) {
         if (i >= 0 && j >= 0 && i < mineField.size() && j < mineField.get(0).size()) {
-            if (mineField.get(i).get(j) == 0 && mineField.get(i).get(j) != emptyCellIndex) cellCoordinate.add(new CellCoordinate(i, j));
+            if (mineField.get(i).get(j) == 0 && mineField.get(i).get(j) != emptyCellIndex) {
+                cellCoordinate.add(new CellCoordinate(i, j));
+                //System.out.println("addCellToList i = " + i + ", j = " + j);
+            }
         }
     }
 
@@ -114,7 +115,7 @@ public class Minesweeper {
         addCellToList(i + 1, j + 1);
     }
 
-    private void markFreeSpaces() {
+    private void findFirstEmptyCell() {
         //Поиск первой пустой ячейки и добавление ее индексов в список
         boolean firstFreeCellFound = false;
         for (int i = 0; i < mineField.size(); ++i) {
@@ -122,21 +123,45 @@ public class Minesweeper {
             for (int j = 0; j < mineField.get(0).size(); ++j) {
                 if (mineField.get(i).get(j) == 0) {
                     cellCoordinate.add(new CellCoordinate(i, j));
-                    System.out.println("i = " + i + ", j = " + j);
+                    findFreeCellsAroundIJCell(cellCoordinate.get(0));
                     firstFreeCellFound = true;
                     break;
                 }
             }
         }
+    }
 
+    private boolean isAnyUnmarkedFreeSpace() {
+        //Наличие хотя бы одной пустой ячейки
+        for (ArrayList<Integer> aMineField : mineField) {
+            for (int j = 0; j < mineField.get(0).size(); ++j) {
+                if (aMineField.get(j) == 0) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private void markFreeSpace() {
+        //Цикл по списку пустых ячеек и изменение их значений с 0 на emptyCellIndex
+        // с последующим удалением ячейки из списка
         for (int k = 0; k < cellCoordinate.size(); ++k) {
             findFreeCellsAroundIJCell(cellCoordinate.get(k));
             mineField.get(cellCoordinate.get(k).getI()).set(cellCoordinate.get(k).getJ(), emptyCellIndex);
-            //++emptyCellIndex;
-            k = 0;
             cellCoordinate.remove(k);
+            k = 0;
         }
+        cellCoordinate.clear();
+    }
 
+    private void findAndMarkAllFreeSpaces() {
+        int i = 0;
+        do {
+            findFirstEmptyCell();
+            markFreeSpace();
+            ++emptyCellIndex;
+        } while(isAnyUnmarkedFreeSpace());
     }
 
     public boolean isChoosenCellIsMine(int i, int j) {

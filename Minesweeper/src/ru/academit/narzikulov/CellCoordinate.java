@@ -12,6 +12,9 @@ public class CellCoordinate {
         this.j = j;
     }
 
+    public CellCoordinate() {
+    }
+
     public int getI() {
         return i;
     }
