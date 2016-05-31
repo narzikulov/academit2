@@ -22,4 +22,8 @@ public class CellCoordinate {
     public int getJ() {
         return j;
     }
+
+    public String toString() {
+        return String.format("i = %d, j = %d; ", i, j);
+    }
 }

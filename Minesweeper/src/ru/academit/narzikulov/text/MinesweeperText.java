@@ -1,10 +1,11 @@
 package ru.academit.narzikulov.text;
 
+import com.sun.corba.se.impl.io.TypeMismatchException;
 import ru.academit.narzikulov.Cell;
 import ru.academit.narzikulov.Minesweeper;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.text.NumberFormat;
+import java.util.*;
 
 /**
  * Created by tim on 18.05.2016.
@@ -16,43 +17,87 @@ public class MinesweeperText {
 
     public MinesweeperText() {
         Scanner scn = new Scanner(System.in);
-        System.out.println("Default game field is 9x9 with 10 mines. Would you like to input new dimension and num of mines? y/n");
-        if (scn.nextLine().equals("y")) {
-            System.out.print("Input num of rows, columns, mines: ");
-            int rows = scn.nextInt();
-            int columns = scn.nextInt();
-            int numOfMines = scn.nextInt();
-            minesweeper = new Minesweeper(rows, columns, numOfMines);
+
+        /*System.out.println("Default game field size is 9x9 with 10 mines.");
+        System.out.println("Press 'y + ENTER' to input new dimension and num of mines or just ENTER to use default size?");
+        System.out.println("Press 'e' to STOP the game.");
+        if (scn.nextLine().equalsIgnoreCase("e")) {
+            System.exit(1);
         }
-        startGame();
+        if (scn.nextLine().equalsIgnoreCase("y")) {
+        }
+        */
+
+
+        do {
+            System.out.print("Input command:\n'e' Exit\n'a' About\n'n' New Game\n's' High Scores\n");
+            String userCommand = scn.nextLine();
+            switch (userCommand) {
+                case "e":
+                    System.exit(1);
+                    break;
+                case "a":
+                    System.out.println(minesweeper.about());
+                    break;
+                case "n":
+                    setTheMineFieldSize();
+                    startGame();
+                    break;
+            }
+        } while (!minesweeper.getTheGameIsLost() || !minesweeper.isAllCellsOpen());
+
+        if (minesweeper.getTheGameIsLost()) {
+            System.out.println("You lost the game!");
+        } else {
+            System.out.println("You won the game!");
+        }
     }
 
-    public void startGame() {
+    private void setTheMineFieldSize() {
+        System.out.print("Input num of rows, columns, mines or ANY for default size (9x9 with 10 mines): ");
+        Scanner scn = new Scanner(System.in);
+        int rows;
+        int columns;
+        int numOfMines;
+        try {
+            rows = scn.nextInt();
+            columns = scn.nextInt();
+            numOfMines = scn.nextInt();
+            minesweeper = new Minesweeper(rows, columns, numOfMines);
+        } catch (InputMismatchException e) {
+            minesweeper = new Minesweeper();
+        }
+    }
+
+    private void startGame() {
         printMineField();
         Scanner scn = new Scanner(System.in);
 
         do {
-            System.out.println("Enter you turn please (i, j): ");
-            iTurn = scn.nextInt();
-            jTurn = scn.nextInt();
+            System.out.println("Enter you turn please ('i' and 'j') or ANY to stop the game: ");
+            try {
+                iTurn = scn.nextInt();
+                jTurn = scn.nextInt();
+                if (iTurn < 0 || iTurn >= minesweeper.getMineField().size() ||
+                        jTurn < 0 || jTurn >= minesweeper.getMineField().get(0).size()) {
+                    System.out.println("You are over the mine field, try again");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println(e);
+                return;
+            }
 
-            if (minesweeper.isChoosenCellIsMine(iTurn, jTurn)) {
-                System.out.println("You lose! It's mine.");
-                break;
+            if (minesweeper.isCellIsMine(iTurn, jTurn)) {
+                //System.out.println("You lose! It's mine.");
+                minesweeper.setTheGameIsLost(true);
+                minesweeper.openAllCell();
+
             }
 
             minesweeper.openCell(iTurn, jTurn);
             printMineField();
 
-        } while (!minesweeper.isChoosenCellIsMine(iTurn, jTurn));
-
-        minesweeper.openAllCell();
-        System.out.println("-------------------------------");
-        printMineField();
-        System.out.println("Game over!");
-
-
-
+        } while (!minesweeper.isAllCellsOpen());
     }
 
     public void printMineField() {

@@ -1,6 +1,7 @@
 package ru.academit.narzikulov;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -12,19 +13,16 @@ public class Minesweeper {
     private int numOfMines;
     private ArrayList<ArrayList<Cell>> mineField = new ArrayList<ArrayList<Cell>>();
     private ArrayList<CellCoordinate> cellCoordinate = new ArrayList<CellCoordinate>();
-    //emptyCellIndex - начальное значение, введенное для обнаружения и отметки всех пустых областей
-    //первая область помечается значением по умолчанию, все последующие увеличивают индекс на 1
-    int emptyCellIndex = 100;
-
+    private boolean theGameIsLost = false;
 
     public Minesweeper(int rows, int columns, int numOfMines) {
         this.rows = rows;
         this.columns = columns;
         this.numOfMines = numOfMines;
         //Если количество мин указано больше, чем количество игровых ячеек, тогда
-        //пусть количество мин = количеству игровых ячеек поля
+        //пусть количество мин = количеству игровых ячеек поля - 1
         if (numOfMines >= rows * columns) {
-            numOfMines = rows * columns;
+            this.numOfMines = (rows - 1) * (columns - 1);
         }
 
         //Заполнение ячеек игрового поля нулями
@@ -69,7 +67,7 @@ public class Minesweeper {
     public void printMineField() {
         for (int i = 0; i < mineField.size(); ++i) {
             for (int j = 0; j < mineField.get(0).size(); ++j) {
-                if (mineField.get(i).get(j).getIsOpen()) {
+                if (!mineField.get(i).get(j).getIsOpen()) {
                     if (mineField.get(i).get(j).getIsMine()) {
                         System.out.printf("%3s", "*");
                     } else {
@@ -120,65 +118,41 @@ public class Minesweeper {
         addCellToList(i + 1, j + 1);
     }
 
-    private void findFirstEmptyCell() {
-        //Поиск первой пустой ячейки и добавление ее индексов в список
-        boolean firstFreeCellFound = false;
-        for (int i = 0; i < mineField.size(); ++i) {
-            if (firstFreeCellFound) {
-                break;
-            }
-            for (int j = 0; j < mineField.get(0).size(); ++j) {
-                if (mineField.get(i).get(j).getMinesAround() == 0) {
-                    cellCoordinate.add(new CellCoordinate(i, j));
-                    findFreeCellsAroundIJCell(cellCoordinate.get(0));
-                    firstFreeCellFound = true;
-                    break;
-                }
-            }
-        }
-    }
-
-    private boolean isAnyUnmarkedFreeSpace() {
-        //Наличие хотя бы одной пустой ячейки
-        for (ArrayList<Cell> aMineField : mineField) {
-            for (int j = 0; j < mineField.get(0).size(); ++j) {
-                if (aMineField.get(j).getMinesAround() == 0) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    private void markFreeSpace() {
-        //Цикл по списку пустых ячеек и изменение их значений с 0 на emptyCellIndex
+    private void openFreeSpace() {
+        //Цикл по списку пустых ячеек и изменение их значений на open
         // с последующим удалением ячейки из списка
-        /*for (int k = 0; k < cellCoordinate.size(); ++k) {
-            findFreeCellsAroundIJCell(cellCoordinate.get(k));
-            mineField.get(cellCoordinate.get(k).getI()).set(cellCoordinate.get(k).getJ(), emptyCellIndex);
+
+        for (int k = 0; k < cellCoordinate.size(); ++k) {
+            if (!mineField.get(cellCoordinate.get(k).getI()).get(cellCoordinate.get(k).getJ()).getIsOpen()) {
+                findFreeCellsAroundIJCell(cellCoordinate.get(k));
+            }
+            mineField.get(cellCoordinate.get(k).getI()).get(cellCoordinate.get(k).getJ()).setIsOpen(true);
             cellCoordinate.remove(k);
             k = 0;
         }
-        cellCoordinate.clear();*/
+        cellCoordinate.clear();
     }
 
-    private void findAndMarkAllFreeSpaces() {
-        int i = 0;
-        do {
-            findFirstEmptyCell();
-            markFreeSpace();
-            ++emptyCellIndex;
-        } while (isAnyUnmarkedFreeSpace());
-    }
-
-    public boolean isChoosenCellIsMine(int i, int j) {
-        if (i < 0 || j < 0 || i > mineField.size() || j > mineField.get(0).size()) {
+    public boolean isCellIsMine(int i, int j) {
+        if (i < 0 || j < 0 || i >= mineField.size() || j >= mineField.get(0).size()) {
             return false;
         }
         return mineField.get(i).get(j).getIsMine();
     }
 
     public void openCell(int iTurn, int jTurn) {
+        if (iTurn < 0 || iTurn >= mineField.size() ||
+                jTurn < 0 || jTurn >= mineField.get(0).size()) {
+            return;
+        }
+        if (mineField.get(iTurn).get(jTurn).getIsMine()) {
+            theGameIsLost = true;
+        }
+        if (mineField.get(iTurn).get(jTurn).getMinesAround() == 0) {
+            cellCoordinate.add(new CellCoordinate(iTurn, jTurn));
+            findFreeCellsAroundIJCell(cellCoordinate.get(0));
+            openFreeSpace();
+        }
         mineField.get(iTurn).get(jTurn).setIsOpen(true);
     }
 
@@ -188,6 +162,17 @@ public class Minesweeper {
                 mineField.get(i).get(j).setIsOpen(true);
             }
         }
+    }
+
+    public boolean isAllCellsOpen() {
+        for (int i = 0; i < mineField.size(); ++i) {
+            for (int j = 0; j < mineField.get(0).size(); ++j) {
+                if (!mineField.get(i).get(j).getIsMine() && !mineField.get(i).get(j).getIsOpen()) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public ArrayList<ArrayList<Cell>> getMineField() {
@@ -202,7 +187,15 @@ public class Minesweeper {
         return columns;
     }
 
-    public int getEmptyCellIndex() {
-        return emptyCellIndex;
+    public void setTheGameIsLost(boolean theGameIsLost) {
+        this.theGameIsLost = theGameIsLost;
+    }
+
+    public boolean getTheGameIsLost() {
+        return this.theGameIsLost;
+    }
+
+    public String about() {
+        return "Winesweeper v. 1.0\n";
     }
 }
