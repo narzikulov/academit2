@@ -26,7 +26,7 @@ public class MinesweeperGui {
     private JButton okButton = new JButton("OK");
     private Minesweeper minesweeper = new Minesweeper();
     private Dimension cellSize = new Dimension();
-    private ArrayList<ArrayList<JButton>> mineFieldButtons = new ArrayList<ArrayList<JButton>>();
+    //private ArrayList<ArrayList<JButton>> mineFieldButtons = new ArrayList<ArrayList<JButton>>();
 
     public MinesweeperGui(int x, int y) {
         minesweeperFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -49,27 +49,10 @@ public class MinesweeperGui {
         minesweeperFrame.add(okButton);
 
         okButton.addActionListener(new ActionListenerForButton());
-
     }
 
     public void setFrame() {
         minesweeperFrame.setVisible(true);
-    }
-
-    private void fillTheMineField() {
-        //Заполнение списка кнопок игрового поля
-        minesweeper = new Minesweeper(rowsValue, columnsValue, numOfMinesValue);
-        for (int i = 0; i < rowsValue; ++i) {
-            mineFieldButtons.add(i, new ArrayList<JButton>());
-            for (int j = 0; j < columnsValue; ++j) {
-                /*if (minesweeper.getMineField().get(i).get(j) == 1) {
-                    mineFieldButtons.get(i).add(j, new JButton("1"));
-                } else*/
-                    mineFieldButtons.get(i).add(j, new JButton());
-            }
-        }
-        //debug OK
-        //MinesweeperText.printMineField(minesweeper);
     }
 
     private class ActionListenerForButton implements ActionListener {
@@ -79,18 +62,19 @@ public class MinesweeperGui {
             columnsValue = Integer.valueOf(columns.getText());
             numOfMinesValue = Integer.valueOf(numOfMines.getText());
 
-            //Заполнение двумерного списка кнопок типа JButton игрового поля
-            fillTheMineField();
-
             minesweeperFrame.setSize((int) cellSize.getWidth() * rowsValue, (int) cellSize.getHeight() * columnsValue);
             minesweeperPanel.setSize((int) cellSize.getWidth() * rowsValue, (int) cellSize.getHeight() * columnsValue);
             minesweeperPanel.setLayout(new GridLayout(rowsValue, columnsValue, 5, 5));
 
+            System.out.printf("rowsValue %d, columnsValue %d, numOfMinesValue %d", rowsValue, columnsValue, numOfMinesValue);
+            minesweeper = new Minesweeper(rowsValue, columnsValue, numOfMinesValue);
+
             //Заполнение игрового поля кнопками
             for (int i = 0; i < rowsValue; ++i) {
                 for (int j = 0; j < columnsValue; ++j) {
-                    minesweeperPanel.add(mineFieldButtons.get(i).get(j));
-                    mineFieldButtons.get(i).get(j).addActionListener(new ActionListenerForMineFieldButtons());
+                    minesweeperPanel.add(minesweeper.getMineField().get(i).get(j).getGuiMineFiled());
+                    minesweeper.getMineField().get(i).get(j).getGuiMineFiled().
+                            addActionListener(new ActionListenerForMineFieldButtons());
                 }
             }
             minesweeperFrame.setContentPane(minesweeperPanel);
@@ -100,9 +84,9 @@ public class MinesweeperGui {
     private class ActionListenerForMineFieldButtons implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            //int rowClicked = mineFieldButtons.
+            //int rowClicked =
             //int columnClicked =
-            //if (minesweeper.getMineField())
+            //if (minesweeper.getMineField().get())
         }
     }
 }

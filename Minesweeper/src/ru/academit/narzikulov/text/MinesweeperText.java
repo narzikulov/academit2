@@ -1,10 +1,8 @@
 package ru.academit.narzikulov.text;
 
-import com.sun.corba.se.impl.io.TypeMismatchException;
 import ru.academit.narzikulov.Cell;
 import ru.academit.narzikulov.Minesweeper;
 
-import java.text.NumberFormat;
 import java.util.*;
 
 /**
@@ -44,9 +42,9 @@ public class MinesweeperText {
                     startGame();
                     break;
             }
-        } while (!minesweeper.getTheGameIsLost() || !minesweeper.isAllCellsOpen());
+        } while (!minesweeper.getGameIsLost() || !minesweeper.isAllCellsOpen());
 
-        if (minesweeper.getTheGameIsLost()) {
+        if (minesweeper.getGameIsLost()) {
             System.out.println("You lost the game!");
         } else {
             System.out.println("You won the game!");
@@ -58,12 +56,12 @@ public class MinesweeperText {
         Scanner scn = new Scanner(System.in);
         int rows;
         int columns;
-        int numOfMines;
+        int mines;
         try {
             rows = scn.nextInt();
             columns = scn.nextInt();
-            numOfMines = scn.nextInt();
-            minesweeper = new Minesweeper(rows, columns, numOfMines);
+            mines = scn.nextInt();
+            minesweeper = new Minesweeper(rows, columns, mines);
         } catch (InputMismatchException e) {
             minesweeper = new Minesweeper();
         }
@@ -89,7 +87,7 @@ public class MinesweeperText {
 
             if (minesweeper.isCellIsMine(iTurn, jTurn)) {
                 //System.out.println("You lose! It's mine.");
-                minesweeper.setTheGameIsLost(true);
+                minesweeper.setGameIsLost(true);
                 minesweeper.openAllCell();
 
             }

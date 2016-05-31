@@ -10,15 +10,15 @@ import javax.swing.*;
  */
 public class MinesweeperMain {
     public static void main() {
-        /*SwingUtilities.invokeLater(new Runnable() {
+        SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 // Размер поля и кол-во строк и столбцов
                 MinesweeperGui minesweeperField = new MinesweeperGui(200, 150);
                 minesweeperField.setFrame();
             }
-        });*/
+        });
 
-        MinesweeperText minesweeperText = new MinesweeperText();
+        //MinesweeperText minesweeperText = new MinesweeperText();
         //minesweeperText.printMineField();
         //minesweeperText.startGame();
 

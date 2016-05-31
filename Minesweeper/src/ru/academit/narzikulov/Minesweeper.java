@@ -1,28 +1,30 @@
 package ru.academit.narzikulov;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 /**
  * Created by tim on 18.05.2016.
  */
 public class Minesweeper {
+    private static final int ROWS = 9;
+    private static final int COLUMNS = 9;
+    private static final int MINES = 10;
     private int rows;
     private int columns;
-    private int numOfMines;
-    private ArrayList<ArrayList<Cell>> mineField = new ArrayList<ArrayList<Cell>>();
-    private ArrayList<CellCoordinate> cellCoordinate = new ArrayList<CellCoordinate>();
-    private boolean theGameIsLost = false;
+    private int mines;
+    private ArrayList<ArrayList<Cell>> mineField = new ArrayList<>();
+    private ArrayList<CellCoordinate> cellCoordinate = new ArrayList<>();
+    private boolean gameIsLost = false;
 
-    public Minesweeper(int rows, int columns, int numOfMines) {
+    public Minesweeper(int rows, int columns, int mines) {
         this.rows = rows;
         this.columns = columns;
-        this.numOfMines = numOfMines;
+        this.mines = mines;
         //Если количество мин указано больше, чем количество игровых ячеек, тогда
         //пусть количество мин = количеству игровых ячеек поля - 1
-        if (numOfMines >= rows * columns) {
-            this.numOfMines = (rows - 1) * (columns - 1);
+        if (mines >= rows * columns) {
+            this.mines = (rows - 1) * (columns - 1);
         }
 
         //Заполнение ячеек игрового поля нулями
@@ -38,13 +40,13 @@ public class Minesweeper {
     }
 
     public Minesweeper() {
-        this(9, 9, 10);
+        this(ROWS, COLUMNS, MINES);
     }
 
     //Расстановка мин на поле методом вычисления рандомного индекса в двумерном списке
     public void setMines() {
         Random randomNumber = new Random();
-        for (int i = 1; i <= numOfMines; ++i) {
+        for (int i = 1; i <= mines; ++i) {
             int iRandom = randomNumber.nextInt(mineField.size());
             int jRandom = randomNumber.nextInt(mineField.get(0).size());
             if (mineField.get(iRandom).get(jRandom).getIsMine()) {
@@ -56,7 +58,7 @@ public class Minesweeper {
         for (int i = 0; i < mineField.size(); ++i) {
             for (int j = 0; j < mineField.get(0).size(); ++j) {
                 if (mineField.get(i).get(j).getIsMine()) {
-                    setNumbersAroundCellsWithMine(i, j);
+                    setNumbersAroundMineCell(i, j);
                 }
 
             }
@@ -86,7 +88,7 @@ public class Minesweeper {
         }
     }
 
-    private void setNumbersAroundCellsWithMine(int i, int j) {
+    private void setNumbersAroundMineCell(int i, int j) {
         incValueInMineFieldCell(i - 1, j - 1);
         incValueInMineFieldCell(i - 1, j);
         incValueInMineFieldCell(i - 1, j + 1);
@@ -146,7 +148,7 @@ public class Minesweeper {
             return;
         }
         if (mineField.get(iTurn).get(jTurn).getIsMine()) {
-            theGameIsLost = true;
+            gameIsLost = true;
         }
         if (mineField.get(iTurn).get(jTurn).getMinesAround() == 0) {
             cellCoordinate.add(new CellCoordinate(iTurn, jTurn));
@@ -187,12 +189,12 @@ public class Minesweeper {
         return columns;
     }
 
-    public void setTheGameIsLost(boolean theGameIsLost) {
-        this.theGameIsLost = theGameIsLost;
+    public void setGameIsLost(boolean gameIsLost) {
+        this.gameIsLost = gameIsLost;
     }
 
-    public boolean getTheGameIsLost() {
-        return this.theGameIsLost;
+    public boolean getGameIsLost() {
+        return this.gameIsLost;
     }
 
     public String about() {
