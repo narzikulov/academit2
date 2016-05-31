@@ -115,17 +115,4 @@ public class MinesweeperText {
             System.out.println();
         }
     }
-
-    //Временный метод для debug GUI класса
-    public static void printMineField(Minesweeper ms) {
-        ArrayList<ArrayList<Cell>> mineField = ms.getMineField();
-        for (int i = 0; i < ms.getMineField().size(); ++i) {
-            for (int j = 0; j < mineField.get(0).size(); ++j) {
-                System.out.printf("%5d", mineField.get(i).get(j));
-            }
-            System.out.println();
-        }
-    }
-
-
 }
