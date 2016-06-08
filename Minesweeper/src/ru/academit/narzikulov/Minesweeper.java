@@ -7,9 +7,9 @@ import java.util.Random;
  * Created by tim on 18.05.2016.
  */
 public class Minesweeper {
-    private static final int ROWS = 9;
-    private static final int COLUMNS = 9;
-    private static final int MINES = 10;
+    public static final int ROWS = 9;
+    public static final int COLUMNS = 9;
+    public static final int MINES = 10;
     private int rows;
     private int columns;
     private int mines;

@@ -1,7 +1,6 @@
 package ru.academit.narzikulov.gui;
 
 import ru.academit.narzikulov.Minesweeper;
-import ru.academit.narzikulov.text.MinesweeperText;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -15,7 +14,10 @@ import java.util.ArrayList;
  */
 public class MinesweeperGui {
     private JFrame minesweeperFrame = new JFrame("Minesweeper");
+    private JMenuBar menuBar = new JMenuBar();
+    private JMenu fileMenu = new JMenu();
     private JPanel minesweeperPanel = new JPanel();
+    private JPanel minesweeperMenuPanel = new JPanel();
     private JTextField rows = new JTextField();
     int rowsValue;
     private JTextField columns = new JTextField();
@@ -35,9 +37,9 @@ public class MinesweeperGui {
         cellSize.width = 50;
 
         //Значения по умолчанию
-        rows.setText("9");
-        columns.setText("9");
-        numOfMines.setText("10");
+        rows.setText(Integer.toString(minesweeper.ROWS));
+        columns.setText(Integer.toString(minesweeper.COLUMNS));
+        numOfMines.setText(Integer.toString(minesweeper.MINES));
 
         minesweeperFrame.setLayout(new GridLayout(2, 2));
         rows.setBorder(new TitledBorder("Rows"));
@@ -62,9 +64,21 @@ public class MinesweeperGui {
             columnsValue = Integer.valueOf(columns.getText());
             numOfMinesValue = Integer.valueOf(numOfMines.getText());
 
-            minesweeperFrame.setSize((int) cellSize.getWidth() * rowsValue, (int) cellSize.getHeight() * columnsValue);
+            minesweeperFrame.setSize((int) cellSize.getWidth() * rowsValue,
+                    (int) cellSize.getHeight() * columnsValue);
+
+            fileMenu.add(new JMenuItem("About"));
+            fileMenu.add(new JMenuItem("New game"));
+            fileMenu.add(new JMenuItem("High scores"));
+            fileMenu.add(new JMenuItem("Exit"));
+            menuBar.add(fileMenu);
+            menuBar.setSize((int) cellSize.getWidth() * rowsValue, 150);
+            minesweeperMenuPanel.add(menuBar);
+            minesweeperFrame.add(minesweeperMenuPanel);
+
             minesweeperPanel.setSize((int) cellSize.getWidth() * rowsValue, (int) cellSize.getHeight() * columnsValue);
             minesweeperPanel.setLayout(new GridLayout(rowsValue, columnsValue, 5, 5));
+
 
             //System.out.printf("rowsValue %d, columnsValue %d, numOfMinesValue %d", rowsValue, columnsValue, numOfMinesValue);
             minesweeper = new Minesweeper(rowsValue, columnsValue, numOfMinesValue);
@@ -109,6 +123,10 @@ public class MinesweeperGui {
         }
     }
 
+    private void gameOver() {
+        JOptionPane.showMessageDialog(new JButton(), "Game over! You lost!", "Game over", JOptionPane.WARNING_MESSAGE);
+    }
+
     private class ActionListenerForMineFieldButtons implements ActionListener {
         private int i;
         private int j;
@@ -123,12 +141,12 @@ public class MinesweeperGui {
             if (minesweeper.getCell(i, j).getIsMine()) {
                 minesweeper.openAllCell();
                 updateMineField();
-                System.out.println("Game over! You lost!");
+                gameOver();
             } else {
                 minesweeper.openCell(i, j);
                 updateMineField();
             }
-            System.out.println(i + "; " + j);
+            //System.out.println(i + "; " + j);
         }
     }
 }
