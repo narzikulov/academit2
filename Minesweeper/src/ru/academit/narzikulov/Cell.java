@@ -9,7 +9,6 @@ public class Cell {
     private int minesAround;
     private boolean isMine;
     private boolean isOpen;
-    private JButton guiMineFiled = new JButton();
 
     public Cell(int minesAround) {
         this.minesAround = minesAround;
@@ -35,10 +34,6 @@ public class Cell {
 
     public boolean getIsOpen() {
         return isOpen;
-    }
-
-    public JButton getGuiMineFiled() {
-        return guiMineFiled;
     }
 
     public void setIsOpen(boolean isOpen) {

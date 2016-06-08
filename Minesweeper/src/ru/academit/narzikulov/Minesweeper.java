@@ -49,18 +49,17 @@ public class Minesweeper {
         for (int i = 1; i <= mines; ++i) {
             int iRandom = randomNumber.nextInt(mineField.size());
             int jRandom = randomNumber.nextInt(mineField.get(0).size());
-            if (mineField.get(iRandom).get(jRandom).getIsMine()) {
+            if (getCell(iRandom, jRandom).getIsMine()) {
                 --i;
             }
-            mineField.get(iRandom).get(jRandom).setIsMine(true);
+            getCell(iRandom, jRandom).setIsMine(true);
         }
 
         for (int i = 0; i < mineField.size(); ++i) {
             for (int j = 0; j < mineField.get(0).size(); ++j) {
-                if (mineField.get(i).get(j).getIsMine()) {
+                if (getCell(i, j).getIsMine()) {
                     setNumbersAroundMineCell(i, j);
                 }
-
             }
         }
     }
@@ -69,11 +68,11 @@ public class Minesweeper {
     public void printMineField() {
         for (int i = 0; i < mineField.size(); ++i) {
             for (int j = 0; j < mineField.get(0).size(); ++j) {
-                if (!mineField.get(i).get(j).getIsOpen()) {
-                    if (mineField.get(i).get(j).getIsMine()) {
+                if (!getCell(i, j).getIsOpen()) {
+                    if (getCell(i, j).getIsMine()) {
                         System.out.printf("%3s", "*");
                     } else {
-                        System.out.printf("%3d", mineField.get(i).get(j).getMinesAround());
+                        System.out.printf("%3d", getCell(i, j).getMinesAround());
                     }
                 } else System.out.printf("%3s", "x");
             }
@@ -83,8 +82,8 @@ public class Minesweeper {
 
     private void incValueInMineFieldCell(int i, int j) {
         if (i >= 0 && j >= 0 && i < mineField.size() && j < mineField.get(0).size() &&
-                !mineField.get(i).get(j).getIsMine()) {
-            mineField.get(i).get(j).setMinesAround(mineField.get(i).get(j).getMinesAround() + 1);
+                !getCell(i, j).getIsMine()) {
+            getCell(i, j).setMinesAround(getCell(i, j).getMinesAround() + 1);
         }
     }
 
@@ -101,7 +100,7 @@ public class Minesweeper {
 
     private void addCellToList(int i, int j) {
         if (i >= 0 && j >= 0 && i < mineField.size() && j < mineField.get(0).size()) {
-            if (mineField.get(i).get(j).getMinesAround() == 0) {
+            if (getCell(i, j).getMinesAround() == 0) {
                 cellCoordinate.add(new CellCoordinate(i, j));
             }
         }
@@ -123,12 +122,11 @@ public class Minesweeper {
     private void openFreeSpace() {
         //Цикл по списку пустых ячеек и изменение их значений на open
         // с последующим удалением ячейки из списка
-
         for (int k = 0; k < cellCoordinate.size(); ++k) {
-            if (!mineField.get(cellCoordinate.get(k).getI()).get(cellCoordinate.get(k).getJ()).getIsOpen()) {
+            if (!getCell(cellCoordinate.get(k).getI(), cellCoordinate.get(k).getJ()).getIsOpen()) {
                 findFreeCellsAroundIJCell(cellCoordinate.get(k));
             }
-            mineField.get(cellCoordinate.get(k).getI()).get(cellCoordinate.get(k).getJ()).setIsOpen(true);
+            getCell(cellCoordinate.get(k).getI(), cellCoordinate.get(k).getJ()).setIsOpen(true);
             cellCoordinate.remove(k);
             k = 0;
         }
@@ -139,7 +137,7 @@ public class Minesweeper {
         if (i < 0 || j < 0 || i >= mineField.size() || j >= mineField.get(0).size()) {
             return false;
         }
-        return mineField.get(i).get(j).getIsMine();
+        return getCell(i, j).getIsMine();
     }
 
     public void openCell(int iTurn, int jTurn) {
@@ -147,21 +145,21 @@ public class Minesweeper {
                 jTurn < 0 || jTurn >= mineField.get(0).size()) {
             return;
         }
-        if (mineField.get(iTurn).get(jTurn).getIsMine()) {
+        if (getCell(iTurn, jTurn).getIsMine()) {
             gameIsLost = true;
         }
-        if (mineField.get(iTurn).get(jTurn).getMinesAround() == 0) {
+        if (getCell(iTurn, jTurn).getMinesAround() == 0) {
             cellCoordinate.add(new CellCoordinate(iTurn, jTurn));
             findFreeCellsAroundIJCell(cellCoordinate.get(0));
             openFreeSpace();
         }
-        mineField.get(iTurn).get(jTurn).setIsOpen(true);
+        getCell(iTurn, jTurn).setIsOpen(true);
     }
 
     public void openAllCell() {
         for (int i = 0; i < mineField.size(); ++i) {
             for (int j = 0; j < mineField.get(0).size(); ++j) {
-                mineField.get(i).get(j).setIsOpen(true);
+                getCell(i, j).setIsOpen(true);
             }
         }
     }
@@ -169,7 +167,7 @@ public class Minesweeper {
     public boolean isAllCellsOpen() {
         for (int i = 0; i < mineField.size(); ++i) {
             for (int j = 0; j < mineField.get(0).size(); ++j) {
-                if (!mineField.get(i).get(j).getIsMine() && !mineField.get(i).get(j).getIsOpen()) {
+                if (!getCell(i, j).getIsMine() && !getCell(i, j).getIsOpen()) {
                     return false;
                 }
             }
@@ -187,6 +185,10 @@ public class Minesweeper {
 
     public int getColumns() {
         return columns;
+    }
+
+    public Cell getCell(int i, int j) {
+        return mineField.get(i).get(j);
     }
 
     public void setGameIsLost(boolean gameIsLost) {

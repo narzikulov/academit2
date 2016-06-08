@@ -89,7 +89,6 @@ public class MinesweeperText {
                 //System.out.println("You lose! It's mine.");
                 minesweeper.setGameIsLost(true);
                 minesweeper.openAllCell();
-
             }
 
             minesweeper.openCell(iTurn, jTurn);

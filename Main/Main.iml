@@ -17,5 +17,6 @@
     <orderEntry type="module" module-name="Temperature" />
     <orderEntry type="module" module-name="Minesweeper" />
     <orderEntry type="module" module-name="GenericsTask" />
+    <orderEntry type="module" module-name="InputOutput" />
   </component>
 </module>
