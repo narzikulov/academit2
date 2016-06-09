@@ -7,6 +7,8 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 /**
@@ -15,9 +17,8 @@ import java.util.ArrayList;
 public class MinesweeperGui {
     private JFrame minesweeperFrame = new JFrame("Minesweeper");
     private JMenuBar menuBar = new JMenuBar();
-    private JMenu fileMenu = new JMenu();
+    private JMenu fileMenu = new JMenu("File");
     private JPanel minesweeperPanel = new JPanel();
-    private JPanel minesweeperMenuPanel = new JPanel();
     private JTextField rows = new JTextField();
     int rowsValue;
     private JTextField columns = new JTextField();
@@ -66,23 +67,13 @@ public class MinesweeperGui {
 
             minesweeperFrame.setSize((int) cellSize.getWidth() * rowsValue,
                     (int) cellSize.getHeight() * columnsValue);
-
-            fileMenu.add(new JMenuItem("About"));
-            fileMenu.add(new JMenuItem("New game"));
-            fileMenu.add(new JMenuItem("High scores"));
-            fileMenu.add(new JMenuItem("Exit"));
-            menuBar.add(fileMenu);
-            menuBar.setSize((int) cellSize.getWidth() * rowsValue, 150);
-            minesweeperMenuPanel.add(menuBar);
-            minesweeperFrame.add(minesweeperMenuPanel);
-
             minesweeperPanel.setSize((int) cellSize.getWidth() * rowsValue, (int) cellSize.getHeight() * columnsValue);
             minesweeperPanel.setLayout(new GridLayout(rowsValue, columnsValue, 5, 5));
-
 
             //System.out.printf("rowsValue %d, columnsValue %d, numOfMinesValue %d", rowsValue, columnsValue, numOfMinesValue);
             minesweeper = new Minesweeper(rowsValue, columnsValue, numOfMinesValue);
 
+            createMenu();
             fillMineField();
 
             minesweeperFrame.setContentPane(minesweeperPanel);
@@ -99,6 +90,27 @@ public class MinesweeperGui {
                 mineFieldButtons.get(i).get(j).addActionListener(new ActionListenerForMineFieldButtons(i, j));
             }
         }
+    }
+
+    private void createMenu() {
+        JMenuItem aboutFileMenuItem = new JMenuItem("About");
+        aboutFileMenuItem.addActionListener(new ActionListenerMenuFileAbout());
+        fileMenu.add(aboutFileMenuItem);
+
+        JMenuItem newGameFileMenuItem = new JMenuItem("New game");
+        newGameFileMenuItem.addActionListener(new ActionListenerMenuFileNewGame());
+        fileMenu.add(newGameFileMenuItem);
+
+        JMenuItem highScoresFileMenuItem = new JMenuItem("High scores");
+        highScoresFileMenuItem.addActionListener(new ActionListenerMenuFileHighScores());
+        fileMenu.add(highScoresFileMenuItem);
+
+        JMenuItem exitFileMenuItem = new JMenuItem("Exit");
+        exitFileMenuItem.addActionListener(new ActionListenerMenuFileExit());
+        fileMenu.add(exitFileMenuItem);
+
+        menuBar.add(fileMenu);
+        minesweeperFrame.setJMenuBar(menuBar);
     }
 
     private void updateMineField() {
@@ -147,6 +159,40 @@ public class MinesweeperGui {
                 updateMineField();
             }
             //System.out.println(i + "; " + j);
+        }
+    }
+
+    private class ActionListenerMenuFileAbout implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JOptionPane.showMessageDialog(new JButton(), minesweeper.about(), "About", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    private class ActionListenerMenuFileNewGame implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    // Размер поля и кол-во строк и столбцов
+                    MinesweeperGui minesweeperField = new MinesweeperGui(200, 150);
+                    minesweeperField.setFrame();
+                }
+            });
+        }
+    }
+
+    private class ActionListenerMenuFileHighScores implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+        }
+    }
+
+    private class ActionListenerMenuFileExit implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.exit(1);
         }
     }
 }
