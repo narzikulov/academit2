@@ -7,8 +7,8 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 /**
@@ -88,6 +88,7 @@ public class MinesweeperGui {
                 mineFieldButtons.get(i).add(new GuiCell("", i, j));
                 minesweeperPanel.add(mineFieldButtons.get(i).get(j));
                 mineFieldButtons.get(i).get(j).addActionListener(new ActionListenerForMineFieldButtons(i, j));
+                mineFieldButtons.get(i).get(j).addMouseListener(new MouseListenerForMineFieldButtons(i, j));
             }
         }
     }
@@ -118,6 +119,9 @@ public class MinesweeperGui {
         for (int i = 0; i < rowsValue; ++i) {
             for (int j = 0; j < columnsValue; ++j) {
                 if (minesweeper.getCell(i, j).getIsOpen()) {
+                    if (minesweeper.getCell(i, j).getIsMineFound()) {
+                        mineFieldButtons.get(i).get(j).setText("M");
+                    }
                     if (minesweeper.getCell(i, j).getIsMine()) {
                         mineFieldButtons.get(i).get(j).setText("*");
                     }
@@ -139,6 +143,10 @@ public class MinesweeperGui {
         JOptionPane.showMessageDialog(new JButton(), "Game over! You lost!", "Game over", JOptionPane.WARNING_MESSAGE);
     }
 
+    private void gameIsWon() {
+        JOptionPane.showMessageDialog(new JButton(), "You won the game!", "You won the game!", JOptionPane.WARNING_MESSAGE);
+    }
+
     private class ActionListenerForMineFieldButtons implements ActionListener {
         private int i;
         private int j;
@@ -157,6 +165,9 @@ public class MinesweeperGui {
             } else {
                 minesweeper.openCell(i, j);
                 updateMineField();
+            }
+            if (minesweeper.gameIsWon()) {
+                gameIsWon();
             }
             //System.out.println(i + "; " + j);
         }
@@ -193,6 +204,63 @@ public class MinesweeperGui {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.exit(1);
+        }
+    }
+
+    private class MouseListenerForMineFieldButtons implements MouseListener {
+        private int i;
+        private int j;
+
+        public MouseListenerForMineFieldButtons(int i, int j) {
+            super();
+            this.i = i;
+            this.j = j;
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (e.getButton() == MouseEvent.BUTTON3) {
+                if (!minesweeper.getCell(i, j).getIsOpen()) {
+
+                    if (!minesweeper.getCell(i, j).getIsMineFound()) {
+                        minesweeper.getCell(i, j).setIsMineFound(true);
+                        mineFieldButtons.get(i).get(j).setText("M");
+                        updateMineField();
+                        if (minesweeper.gameIsWon()) {
+                            gameIsWon();
+                        }
+                        return;
+                    }
+
+                    if (minesweeper.getCell(i, j).getIsMineFound()) {
+                        minesweeper.getCell(i, j).setIsMineFound(false);
+                        mineFieldButtons.get(i).get(j).setText("");
+                        updateMineField();
+                    }
+                }
+                if (minesweeper.gameIsWon()) {
+                    gameIsWon();
+                }
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
         }
     }
 }

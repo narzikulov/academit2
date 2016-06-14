@@ -1,18 +1,18 @@
 package ru.academit.narzikulov;
 
-import javax.swing.*;
-
 /**
  * Created by tim on 24.05.2016.
  */
 public class Cell {
     private int minesAround;
     private boolean isMine;
+    private boolean isMineFound;
     private boolean isOpen;
 
     public Cell(int minesAround) {
         this.minesAround = minesAround;
         isMine = false;
+        isMineFound = false;
         isOpen = false;
     }
 
@@ -40,5 +40,13 @@ public class Cell {
         this.isOpen = isOpen;
     }
 
+    public void setIsMineFound(boolean isMineFound) {
+        isOpen = false;
+        this.isMineFound = isMineFound;
+    }
+
+    public boolean getIsMineFound() {
+        return isMineFound;
+    }
 }
 

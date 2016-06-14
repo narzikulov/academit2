@@ -3,7 +3,9 @@ package ru.academit.narzikulov.text;
 import ru.academit.narzikulov.Cell;
 import ru.academit.narzikulov.Minesweeper;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 /**
  * Created by tim on 18.05.2016.
