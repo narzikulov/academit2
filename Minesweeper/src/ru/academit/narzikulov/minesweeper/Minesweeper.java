@@ -140,10 +140,7 @@ public class Minesweeper {
     }
 
     public boolean isCellIsMine(int i, int j) {
-        if (i < 0 || j < 0 || i >= mineField.size() || j >= mineField.get(0).size()) {
-            return false;
-        }
-        return getCell(i, j).getIsMine();
+        return !(i < 0 || j < 0 || i >= mineField.size() || j >= mineField.get(0).size()) && getCell(i, j).getIsMine();
     }
 
     public boolean gameIsWon() {

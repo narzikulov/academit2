@@ -59,7 +59,7 @@ public class MinesweeperGui {
         okButton.addActionListener(new ActionListenerForButtonOK());
     }
 
-    public void startGame() {
+    public void showFrame() {
         minesweeperFrame.setVisible(true);
     }
 
@@ -193,7 +193,7 @@ public class MinesweeperGui {
         public void actionPerformed(ActionEvent e) {
             minesweeperFrame.dispose();
             MinesweeperGui minesweeperField = new MinesweeperGui(200, 150);
-            minesweeperField.startGame();
+            minesweeperField.showFrame();
         }
     }
 

@@ -9,7 +9,7 @@ public class Cell {
     private boolean isMineFound;
     private boolean isOpen;
 
-    public Cell(int minesAround) {
+    Cell(int minesAround) {
         this.minesAround = minesAround;
         isMine = false;
         isMineFound = false;
@@ -20,7 +20,7 @@ public class Cell {
         return minesAround;
     }
 
-    public void setMinesAround(int minesAround) {
+    void setMinesAround(int minesAround) {
         this.minesAround = minesAround;
     }
 
@@ -28,7 +28,7 @@ public class Cell {
         return isMine;
     }
 
-    public void setIsMine(boolean isMine) {
+    void setIsMine(boolean isMine) {
         this.isMine = isMine;
     }
 
@@ -36,7 +36,7 @@ public class Cell {
         return isOpen;
     }
 
-    public void setIsOpen(boolean isOpen) {
+    void setIsOpen(boolean isOpen) {
         this.isOpen = isOpen;
     }
 
