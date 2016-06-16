@@ -51,7 +51,7 @@ public class MinesweeperGui {
         minesweeperFrame.add(rows);
         columns.setBorder(new TitledBorder("Columns"));
         minesweeperFrame.add(columns);
-        numOfMines.setBorder(new TitledBorder("Mines"));
+        numOfMines.setBorder(new TitledBorder("Mines1"));
         minesweeperFrame.add(numOfMines);
         JButton okButton = new JButton("OK");
         minesweeperFrame.add(okButton);
@@ -59,7 +59,7 @@ public class MinesweeperGui {
         okButton.addActionListener(new ActionListenerForButtonOK());
     }
 
-    public void showFrame() {
+    public void startGame() {
         minesweeperFrame.setVisible(true);
     }
 
@@ -94,7 +94,8 @@ public class MinesweeperGui {
             for (int j = 0; j < columnsValue; ++j) {
                 mineFieldButtons.get(i).add(new GuiCell("", i, j));
                 minesweeperPanel.add(mineFieldButtons.get(i).get(j));
-                mineFieldButtons.get(i).get(j).addMouseListener(new MouseListenerForMineFieldButtons(i, j));
+                mineFieldButtons.get(i).get(j).addActionListener(new ActionListenerForMineFieldButtons(i, j));
+                mineFieldButtons.get(i).get(j).addMouseListener(new MouseAdapterForMineFieldButtons(i, j));
             }
         }
     }
@@ -153,59 +154,30 @@ public class MinesweeperGui {
         JOptionPane.showMessageDialog(new JButton(), "You won the game!", "You won the game!", JOptionPane.WARNING_MESSAGE);
     }
 
-    private class MouseListenerForMineFieldButtons extends MouseAdapter {
+    private class ActionListenerForMineFieldButtons implements ActionListener {
         private int i;
         private int j;
 
-        MouseListenerForMineFieldButtons(int i, int j) {
+        ActionListenerForMineFieldButtons(int i, int j) {
             this.i = i;
             this.j = j;
         }
 
         @Override
-        public void mouseClicked(MouseEvent e) {
-            if (e.getButton() == MouseEvent.BUTTON1) {
-                if (minesweeper.getCell(i, j).getIsMine()) {
-                    minesweeper.openAllCell();
-                    updateMineField();
-                    gameOver();
-                } else {
-                    minesweeper.openCell(i, j);
-                    updateMineField();
-                }
-                if (minesweeper.gameIsWon()) {
-                    gameIsWon();
-                }
-                //System.out.println(i + "; " + j);
+        public void actionPerformed(ActionEvent e) {
+            if (minesweeper.getCell(i, j).getIsMine()) {
+                minesweeper.openAllCell();
+                updateMineField();
+                gameOver();
+            } else {
+                minesweeper.openCell(i, j);
+                updateMineField();
             }
-            if (e.getButton() == MouseEvent.BUTTON3) {
-                if (minesweeper.getCell(i, j).getIsOpen()) {
-                    return;
-                }
-                if (!minesweeper.getCell(i, j).getIsMineFound()) {
-                    minesweeper.getCell(i, j).setIsMineFound(true);
-                    mineFieldButtons.get(i).get(j).setText("M");
-                    updateMineField();
-                    if (minesweeper.gameIsWon()) {
-                        gameIsWon();
-                    }
-                    return;
-                } else {
-                    minesweeper.getCell(i, j).setIsMineFound(false);
-                    mineFieldButtons.get(i).get(j).setText("");
-                    updateMineField();
-                }
-                if (minesweeper.gameIsWon()) {
-                    gameIsWon();
-                }
+            if (minesweeper.gameIsWon()) {
+                gameIsWon();
             }
+            //System.out.println(i + "; " + j);
         }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-            //mouseClicked(e);
-        }
-
     }
 
     private class ActionListenerMenuFileAbout implements ActionListener {
@@ -219,9 +191,13 @@ public class MinesweeperGui {
     private class ActionListenerMenuFileNewGame implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            minesweeperFrame.dispose();
-            MinesweeperGui minesweeperField = new MinesweeperGui(200, 150);
-            minesweeperField.showFrame();
+            //SwingUtilities.invokeLater(new Runnable() {
+            //    public void run() {
+                    // Размер поля и кол-во строк и столбцов
+                    MinesweeperGui minesweeperField = new MinesweeperGui(200, 150);
+                    minesweeperField.startGame();
+            //    }
+            //});
         }
     }
 
@@ -236,5 +212,47 @@ public class MinesweeperGui {
         public void actionPerformed(ActionEvent e) {
             System.exit(1);
         }
+    }
+
+    private class MouseAdapterForMineFieldButtons extends MouseAdapter {
+        private int i;
+        private int j;
+
+        MouseAdapterForMineFieldButtons(int i, int j) {
+            super();
+            this.i = i;
+            this.j = j;
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (e.getButton() == MouseEvent.BUTTON3) {
+                if (minesweeper.getCell(i, j).getIsOpen()) {
+                    return;
+                }
+                if (!minesweeper.getCell(i, j).getIsMineFound()) {
+                    minesweeper.getCell(i, j).setIsMineFound(true);
+                    mineFieldButtons.get(i).get(j).setText("M");
+                    updateMineField();
+                    if (minesweeper.gameIsWon()) {
+                        gameIsWon();
+                    }
+                    return;
+                } else  {
+                    minesweeper.getCell(i, j).setIsMineFound(false);
+                    mineFieldButtons.get(i).get(j).setText("");
+                    updateMineField();
+                }
+                if (minesweeper.gameIsWon()) {
+                    gameIsWon();
+                }
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
     }
 }

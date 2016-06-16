@@ -5,12 +5,12 @@ import javax.swing.*;
 /**
  * Created by tim on 08.06.2016.
  */
-class GuiCell extends JButton {
+public class GuiCell extends JButton {
     //В ячейке минного поля хранятся координаты
     private int i;
     private int j;
 
-    GuiCell(String str, int i, int j) {
+    public GuiCell(String str, int i, int j) {
         super(str);
         this.i = i;
         this.j = j;
