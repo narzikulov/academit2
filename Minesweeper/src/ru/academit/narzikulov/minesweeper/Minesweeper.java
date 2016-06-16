@@ -64,9 +64,12 @@ public class Minesweeper {
         }
     }
 
+    private boolean indexesAreNotOutOfBounds(int i, int j) {
+        return i >= 0 && j >= 0 && i < mineField.size() && j < mineField.get(0).size();
+    }
+
     private void incValueInMineFieldCell(int i, int j) {
-        if (i >= 0 && j >= 0 && i < mineField.size() && j < mineField.get(0).size() &&
-                !getCell(i, j).getIsMine()) {
+        if (indexesAreNotOutOfBounds(i, j) && !getCell(i, j).getIsMine()) {
             getCell(i, j).setMinesAround(getCell(i, j).getMinesAround() + 1);
         }
     }
@@ -83,7 +86,7 @@ public class Minesweeper {
     }
 
     private void addCellToList(int i, int j) {
-        if (i >= 0 && j >= 0 && i < mineField.size() && j < mineField.get(0).size()) {
+        if (indexesAreNotOutOfBounds(i, j)) {
             if (getCell(i, j).getMinesAround() == 0 && !getCell(i, j).getIsMineFound()) {
                 cellCoordinate.add(new CellCoordinate(i, j));
             }
@@ -104,7 +107,7 @@ public class Minesweeper {
     }
 
     private void openOneCellAround(int i, int j) {
-        if (i >= 0 && j >= 0 && i < mineField.size() && j < mineField.get(0).size()) {
+        if (indexesAreNotOutOfBounds(i, j)) {
             if (!getCell(i, j).getIsMine() && getCell(i, j).getMinesAround() != 0) {
                 getCell(i, j).setIsOpen(true);
             }
@@ -140,17 +143,17 @@ public class Minesweeper {
     }
 
     public boolean isCellIsMine(int i, int j) {
-        if (i < 0 || j < 0 || i >= mineField.size() || j >= mineField.get(0).size()) {
-            return false;
-        }
-        return getCell(i, j).getIsMine();
+        return !(i < 0 || j < 0 || i >= mineField.size() || j >= mineField.get(0).size()) && getCell(i, j).getIsMine();
     }
 
     public boolean gameIsWon() {
+        if (gameIsLost) {
+            return false;
+        }
         for (int i = 0; i < mineField.size(); ++i) {
             for (int j = 0; j < mineField.get(0).size(); ++j) {
-                if (!getCell(i, j).getIsMine() && !getCell(i, j).getIsOpen()
-                        || getCell(i, j).getIsMine() && !getCell(i, j).getIsMineFound()) {
+                if (!getCell(i, j).getIsMine() && !getCell(i, j).getIsOpen())
+                        /*|| getCell(i, j).getIsMine() && !getCell(i, j).getIsMineFound())*/{
                     return false;
                 }
             }

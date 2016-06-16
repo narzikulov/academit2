@@ -148,12 +148,12 @@ public class MinesweeperGui {
         }
     }
 
-    private void gameOver() {
-        JOptionPane.showMessageDialog(new JButton(), "Game over! You lost!", "Game over", JOptionPane.WARNING_MESSAGE);
+    private void showGameOver() {
+        JOptionPane.showMessageDialog(new JFrame(), "Game over! You lost!", "Game over", JOptionPane.WARNING_MESSAGE);
     }
 
-    private void gameIsWon() {
-        JOptionPane.showMessageDialog(new JButton(), "You won the game!", "You won the game!", JOptionPane.WARNING_MESSAGE);
+    private void showGameIsWon() {
+        JOptionPane.showMessageDialog(new JFrame(), "You won the game!", "You won the game!", JOptionPane.WARNING_MESSAGE);
     }
 
     private class MouseListenerForMineFieldButtons extends MouseAdapter {
@@ -176,6 +176,9 @@ public class MinesweeperGui {
 
         @Override
         public void mousePressed(MouseEvent e) {
+            if (minesweeper.getCell(i, j).getIsOpen() || minesweeper.getCell(i, j).getIsMineFound()) {
+                return;
+            }
             if (e.getButton() == MouseEvent.BUTTON1) {
                 if (minesweeper.getCell(i, j).getIsMineFound()) {
                     return;
@@ -183,15 +186,14 @@ public class MinesweeperGui {
                 if (minesweeper.getCell(i, j).getIsMine()) {
                     minesweeper.openAllCell();
                     updateMineField();
-                    gameOver();
+                    showGameOver();
                 } else {
                     minesweeper.openCell(i, j);
                     updateMineField();
                 }
                 if (minesweeper.gameIsWon()) {
-                    gameIsWon();
+                    showGameIsWon();
                 }
-                //System.out.println(i + "; " + j);
             }
             if (e.getButton() == MouseEvent.BUTTON3) {
                 if (minesweeper.getCell(i, j).getIsOpen()) {
@@ -202,7 +204,7 @@ public class MinesweeperGui {
                     mineFieldButtons.get(i).get(j).setText("M");
                     updateMineField();
                     if (minesweeper.gameIsWon()) {
-                        gameIsWon();
+                        showGameIsWon();
                     }
                     return;
                 } else {
@@ -211,7 +213,7 @@ public class MinesweeperGui {
                     updateMineField();
                 }
                 if (minesweeper.gameIsWon()) {
-                    gameIsWon();
+                    showGameIsWon();
                 }
             }
 
