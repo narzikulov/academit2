@@ -167,7 +167,19 @@ public class MinesweeperGui {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            //mouseClicked(e);
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
             if (e.getButton() == MouseEvent.BUTTON1) {
+                if (minesweeper.getCell(i, j).getIsMineFound()) {
+                    return;
+                }
                 if (minesweeper.getCell(i, j).getIsMine()) {
                     minesweeper.openAllCell();
                     updateMineField();
@@ -202,11 +214,7 @@ public class MinesweeperGui {
                     gameIsWon();
                 }
             }
-        }
 
-        @Override
-        public void mouseReleased(MouseEvent e) {
-            //mouseClicked(e);
         }
 
     }
