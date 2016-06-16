@@ -13,7 +13,7 @@ public class MinesweeperMain {
             public void run() {
                 // Размер поля и кол-во строк и столбцов
                 MinesweeperGui minesweeperField = new MinesweeperGui(200, 150);
-                minesweeperField.showFrame();
+                minesweeperField.startGame();
             }
         });
 

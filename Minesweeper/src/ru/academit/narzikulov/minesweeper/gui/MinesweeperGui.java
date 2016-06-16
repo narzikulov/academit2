@@ -5,7 +5,10 @@ import ru.academit.narzikulov.minesweeper.Minesweeper;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 /**
@@ -51,7 +54,7 @@ public class MinesweeperGui {
         minesweeperFrame.add(rows);
         columns.setBorder(new TitledBorder("Columns"));
         minesweeperFrame.add(columns);
-        numOfMines.setBorder(new TitledBorder("Mines1"));
+        numOfMines.setBorder(new TitledBorder("Mines"));
         minesweeperFrame.add(numOfMines);
         JButton okButton = new JButton("OK");
         minesweeperFrame.add(okButton);
