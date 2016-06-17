@@ -150,10 +150,12 @@ public class Minesweeper {
         if (gameIsLost) {
             return false;
         }
+        if (!isAllCellsOpen()) {
+            return false;
+        }
         for (int i = 0; i < mineField.size(); ++i) {
             for (int j = 0; j < mineField.get(0).size(); ++j) {
-                if (!getCell(i, j).getIsMine() && !getCell(i, j).getIsOpen())
-                        /*|| getCell(i, j).getIsMine() && !getCell(i, j).getIsMineFound())*/{
+                if (getCell(i, j).getIsMine() && getCell(i, j).getIsOpen()) {
                     return false;
                 }
             }
