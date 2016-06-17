@@ -8,12 +8,14 @@ public class Cell {
     private boolean isMine;
     private boolean isMineFound;
     private boolean isOpen;
+    private boolean underQuestion;
 
     public Cell(int minesAround) {
         this.minesAround = minesAround;
         isMine = false;
         isMineFound = false;
         isOpen = false;
+        underQuestion = false;
     }
 
     public int getMinesAround() {
@@ -47,6 +49,14 @@ public class Cell {
 
     public boolean getIsMineFound() {
         return isMineFound;
+    }
+
+    public void setUnderQuestion(boolean underQuestion) {
+        this.underQuestion = underQuestion;
+    }
+
+    public boolean getUnderQuestion() {
+        return underQuestion;
     }
 }
 

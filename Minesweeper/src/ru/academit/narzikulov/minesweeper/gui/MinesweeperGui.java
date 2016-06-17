@@ -195,6 +195,17 @@ public class MinesweeperGui {
                     showGameIsWon();
                 }
             }
+
+            if (e.getButton() == MouseEvent.BUTTON2) {
+                if (!minesweeper.getCell(i, j).getUnderQuestion()) {
+                    minesweeper.getCell(i, j).setUnderQuestion(true);
+                    mineFieldButtons.get(i).get(j).setText("?");
+                } else {
+                    minesweeper.getCell(i, j).setUnderQuestion(false);
+                    mineFieldButtons.get(i).get(j).setText("");
+                }
+            }
+
             if (e.getButton() == MouseEvent.BUTTON3) {
                 if (minesweeper.getCell(i, j).getIsOpen()) {
                     return;
@@ -202,7 +213,7 @@ public class MinesweeperGui {
                 if (!minesweeper.getCell(i, j).getIsMineFound()) {
                     minesweeper.getCell(i, j).setIsMineFound(true);
                     mineFieldButtons.get(i).get(j).setText("M");
-                    updateMineField();
+                    //updateMineField();
                     if (minesweeper.gameIsWon()) {
                         showGameIsWon();
                     }
@@ -210,7 +221,7 @@ public class MinesweeperGui {
                 } else {
                     minesweeper.getCell(i, j).setIsMineFound(false);
                     mineFieldButtons.get(i).get(j).setText("");
-                    updateMineField();
+                    //updateMineField();
                 }
                 if (minesweeper.gameIsWon()) {
                     showGameIsWon();
