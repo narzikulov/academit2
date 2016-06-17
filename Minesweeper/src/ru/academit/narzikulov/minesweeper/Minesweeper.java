@@ -16,6 +16,7 @@ public class Minesweeper {
     private ArrayList<ArrayList<Cell>> mineField = new ArrayList<>();
     private ArrayList<CellCoordinate> cellCoordinate = new ArrayList<>();
     private boolean gameIsLost = false;
+    private boolean gameIsWon = false;
 
     public Minesweeper(int rows, int columns, int mines) {
         this.rows = rows;
@@ -148,7 +149,7 @@ public class Minesweeper {
 
     public boolean gameIsWon() {
         if (gameIsLost) {
-            return false;
+            return gameIsWon = false;
         }
         if (!isAllCellsOpen()) {
             return false;
@@ -160,7 +161,7 @@ public class Minesweeper {
                 }
             }
         }
-        return true;
+        return gameIsWon = true;
     }
 
     public void openCell(int iTurn, int jTurn) {
@@ -223,6 +224,10 @@ public class Minesweeper {
 
     public boolean getGameIsLost() {
         return this.gameIsLost;
+    }
+
+    public boolean getGameIsWon() {
+        return gameIsWon;
     }
 
     public String about() {

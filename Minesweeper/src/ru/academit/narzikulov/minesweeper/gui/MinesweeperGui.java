@@ -176,9 +176,14 @@ public class MinesweeperGui {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            if (minesweeper.getCell(i, j).getIsOpen() || minesweeper.getCell(i, j).getIsMineFound()) {
+            if (minesweeper.getCell(i, j).getIsOpen()) {
                 return;
             }
+
+            if (minesweeper.getGameIsWon()) {
+                return;
+            }
+
             if (e.getButton() == MouseEvent.BUTTON1) {
                 if (minesweeper.getCell(i, j).getIsMineFound()) {
                     return;
@@ -190,9 +195,6 @@ public class MinesweeperGui {
                 } else {
                     minesweeper.openCell(i, j);
                     updateMineField();
-                }
-                if (minesweeper.gameIsWon()) {
-                    showGameIsWon();
                 }
             }
 
@@ -207,27 +209,20 @@ public class MinesweeperGui {
             }
 
             if (e.getButton() == MouseEvent.BUTTON3) {
-                if (minesweeper.getCell(i, j).getIsOpen()) {
-                    return;
-                }
                 if (!minesweeper.getCell(i, j).getIsMineFound()) {
                     minesweeper.getCell(i, j).setIsMineFound(true);
                     mineFieldButtons.get(i).get(j).setText("M");
-                    //updateMineField();
-                    if (minesweeper.gameIsWon()) {
-                        showGameIsWon();
-                    }
-                    return;
+                    System.out.println(minesweeper.getCell(i, j).getIsMine());
                 } else {
                     minesweeper.getCell(i, j).setIsMineFound(false);
                     mineFieldButtons.get(i).get(j).setText("");
-                    //updateMineField();
-                }
-                if (minesweeper.gameIsWon()) {
-                    showGameIsWon();
+                    System.out.println(minesweeper.getCell(i, j).getIsMine());
                 }
             }
 
+            if (minesweeper.gameIsWon()) {
+                showGameIsWon();
+            }
         }
 
     }

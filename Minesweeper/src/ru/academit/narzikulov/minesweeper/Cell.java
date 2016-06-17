@@ -43,7 +43,6 @@ public class Cell {
     }
 
     public void setIsMineFound(boolean isMineFound) {
-        isOpen = false;
         this.isMineFound = isMineFound;
     }
 
