@@ -144,12 +144,13 @@ public class Minesweeper {
     }
 
     public boolean isCellIsMine(int i, int j) {
-        return !(i < 0 || j < 0 || i >= mineField.size() || j >= mineField.get(0).size()) && getCell(i, j).getIsMine();
+        return !(indexesAreNotOutOfBounds(i, j) && getCell(i, j).getIsMine());
     }
 
     public boolean gameIsWon() {
         if (gameIsLost) {
-            return gameIsWon = false;
+            gameIsWon = false;
+            return false;
         }
         if (!isAllCellsOpen()) {
             return false;
@@ -161,7 +162,8 @@ public class Minesweeper {
                 }
             }
         }
-        return gameIsWon = true;
+        gameIsWon = true;
+        return true;
     }
 
     public void openCell(int iTurn, int jTurn) {
@@ -231,6 +233,8 @@ public class Minesweeper {
     }
 
     public String about() {
-        return "Winesweeper v. 1.0\n";
+        String about1 = "Winesweeper v. 1.0";
+        String about2 = "https://github.com/narzikulov/academit2/tree/master/Minesweeper";
+        return String.format("[ %s%n%s ]", about1, about2);
     }
 }

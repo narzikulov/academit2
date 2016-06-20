@@ -15,6 +15,8 @@ import java.util.ArrayList;
  * Created by tim on 18.05.2016.
  */
 public class MinesweeperGui {
+    private JFrame initialFrame = new JFrame("Minesweeper");
+
     private JFrame minesweeperFrame = new JFrame("Minesweeper");
     private JPanel minesweeperPanel = new JPanel();
     private JMenuBar menuBar = new JMenuBar();
@@ -22,7 +24,7 @@ public class MinesweeperGui {
 
     private JTextField rows = new JTextField();
     private JTextField columns = new JTextField();
-    private JTextField numOfMines = new JTextField();
+    private JTextField minesNum = new JTextField();
 
     private int rowsValue;
     private int columnsValue;
@@ -36,42 +38,45 @@ public class MinesweeperGui {
 
 
     public MinesweeperGui(int x, int y) {
-        minesweeperFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        initialFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        minesweeperFrame.setLocation((int) screenSize.getWidth() / 2 - x, (int) screenSize.getHeight() / 3 - y);
-        minesweeperFrame.setMinimumSize(new Dimension(x, y));
-        minesweeperFrame.setSize(x, y);
+        initialFrame.setLocation((int) screenSize.getWidth() / 2 - x, (int) screenSize.getHeight() / 3 - y);
+        initialFrame.setMinimumSize(new Dimension(x, y));
+        initialFrame.setSize(x, y);
         cellSize.height = 50;
         cellSize.width = 50;
 
         //Значения по умолчанию
         rows.setText(Integer.toString(Minesweeper.ROWS));
         columns.setText(Integer.toString(Minesweeper.COLUMNS));
-        numOfMines.setText(Integer.toString(Minesweeper.MINES));
+        minesNum.setText(Integer.toString(Minesweeper.MINES));
 
-        minesweeperFrame.setLayout(new GridLayout(2, 2));
+        initialFrame.setLayout(new GridLayout(2, 2));
         rows.setBorder(new TitledBorder("Rows"));
-        minesweeperFrame.add(rows);
+        initialFrame.add(rows);
         columns.setBorder(new TitledBorder("Columns"));
-        minesweeperFrame.add(columns);
-        numOfMines.setBorder(new TitledBorder("Mines"));
-        minesweeperFrame.add(numOfMines);
+        initialFrame.add(columns);
+        minesNum.setBorder(new TitledBorder("Mines"));
+        initialFrame.add(minesNum);
         JButton okButton = new JButton("OK");
-        minesweeperFrame.add(okButton);
+        initialFrame.add(okButton);
 
         okButton.addActionListener(new ActionListenerForButtonOK());
     }
 
-    public void showFrame() {
-        minesweeperFrame.setVisible(true);
+    public void showInitialFrame() {
+        initialFrame.setVisible(true);
     }
 
     private class ActionListenerForButtonOK implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            initialFrame.dispose();
+            minesweeperFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
             rowsValue = Integer.valueOf(rows.getText());
             columnsValue = Integer.valueOf(columns.getText());
-            int numOfMinesValue = Integer.valueOf(numOfMines.getText());
+            int numOfMinesValue = Integer.valueOf(minesNum.getText());
 
             int x = (int) cellSize.getWidth() * rowsValue;
             int y = (int) cellSize.getHeight() * columnsValue;
@@ -87,6 +92,7 @@ public class MinesweeperGui {
             fillMineField();
 
             minesweeperFrame.setContentPane(minesweeperPanel);
+            minesweeperFrame.setVisible(true);
         }
     }
 
@@ -103,10 +109,6 @@ public class MinesweeperGui {
     }
 
     private void createMenu() {
-        JMenuItem aboutFileMenuItem = new JMenuItem("About");
-        aboutFileMenuItem.addActionListener(new ActionListenerMenuFileAbout());
-        fileMenu.add(aboutFileMenuItem);
-
         JMenuItem newGameFileMenuItem = new JMenuItem("New game");
         newGameFileMenuItem.addActionListener(new ActionListenerMenuFileNewGame());
         fileMenu.add(newGameFileMenuItem);
@@ -114,6 +116,10 @@ public class MinesweeperGui {
         JMenuItem highScoresFileMenuItem = new JMenuItem("High scores");
         highScoresFileMenuItem.addActionListener(new ActionListenerMenuFileHighScores());
         fileMenu.add(highScoresFileMenuItem);
+
+        JMenuItem aboutFileMenuItem = new JMenuItem("About");
+        aboutFileMenuItem.addActionListener(new ActionListenerMenuFileAbout());
+        fileMenu.add(aboutFileMenuItem);
 
         JMenuItem exitFileMenuItem = new JMenuItem("Exit");
         exitFileMenuItem.addActionListener(new ActionListenerMenuFileExit());
@@ -127,23 +133,24 @@ public class MinesweeperGui {
         //Обновление кнопок игрового поля
         for (int i = 0; i < rowsValue; ++i) {
             for (int j = 0; j < columnsValue; ++j) {
-                if (minesweeper.getCell(i, j).getIsOpen()) {
-                    if (minesweeper.getCell(i, j).getIsMineFound()) {
-                        mineFieldButtons.get(i).get(j).setText("M");
-                    }
-                    if (minesweeper.getCell(i, j).getIsMine()) {
-                        mineFieldButtons.get(i).get(j).setText("*");
-                    }
-                    if (!minesweeper.getCell(i, j).getIsMine()) {
-                        int mines = minesweeper.getCell(i, j).getMinesAround();
-                        if (mines == 0) {
-                            mineFieldButtons.get(i).get(j).setVisible(false);
-                        } else {
-                            String numOfmines = Integer.toString(minesweeper.getCell(i, j).getMinesAround());
-                            mineFieldButtons.get(i).get(j).setText(numOfmines);
-                        }
+                if (!minesweeper.getCell(i, j).getIsOpen()) {
+                    continue;
+                }
+                if (minesweeper.getCell(i, j).getIsMineFound()) {
+                    mineFieldButtons.get(i).get(j).setText("M");
+                }
+                if (minesweeper.getCell(i, j).getIsMine()) {
+                    mineFieldButtons.get(i).get(j).setText("*");
+                } else {
+                    int mines = minesweeper.getCell(i, j).getMinesAround();
+                    if (mines == 0) {
+                        mineFieldButtons.get(i).get(j).setVisible(false);
+                    } else {
+                        String numOfmines = Integer.toString(minesweeper.getCell(i, j).getMinesAround());
+                        mineFieldButtons.get(i).get(j).setText(numOfmines);
                     }
                 }
+
             }
         }
     }
@@ -163,15 +170,6 @@ public class MinesweeperGui {
         MouseListenerForMineFieldButtons(int i, int j) {
             this.i = i;
             this.j = j;
-        }
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-            //mouseClicked(e);
         }
 
         @Override
@@ -216,7 +214,6 @@ public class MinesweeperGui {
                 } else {
                     minesweeper.getCell(i, j).setIsMineFound(false);
                     mineFieldButtons.get(i).get(j).setText("");
-                    System.out.println(minesweeper.getCell(i, j).getIsMine());
                 }
             }
 
@@ -240,7 +237,7 @@ public class MinesweeperGui {
         public void actionPerformed(ActionEvent e) {
             minesweeperFrame.dispose();
             MinesweeperGui minesweeperField = new MinesweeperGui(200, 150);
-            minesweeperField.showFrame();
+            minesweeperField.showInitialFrame();
         }
     }
 
