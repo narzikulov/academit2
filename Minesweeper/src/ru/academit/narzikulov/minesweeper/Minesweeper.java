@@ -1,7 +1,11 @@
 package ru.academit.narzikulov.minesweeper;
 
+import ru.academit.narzikulov.minesweeper.text.Winner;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * Created by tim on 18.05.2016.
@@ -17,6 +21,13 @@ public class Minesweeper {
     private ArrayList<CellCoordinate> cellCoordinate = new ArrayList<>();
     private boolean gameIsLost = false;
     private boolean gameIsWon = false;
+
+    private boolean isGameStarted;
+    private long scoresTime;
+    public final static String HIGH_SCORES_FILE_NAME = "hs.txt";
+    private String playerName;
+
+    //private ArrayList<Winner> highScoresTable;
 
     public Minesweeper(int rows, int columns, int mines) {
         this.rows = rows;
@@ -36,8 +47,6 @@ public class Minesweeper {
             }
         }
         setMines();
-        //findAndMarkAllFreeSpaces();
-        //printMineField();
     }
 
     public Minesweeper() {
@@ -163,10 +172,79 @@ public class Minesweeper {
             }
         }
         gameIsWon = true;
+        scoresTime = System.currentTimeMillis() - scoresTime;
         return true;
     }
 
+    public void setPlayerName(String playerName) throws IOException {
+        this.playerName = playerName;
+        highScoresFileWriter();
+    }
+
+    public String highScoresTableToString() {
+        StringBuilder scoresTable = new StringBuilder();
+        try (Scanner highScoresFile = new Scanner(new FileInputStream(HIGH_SCORES_FILE_NAME))) {
+            while (highScoresFile.hasNextLine()) {
+                String[] str = highScoresFile.nextLine().split(":");
+                int record = Integer.valueOf(str[0]);
+                String name = str[1];
+                scoresTable.append(String.format("%6d %s %n", record, name));
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return scoresTable.toString();
+    }
+
+    private void addWinnerToHighScoresTable(ArrayList<Winner> highScoresTable, Winner winner) {
+        //TODO дописать метод сортировки списка победителей
+        int index = -1;
+        for (int i = 0; i < highScoresTable.size(); ++i) {
+            if (winner.getRecord() <= highScoresTable.get(i).getRecord()) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index == -1) {
+            highScoresTable.add(winner);
+            return;
+        }
+
+        highScoresTable.add(index, winner);
+    }
+
+    private void highScoresFileWriter() throws IOException {
+        ArrayList<Winner> highScoresTable = new ArrayList<>();
+        try (Scanner highScoresFile = new Scanner(new FileInputStream(HIGH_SCORES_FILE_NAME))) {
+            while (highScoresFile.hasNextLine()) {
+                String[] str = highScoresFile.nextLine().split(" ");
+                int record = Integer.valueOf(str[0]);
+                String name = str[1];
+                highScoresTable.add(new Winner(record, name));
+            }
+        } catch (IOException ignored) {
+        }
+
+        if (playerName == null) {
+            return;
+        }
+
+        Winner winner = new Winner((int) (scoresTime / 1000), playerName);
+        addWinnerToHighScoresTable(highScoresTable, winner);
+
+        try (PrintWriter highScoresFile = new PrintWriter(new FileWriter(HIGH_SCORES_FILE_NAME))) {
+            for (Winner aHighScoresTable : highScoresTable) {
+                highScoresFile.println(aHighScoresTable.toString());
+            }
+        }
+    }
+
     public void openCell(int iTurn, int jTurn) {
+        if (!isGameStarted) {
+            scoresTime = System.currentTimeMillis();
+        }
+        isGameStarted = true;
         if (iTurn < 0 || iTurn >= mineField.size() ||
                 jTurn < 0 || jTurn >= mineField.get(0).size()) {
             return;
