@@ -4,12 +4,11 @@ import ru.academit.narzikulov.minesweeper.Minesweeper;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import static javax.swing.KeyStroke.*;
 
 /**
  * Created by tim on 21.06.2016.
@@ -37,6 +36,7 @@ public class MineFieldFrame {
         int x = (int) CELL_SIZE_X * rowsValue;
         int y = (int) CELL_SIZE_Y * columnsValue;
 
+        minesweeperFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         minesweeperFrame.setMinimumSize(new Dimension(x, y));
         minesweeperFrame.setLocation((int) (screenSize.getWidth() - x) / 2, (int) (screenSize.getHeight() - y) / 2);
         minesweeperPanel.setSize((int) CELL_SIZE_X * rowsValue, (int) CELL_SIZE_Y * columnsValue);
@@ -66,19 +66,19 @@ public class MineFieldFrame {
     }
 
     private void createMenu() {
-        JMenuItem newGameFileMenuItem = new JMenuItem("New game");
+        JMenuItem newGameFileMenuItem = new JMenuItem(String.format("%-20s %20s","New game","n"), KeyEvent.VK_N);
         newGameFileMenuItem.addActionListener(new ActionListenerMenuFileNewGame());
         fileMenu.add(newGameFileMenuItem);
 
-        JMenuItem highScoresFileMenuItem = new JMenuItem("High scores");
+        JMenuItem highScoresFileMenuItem = new JMenuItem(String.format("%-20s %20s", "High scores", "s"), KeyEvent.VK_S);
         highScoresFileMenuItem.addActionListener(new ActionListenerMenuFileHighScores());
         fileMenu.add(highScoresFileMenuItem);
 
-        JMenuItem aboutFileMenuItem = new JMenuItem("About");
+        JMenuItem aboutFileMenuItem = new JMenuItem(String.format("%-26s %20s", "About", "a"), KeyEvent.VK_A);
         aboutFileMenuItem.addActionListener(new ActionListenerMenuFileAbout());
         fileMenu.add(aboutFileMenuItem);
 
-        JMenuItem exitFileMenuItem = new JMenuItem("Exit");
+        JMenuItem exitFileMenuItem = new JMenuItem(String.format("%-29s %20s", "Exit", "e"), KeyEvent.VK_ALT + KeyEvent.VK_E);
         exitFileMenuItem.addActionListener(new ActionListenerMenuFileExit());
         fileMenu.add(exitFileMenuItem);
 
@@ -216,7 +216,7 @@ public class MineFieldFrame {
     private class ActionListenerMenuFileExit implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.exit(1);
+            System.exit(0);
         }
     }
 }

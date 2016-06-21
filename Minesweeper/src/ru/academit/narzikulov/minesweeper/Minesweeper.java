@@ -190,8 +190,8 @@ public class Minesweeper {
                 String name = str[1];
                 scoresTable.append(String.format("%6d %s %n", record, name));
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        } catch (FileNotFoundException ignored) {
+            //e.printStackTrace();
         }
         return scoresTable.toString();
     }
@@ -218,7 +218,7 @@ public class Minesweeper {
         ArrayList<Winner> highScoresTable = new ArrayList<>();
         try (Scanner highScoresFile = new Scanner(new FileInputStream(HIGH_SCORES_FILE_NAME))) {
             while (highScoresFile.hasNextLine()) {
-                String[] str = highScoresFile.nextLine().split(" ");
+                String[] str = highScoresFile.nextLine().split(":");
                 int record = Integer.valueOf(str[0]);
                 String name = str[1];
                 highScoresTable.add(new Winner(record, name));
