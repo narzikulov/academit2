@@ -66,7 +66,7 @@ public class MineFieldFrame {
     }
 
     private void createMenu() {
-        JMenuItem newGameFileMenuItem = new JMenuItem(String.format("%-20s %20s","New game","n"), KeyEvent.VK_N);
+        JMenuItem newGameFileMenuItem = new JMenuItem(String.format("%-20s %20s", "New game", "n"), KeyEvent.VK_N);
         newGameFileMenuItem.addActionListener(new ActionListenerMenuFileNewGame());
         fileMenu.add(newGameFileMenuItem);
 
@@ -78,7 +78,7 @@ public class MineFieldFrame {
         aboutFileMenuItem.addActionListener(new ActionListenerMenuFileAbout());
         fileMenu.add(aboutFileMenuItem);
 
-        JMenuItem exitFileMenuItem = new JMenuItem(String.format("%-29s %20s", "Exit", "e"), KeyEvent.VK_ALT + KeyEvent.VK_E);
+        JMenuItem exitFileMenuItem = new JMenuItem(String.format("%-29s %20s", "Exit", "e"), KeyEvent.VK_E);
         exitFileMenuItem.addActionListener(new ActionListenerMenuFileExit());
         fileMenu.add(exitFileMenuItem);
 
