@@ -181,13 +181,10 @@ public class Minesweeper {
         }
 
         if (getCell(i, j).getIsOpen() && numberFoundedMinesAroundCell(i, j) == getCell(i, j).getMinesAround()) {
-            System.out.println("Number founded mines around this cell: " + numberFoundedMinesAroundCell(i, j));
-            System.out.println("isAllFoundedMinesAreRealyMines: " + isAllFoundedMinesAreRealyMines(i, j));
             if (!isAllFoundedMinesAreRealyMines(i, j)) {
                 gameIsLost = true;
                 return;
             }
-            //TODO доделать метод открытия всех ячеек вокруг, если помечена неверная ячейка
             openCell(i - 1, j);
             openCell(i - 1, j - 1);
             openCell(i - 1, j + 1);
@@ -259,7 +256,6 @@ public class Minesweeper {
     }
 
     private void addWinnerToHighScoresTable(ArrayList<Winner> highScoresTable, Winner winner) {
-        //TODO дописать метод сортировки списка победителей
         int index = -1;
         for (int i = 0; i < highScoresTable.size(); ++i) {
             if (winner.getRecord() <= highScoresTable.get(i).getRecord()) {

@@ -140,7 +140,6 @@ public class MineFieldFrame {
             }
 
             if (e.getButton() == MouseEvent.BUTTON1) {
-                System.out.println("Button1 i = " + i + ", j = " + j);
                 if (minesweeper.getCell(i, j).getIsOpen()) {
                     return;
                 }
@@ -159,10 +158,10 @@ public class MineFieldFrame {
             }
 
             if (e.getButton() == MouseEvent.BUTTON2) {
-                System.out.println("Button2 i = " + i + ", j = " + j);
                 minesweeper.openCellsAroundForOpenedCell(i, j);
                 if (minesweeper.getGameIsLost()) {
                     minesweeper.openAllCell();
+                    updateMineField();
                     showGameOver();
                 } else {
                     updateMineField();
