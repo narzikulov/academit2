@@ -39,7 +39,6 @@ public class Minesweeper {
             this.mines = (rows - 1) * (columns - 1);
         }
 
-        //Заполнение ячеек игрового поля нулями
         for (int i = 0; i < rows; ++i) {
             mineField.add(new ArrayList<Cell>());
             for (int j = 0; j < columns; ++j) {
@@ -51,6 +50,16 @@ public class Minesweeper {
 
     public Minesweeper() {
         this(ROWS, COLUMNS, MINES);
+    }
+
+    //Заполнение ячеек игрового поля нулями
+    private void makeEmptyMineField() {
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < columns; ++j) {
+                mineField.get(i).get(j).setMinesAround(0);
+                mineField.get(i).get(j).setIsMine(false);
+            }
+        }
     }
 
     //Расстановка мин на поле методом вычисления рандомного индекса в двумерном списке
@@ -118,7 +127,7 @@ public class Minesweeper {
 
     private void openOneCellAround(int i, int j) {
         if (indexesAreNotOutOfBounds(i, j)) {
-            if (!getCell(i, j).getIsMine() && getCell(i, j).getMinesAround() != 0) {
+            if (!getCell(i, j).getIsMine() && getCell(i, j).getMinesAround() != 0 && !getCell(i, j).getIsMineFound()) {
                 getCell(i, j).setIsOpen(true);
             }
         }
@@ -135,6 +144,59 @@ public class Minesweeper {
         openOneCellAround(i + 1, j - 1);
         openOneCellAround(i + 1, j);
         openOneCellAround(i + 1, j + 1);
+    }
+
+    private int numberFoundedMinesAroundCell(int i, int j) {
+        int numberFoundedMines = 0;
+        for (int x = i - 1; x <= i + 1; ++x) {
+            for (int y = j - 1; y <= j + 1; ++y) {
+                if (!indexesAreNotOutOfBounds(x, y)) {
+                    continue;
+                }
+                if (getCell(x, y).getIsMineFound()) {
+                    ++numberFoundedMines;
+                }
+            }
+        }
+        return numberFoundedMines;
+    }
+
+    private boolean isAllFoundedMinesAreRealyMines(int i, int j) {
+        for (int x = i - 1; x <= i + 1; ++x) {
+            for (int y = j - 1; y <= j + 1; ++y) {
+                if (!indexesAreNotOutOfBounds(x, y)) {
+                    continue;
+                }
+                if (getCell(x, y).getIsMine() && !getCell(x, y).getIsMineFound()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public void openCellsAroundForOpenedCell(int i, int j) {
+        if (!indexesAreNotOutOfBounds(i, j)) {
+            return;
+        }
+
+        if (getCell(i, j).getIsOpen() && numberFoundedMinesAroundCell(i, j) == getCell(i, j).getMinesAround()) {
+            System.out.println("Number founded mines around this cell: " + numberFoundedMinesAroundCell(i, j));
+            System.out.println("isAllFoundedMinesAreRealyMines: " + isAllFoundedMinesAreRealyMines(i, j));
+            if (!isAllFoundedMinesAreRealyMines(i, j)) {
+                gameIsLost = true;
+                return;
+            }
+            //TODO доделать метод открытия всех ячеек вокруг, если помечена неверная ячейка
+            openCell(i - 1, j);
+            openCell(i - 1, j - 1);
+            openCell(i - 1, j + 1);
+            openCell(i, j - 1);
+            openCell(i, j + 1);
+            openCell(i + 1, j - 1);
+            openCell(i + 1, j);
+            openCell(i + 1, j + 1);
+        }
     }
 
     private void openFreeSpace() {
@@ -241,17 +303,28 @@ public class Minesweeper {
     }
 
     public void openCell(int iTurn, int jTurn) {
+        //Если первый ход попадает на мину, то переделать минное поле
         if (!isGameStarted) {
+            while (getCell(iTurn, jTurn).getIsMine()) {
+                makeEmptyMineField();
+                setMines();
+            }
+            //Начало отсчета времени после первого хода
             scoresTime = System.currentTimeMillis();
         }
+
+        //Первый ход
         isGameStarted = true;
+
         if (iTurn < 0 || iTurn >= mineField.size() ||
                 jTurn < 0 || jTurn >= mineField.get(0).size()) {
             return;
         }
+
         if (!getCell(iTurn, jTurn).getIsMineFound()) {
             if (getCell(iTurn, jTurn).getIsMine()) {
                 gameIsLost = true;
+                return;
             }
             if (getCell(iTurn, jTurn).getMinesAround() == 0) {
                 cellCoordinate.add(new CellCoordinate(iTurn, jTurn));
@@ -308,6 +381,10 @@ public class Minesweeper {
 
     public boolean getGameIsWon() {
         return gameIsWon;
+    }
+
+    public boolean getIsGameStarted() {
+        return isGameStarted;
     }
 
     public String about() {

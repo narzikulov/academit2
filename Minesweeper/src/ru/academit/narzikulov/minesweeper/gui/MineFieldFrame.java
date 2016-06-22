@@ -1,5 +1,6 @@
 package ru.academit.narzikulov.minesweeper.gui;
 
+import ru.academit.narzikulov.minesweeper.CellCoordinate;
 import ru.academit.narzikulov.minesweeper.Minesweeper;
 
 import javax.swing.*;
@@ -134,19 +135,20 @@ public class MineFieldFrame {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            if (minesweeper.getCell(i, j).getIsOpen()) {
-                return;
-            }
-
             if (minesweeper.getGameIsWon()) {
                 return;
             }
 
             if (e.getButton() == MouseEvent.BUTTON1) {
+                System.out.println("Button1 i = " + i + ", j = " + j);
+                if (minesweeper.getCell(i, j).getIsOpen()) {
+                    return;
+                }
+
                 if (minesweeper.getCell(i, j).getIsMineFound()) {
                     return;
                 }
-                if (minesweeper.getCell(i, j).getIsMine()) {
+                if (minesweeper.getCell(i, j).getIsMine() && minesweeper.getIsGameStarted()) {
                     minesweeper.openAllCell();
                     updateMineField();
                     showGameOver();
@@ -157,21 +159,31 @@ public class MineFieldFrame {
             }
 
             if (e.getButton() == MouseEvent.BUTTON2) {
-                if (!minesweeper.getCell(i, j).getUnderQuestion()) {
-                    minesweeper.getCell(i, j).setUnderQuestion(true);
-                    mineFieldButtons.get(i).get(j).setText("?");
+                System.out.println("Button2 i = " + i + ", j = " + j);
+                minesweeper.openCellsAroundForOpenedCell(i, j);
+                if (minesweeper.getGameIsLost()) {
+                    minesweeper.openAllCell();
+                    showGameOver();
                 } else {
-                    minesweeper.getCell(i, j).setUnderQuestion(false);
-                    mineFieldButtons.get(i).get(j).setText("");
+                    updateMineField();
                 }
             }
 
             if (e.getButton() == MouseEvent.BUTTON3) {
-                if (!minesweeper.getCell(i, j).getIsMineFound()) {
+                if (minesweeper.getCell(i, j).getIsOpen()) {
+                    return;
+                }
+
+                if (!minesweeper.getCell(i, j).getIsMineFound() && !minesweeper.getCell(i, j).getUnderQuestion()) {
                     minesweeper.getCell(i, j).setIsMineFound(true);
                     mineFieldButtons.get(i).get(j).setText("M");
-                } else {
+                    minesweeper.getCell(i, j).setUnderQuestion(false);
+                } else if (minesweeper.getCell(i, j).getIsMineFound()) {
                     minesweeper.getCell(i, j).setIsMineFound(false);
+                    minesweeper.getCell(i, j).setUnderQuestion(true);
+                    mineFieldButtons.get(i).get(j).setText("?");
+                } else {
+                    minesweeper.getCell(i, j).setUnderQuestion(false);
                     mineFieldButtons.get(i).get(j).setText("");
                 }
             }
