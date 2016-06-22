@@ -29,29 +29,34 @@ public class MineFieldFrame {
     private int columnsValue;
 
     private ArrayList<ArrayList<GuiCell>> mineFieldButtons = new ArrayList<>();
+    private Icon mineIcon = new ImageIcon("mine.png");
+    private Icon flagIcon = new ImageIcon("flag.png");
+    private Icon questionIcon = new ImageIcon("question.png");
+
 
     public MineFieldFrame(int rowsValue, int columnsValue, int minesNumValue, Dimension screenSize) {
         this.rowsValue = rowsValue;
         this.columnsValue = columnsValue;
 
-        int x = (int) CELL_SIZE_X * rowsValue;
-        int y = (int) CELL_SIZE_Y * columnsValue;
+        int x = (CELL_SIZE_X + 5) * this.columnsValue;
+        int y = (CELL_SIZE_Y +5) * this.rowsValue + 45;
 
         minesweeperFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         minesweeperFrame.setMinimumSize(new Dimension(x, y));
+        minesweeperFrame.setSize(x, y);
+        minesweeperFrame.setResizable(false);
         minesweeperFrame.setLocation((int) (screenSize.getWidth() - x) / 2, (int) (screenSize.getHeight() - y) / 2);
-        minesweeperPanel.setSize((int) CELL_SIZE_X * rowsValue, (int) CELL_SIZE_Y * columnsValue);
+        minesweeperPanel.setSize(x, y);
         minesweeperPanel.setLayout(new GridLayout(rowsValue, columnsValue, 5, 5));
 
         //System.out.printf("rowsValue %d, columnsValue %d, minesNumValue %d", rowsValue, columnsValue, minesNumValue);
         minesweeper = new Minesweeper(rowsValue, columnsValue, minesNumValue);
 
-        createMenu();
         fillMineField();
+        createMenu();
 
         minesweeperFrame.setContentPane(minesweeperPanel);
         minesweeperFrame.setVisible(true);
-
     }
 
     private void fillMineField() {
@@ -95,17 +100,24 @@ public class MineFieldFrame {
                     continue;
                 }
                 if (minesweeper.getCell(i, j).getIsMineFound()) {
-                    mineFieldButtons.get(i).get(j).setText("M");
+                    //mineFieldButtons.get(i).get(j).setText("M");
+                    mineFieldButtons.get(i).get(j).setIcon(flagIcon);
                 }
                 if (minesweeper.getCell(i, j).getIsMine()) {
-                    mineFieldButtons.get(i).get(j).setText("*");
+                    //mineFieldButtons.get(i).get(j).setText("*");
+                    mineFieldButtons.get(i).get(j).setIcon(mineIcon);
+
                 } else {
                     int mines = minesweeper.getCell(i, j).getMinesAround();
                     if (mines == 0) {
                         mineFieldButtons.get(i).get(j).setVisible(false);
                     } else {
                         String minesNum = Integer.toString(minesweeper.getCell(i, j).getMinesAround());
-                        mineFieldButtons.get(i).get(j).setText(minesNum);
+                        if (minesweeper.getCell(i, j).getIsMineFound() || minesweeper.getCell(i, j).getUnderQuestion()) {
+                            //mineFieldButtons.get(i).get(j).setIcon(minesNum);
+                        } else {
+                            mineFieldButtons.get(i).get(j).setText(minesNum);
+                        }
                     }
                 }
 
@@ -135,7 +147,7 @@ public class MineFieldFrame {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            if (minesweeper.getGameIsWon()) {
+            if (minesweeper.getGameIsWon() || minesweeper.getGameIsLost()) {
                 return;
             }
 
@@ -175,15 +187,15 @@ public class MineFieldFrame {
 
                 if (!minesweeper.getCell(i, j).getIsMineFound() && !minesweeper.getCell(i, j).getUnderQuestion()) {
                     minesweeper.getCell(i, j).setIsMineFound(true);
-                    mineFieldButtons.get(i).get(j).setText("M");
+                    mineFieldButtons.get(i).get(j).setIcon(flagIcon);
                     minesweeper.getCell(i, j).setUnderQuestion(false);
                 } else if (minesweeper.getCell(i, j).getIsMineFound()) {
                     minesweeper.getCell(i, j).setIsMineFound(false);
                     minesweeper.getCell(i, j).setUnderQuestion(true);
-                    mineFieldButtons.get(i).get(j).setText("?");
+                    mineFieldButtons.get(i).get(j).setIcon(questionIcon);
                 } else {
                     minesweeper.getCell(i, j).setUnderQuestion(false);
-                    mineFieldButtons.get(i).get(j).setText("");
+                    mineFieldButtons.get(i).get(j).setIcon(null);
                 }
             }
 

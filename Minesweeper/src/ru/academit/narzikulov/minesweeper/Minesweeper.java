@@ -27,7 +27,8 @@ public class Minesweeper {
     public final static String HIGH_SCORES_FILE_NAME = "hs.txt";
     private String playerName;
 
-    //private ArrayList<Winner> highScoresTable;
+    //Ограниченное количество игроков, выводящихся в таблице победителей
+    private final static int OUTPUT_NUM_OF_WINNERS = 20;
 
     public Minesweeper(int rows, int columns, int mines) {
         this.rows = rows;
@@ -243,11 +244,16 @@ public class Minesweeper {
     public String highScoresTableToString() {
         StringBuilder scoresTable = new StringBuilder();
         try (Scanner highScoresFile = new Scanner(new FileInputStream(HIGH_SCORES_FILE_NAME))) {
+            int i = 0;
             while (highScoresFile.hasNextLine()) {
+                ++i;
                 String[] str = highScoresFile.nextLine().split(":");
                 int record = Integer.valueOf(str[0]);
                 String name = str[1];
                 scoresTable.append(String.format("%6d %s %n", record, name));
+                if (i == OUTPUT_NUM_OF_WINNERS) {
+                    break;
+                }
             }
         } catch (FileNotFoundException ignored) {
             //e.printStackTrace();
