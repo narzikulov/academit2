@@ -26,9 +26,9 @@ public class MineFieldFrame {
     private int columnsValue;
 
     private ArrayList<ArrayList<GuiCell>> mineFieldButtons = new ArrayList<>();
-    private Icon mineIcon = new ImageIcon("Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\gui\\mine.png");
-    private Icon flagIcon = new ImageIcon("Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\gui\\flag.png");
-    private Icon questionIcon = new ImageIcon("Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\gui\\question.png");
+    private Icon mineIcon = new ImageIcon("Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\pics\\mine.png");
+    private Icon flagIcon = new ImageIcon("Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\pics\\flag.png");
+    private Icon questionIcon = new ImageIcon("Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\pics\\question.png");
     private Font font = new Font("Arial", Font.BOLD, 12);
 
     public MineFieldFrame(int rowsValue, int columnsValue, int minesNumValue, Dimension screenSize) {
