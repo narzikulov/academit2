@@ -15,4 +15,6 @@
 27:Qwerty
 33:Elena
 44:New player
+45:Ivan
+149:Good player
 196:Tim
