@@ -29,6 +29,7 @@ public class MineFieldFrame {
     private Icon mineIcon = new ImageIcon("Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\pics\\mine.png");
     private Icon flagIcon = new ImageIcon("Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\pics\\flag.png");
     private Icon questionIcon = new ImageIcon("Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\pics\\question.png");
+    private Icon borderIcon = new ImageIcon("Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\pics\\border.png");
     private Font font = new Font("Arial", Font.BOLD, 12);
 
     public MineFieldFrame(int rowsValue, int columnsValue, int minesNumValue, Dimension screenSize) {
@@ -131,6 +132,25 @@ public class MineFieldFrame {
                 "High scores table", JOptionPane.WARNING_MESSAGE);
     }
 
+    private boolean indexesAreNotOutOfBounds(int i, int j) {
+        return i >= 0 && j >= 0 && i < mineFieldButtons.size() && j < mineFieldButtons.get(0).size();
+    }
+
+    private void markAllCellsAround(int iTurn, int jTurn, Icon icon) {
+        for (int i = iTurn - 1; i <= iTurn + 1; ++i) {
+            for (int j = jTurn - 1; j <= jTurn + 1; ++j) {
+                //if (i != iTurn && j != jTurn) {
+                if (indexesAreNotOutOfBounds(i, j)
+                        && !minesweeper.getCell(i, j).getIsOpen()
+                        && !minesweeper.getCell(i, j).getIsMineFound()
+                        && !minesweeper.getCell(i, j).getUnderQuestion()) {
+                    mineFieldButtons.get(i).get(j).setIcon(icon);
+                }
+                //}
+            }
+        }
+    }
+
     private class MouseListenerForMineFieldButtons extends MouseAdapter {
         private int i;
         private int j;
@@ -165,13 +185,9 @@ public class MineFieldFrame {
             }
 
             if (e.getButton() == MouseEvent.BUTTON2) {
-                minesweeper.openCellsAroundForOpenedCell(i, j);
-                if (minesweeper.getGameIsLost()) {
-                    minesweeper.openAllCell();
-                    updateMineField();
-                    showGameOver();
-                } else {
-                    updateMineField();
+                if (e.getButton() == MouseEvent.BUTTON2) {
+                    markAllCellsAround(i, j, borderIcon);
+                    //updateMineField();
                 }
             }
 
@@ -203,6 +219,35 @@ public class MineFieldFrame {
             }
         }
 
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            if (e.getButton() == MouseEvent.BUTTON2) {
+                markAllCellsAround(i, j, null);
+                updateMineField();
+            }
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            if (e.getButton() == MouseEvent.BUTTON2) {
+                minesweeper.openCellsAroundForOpenedCell(i, j);
+                if (minesweeper.getGameIsLost()) {
+                    minesweeper.openAllCell();
+                    updateMineField();
+                    showGameOver();
+                } else {
+                    updateMineField();
+                }
+            }
+
+            if (minesweeper.gameIsWon()) {
+                try {
+                    showGameIsWon();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
     }
 
     private class ActionListenerMenuFileAbout implements ActionListener {

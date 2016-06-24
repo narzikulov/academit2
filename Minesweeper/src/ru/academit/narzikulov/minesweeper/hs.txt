@@ -1,20 +1,2 @@
-0:Vefds
-0:qwertyuiop
-0:Anton
-1:Fedya
-1:Timur
-1:1
-2:Winner
-2:Winner
-5:Petr
-8:20x20 10 mines
-11:Tim
-17:Vasya
-22:Tupoj player
-24:zxcvb
-27:Qwerty
-33:Elena
-44:New player
-45:Ivan
-149:Good player
-196:Tim
+0:Tim5
+0:Tim 5

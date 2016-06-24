@@ -15,6 +15,7 @@ public class Minesweeper {
 
     public static final int MIN_ROWS = 5;
     public static final int MIN_COLUMNS = 5;
+    public static final int MIN_MINES = 5;
     public static final int MAX_ROWS = 25;
     public static final int MAX_COLUMNS = 50;
 
@@ -27,7 +28,9 @@ public class Minesweeper {
     private boolean gameIsWon = false;
 
     private boolean isGameStarted;
-    private long scoresTime;
+    private int scores;
+    private long playingTime;
+
     public final static String HIGH_SCORES_FILE_NAME = "Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\hs.txt";
     private String playerName;
 
@@ -236,7 +239,10 @@ public class Minesweeper {
             }
         }
         gameIsWon = true;
-        scoresTime = System.currentTimeMillis() - scoresTime;
+        //TODO додумать метод расчет очков за игру
+        scores = (int) ((rows - mines / columns) * (columns - mines / rows)
+                * (System.currentTimeMillis() - playingTime)) / 1000 / (mines * mines);
+        System.out.printf("scores = %d%n", scores);
         return true;
     }
 
@@ -298,7 +304,7 @@ public class Minesweeper {
             return;
         }
 
-        Winner winner = new Winner((int) (scoresTime / 1000), playerName);
+        Winner winner = new Winner(scores, playerName);
         addWinnerToHighScoresTable(highScoresTable, winner);
 
         try (PrintWriter highScoresFile = new PrintWriter(new FileWriter(HIGH_SCORES_FILE_NAME))) {
@@ -316,7 +322,7 @@ public class Minesweeper {
                 setMines();
             }
             //Начало отсчета времени после первого хода
-            scoresTime = System.currentTimeMillis();
+            playingTime = System.currentTimeMillis();
         }
 
         //Первый ход

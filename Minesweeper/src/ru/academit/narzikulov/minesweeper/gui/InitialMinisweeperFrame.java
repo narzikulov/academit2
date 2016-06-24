@@ -106,8 +106,14 @@ public class InitialMinisweeperFrame {
             }
 
             int minesNumValue;
+            int maxMinesNum = (int) (rowsValue * columnsValue * 0.9);
             if (isNumber(minesNum.getText())) {
                 minesNumValue = Integer.valueOf(minesNum.getText());
+                if (minesNumValue < Minesweeper.MIN_MINES || minesNumValue > maxMinesNum) {
+                    String str = String.format("Input number beetwen %d and %d", Minesweeper.MIN_MINES, maxMinesNum);
+                    JOptionPane.showMessageDialog(new JButton(), str, "Warning", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
             } else {
                 JOptionPane.showMessageDialog(new JButton(), "Input number of mines please", "Warning",
                         JOptionPane.WARNING_MESSAGE);
