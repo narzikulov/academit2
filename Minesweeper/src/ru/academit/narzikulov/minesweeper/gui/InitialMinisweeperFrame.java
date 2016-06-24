@@ -21,9 +21,6 @@ public class InitialMinisweeperFrame {
     private JTextField columns = new JTextField();
     private JTextField minesNum = new JTextField();
 
-    private int rowsValue;
-    private int columnsValue;
-
     //size of the screen
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -78,6 +75,7 @@ public class InitialMinisweeperFrame {
     private class ActionListenerForButtonOK implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            int rowsValue;
             if (isNumber(rows.getText())) {
                 rowsValue = Integer.valueOf(rows.getText());
                 if (rowsValue < Minesweeper.MIN_ROWS || rowsValue > Minesweeper.MAX_ROWS) {
@@ -92,6 +90,7 @@ public class InitialMinisweeperFrame {
                 return;
             }
 
+            int columnsValue;
             if (isNumber(columns.getText())) {
                 columnsValue = Integer.valueOf(columns.getText());
                 if (columnsValue < Minesweeper.MIN_COLUMNS || columnsValue > Minesweeper.MAX_COLUMNS) {

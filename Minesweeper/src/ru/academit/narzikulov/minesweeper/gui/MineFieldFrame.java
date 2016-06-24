@@ -46,7 +46,6 @@ public class MineFieldFrame {
         minesweeperPanel.setSize(x, y);
         minesweeperPanel.setLayout(new GridLayout(rowsValue, columnsValue, 2, 2));
 
-        //System.out.printf("rowsValue %d, columnsValue %d, minesNumValue %d", rowsValue, columnsValue, minesNumValue);
         minesweeper = new Minesweeper(rowsValue, columnsValue, minesNumValue);
 
         fillMineField();
@@ -99,11 +98,9 @@ public class MineFieldFrame {
                     continue;
                 }
                 if (minesweeper.getCell(i, j).getIsMineFound()) {
-                    //mineFieldButtons.get(i).get(j).setText("M");
                     mineFieldButtons.get(i).get(j).setIcon(flagIcon);
                 }
                 if (minesweeper.getCell(i, j).getIsMine()) {
-                    //mineFieldButtons.get(i).get(j).setText("*");
                     mineFieldButtons.get(i).get(j).setIcon(mineIcon);
 
                 } else {
@@ -113,7 +110,6 @@ public class MineFieldFrame {
                     } else {
                         String minesNum = Integer.toString(minesweeper.getCell(i, j).getMinesAround());
                         if (minesweeper.getCell(i, j).getIsMineFound() || minesweeper.getCell(i, j).getUnderQuestion()) {
-                            //mineFieldButtons.get(i).get(j).setIcon(minesNum);
                         } else {
                             mineFieldButtons.get(i).get(j).setText(minesNum);
                         }

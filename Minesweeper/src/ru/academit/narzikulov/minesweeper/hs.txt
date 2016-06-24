@@ -1,3 +1,4 @@
+0:Vefds
 0:qwertyuiop
 0:Anton
 1:Fedya
@@ -13,4 +14,5 @@
 24:zxcvb
 27:Qwerty
 33:Elena
+44:New player
 196:Tim
