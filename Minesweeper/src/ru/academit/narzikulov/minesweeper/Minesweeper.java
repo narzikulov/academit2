@@ -24,7 +24,7 @@ public class Minesweeper {
 
     private boolean isGameStarted;
     private long scoresTime;
-    public final static String HIGH_SCORES_FILE_NAME = "hs.txt";
+    public final static String HIGH_SCORES_FILE_NAME = "Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\hs.txt";
     private String playerName;
 
     //Ограниченное количество игроков, выводящихся в таблице победителей

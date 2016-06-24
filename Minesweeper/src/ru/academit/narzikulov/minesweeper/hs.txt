@@ -1,0 +1,13 @@
+0:Anton
+1:Fedya
+1:Timur
+1:1
+2:Winner
+2:Winner
+5:Petr
+11:Tim
+17:Vasya
+22:Tupoj player
+27:Qwerty
+33:Elena
+196:Tim

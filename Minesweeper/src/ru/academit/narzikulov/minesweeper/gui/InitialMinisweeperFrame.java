@@ -61,17 +61,45 @@ public class InitialMinisweeperFrame{
         okButton.addActionListener(new ActionListenerForButtonOK());
     }
 
+    private boolean isNumber(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
     private class ActionListenerForButtonOK implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            initialFrame.dispose();
+            if (isNumber(rows.getText())){
+                rowsValue = Integer.valueOf(rows.getText());
+            } else {
+                JOptionPane.showMessageDialog(new JButton(), "Input number of rows please", "Warning!",
+                        JOptionPane.WARNING_MESSAGE );
+                return;
+            }
 
-            rowsValue = Integer.valueOf(rows.getText());
-            columnsValue = Integer.valueOf(columns.getText());
-            int minesNumValue = Integer.valueOf(minesNum.getText());
+            if (isNumber(columns.getText())){
+                columnsValue = Integer.valueOf(columns.getText());
+            } else {
+                JOptionPane.showMessageDialog(new JButton(), "Input number of columns please", "Warning",
+                        JOptionPane.WARNING_MESSAGE );
+                return;
+            }
+
+            int minesNumValue;
+            if (isNumber(minesNum.getText())){
+                minesNumValue = Integer.valueOf(minesNum.getText());
+            } else {
+                JOptionPane.showMessageDialog(new JButton(), "Input number of mines please", "Warning",
+                        JOptionPane.WARNING_MESSAGE );
+                return;
+            }
 
             MineFieldFrame mineFieldFrame = new MineFieldFrame(rowsValue, columnsValue, minesNumValue, screenSize);
-
+            initialFrame.dispose();
         }
     }
 
