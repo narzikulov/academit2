@@ -1,7 +1,5 @@
 package ru.academit.narzikulov.minesweeper;
 
-import ru.academit.narzikulov.minesweeper.text.Winner;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
