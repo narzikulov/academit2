@@ -1,6 +1,5 @@
 package ru.academit.narzikulov.minesweeper.gui;
 
-import ru.academit.narzikulov.minesweeper.CellCoordinate;
 import ru.academit.narzikulov.minesweeper.Minesweeper;
 
 import javax.swing.*;
@@ -8,8 +7,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import static javax.swing.KeyStroke.*;
 
 /**
  * Created by tim on 21.06.2016.
@@ -29,9 +26,9 @@ public class MineFieldFrame {
     private int columnsValue;
 
     private ArrayList<ArrayList<GuiCell>> mineFieldButtons = new ArrayList<>();
-    private Icon mineIcon = new ImageIcon("mine.png");
-    private Icon flagIcon = new ImageIcon("flag.png");
-    private Icon questionIcon = new ImageIcon("question.png");
+    private Icon mineIcon = new ImageIcon("Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\gui\\mine.png");
+    private Icon flagIcon = new ImageIcon("Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\gui\\flag.png");
+    private Icon questionIcon = new ImageIcon("Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\gui\\question.png");
 
 
     public MineFieldFrame(int rowsValue, int columnsValue, int minesNumValue, Dimension screenSize) {
