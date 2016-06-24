@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 /**
  * Created by tim on 21.06.2016.
  */
-public class InitialMinisweeperFrame{
+public class InitialMinisweeperFrame {
     private final static int FRAME_X_SIZE = 250;
     private final static int FRAME_Y_SIZE = 200;
 
@@ -48,12 +48,17 @@ public class InitialMinisweeperFrame{
         minesNum.select(0, minesNum.getText().length());
 
         initialFrame.setLayout(new GridLayout(2, 2));
-        rows.setBorder(new TitledBorder("Rows"));
+        rows.setBorder(new TitledBorder(String.format("Rows (%d - %d)",
+                Minesweeper.MIN_ROWS, Minesweeper.MAX_ROWS)));
         initialFrame.add(rows);
-        columns.setBorder(new TitledBorder("Columns"));
+
+        columns.setBorder(new TitledBorder(String.format("Columns (%d - %d)",
+                Minesweeper.MIN_COLUMNS, Minesweeper.MAX_COLUMNS)));
         initialFrame.add(columns);
+
         minesNum.setBorder(new TitledBorder("Mines"));
         initialFrame.add(minesNum);
+
         JButton okButton = new JButton("OK");
         initialFrame.add(okButton);
 
@@ -73,28 +78,40 @@ public class InitialMinisweeperFrame{
     private class ActionListenerForButtonOK implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (isNumber(rows.getText())){
+            if (isNumber(rows.getText())) {
                 rowsValue = Integer.valueOf(rows.getText());
+                if (rowsValue < Minesweeper.MIN_ROWS || rowsValue > Minesweeper.MAX_ROWS) {
+                    String str = String.format("Input number beetwen %d and %d", Minesweeper.MIN_ROWS,
+                            Minesweeper.MAX_ROWS);
+                    JOptionPane.showMessageDialog(new JButton(), str, "Warning", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
             } else {
-                JOptionPane.showMessageDialog(new JButton(), "Input number of rows please", "Warning!",
-                        JOptionPane.WARNING_MESSAGE );
+                JOptionPane.showMessageDialog(new JButton(), "Input number of rows please", "Warning",
+                        JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
-            if (isNumber(columns.getText())){
+            if (isNumber(columns.getText())) {
                 columnsValue = Integer.valueOf(columns.getText());
+                if (columnsValue < Minesweeper.MIN_COLUMNS || columnsValue > Minesweeper.MAX_COLUMNS) {
+                    String str = String.format("Input number beetwen %d and %d", Minesweeper.MIN_COLUMNS,
+                            Minesweeper.MAX_COLUMNS);
+                    JOptionPane.showMessageDialog(new JButton(), str, "Warning", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
             } else {
                 JOptionPane.showMessageDialog(new JButton(), "Input number of columns please", "Warning",
-                        JOptionPane.WARNING_MESSAGE );
+                        JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
             int minesNumValue;
-            if (isNumber(minesNum.getText())){
+            if (isNumber(minesNum.getText())) {
                 minesNumValue = Integer.valueOf(minesNum.getText());
             } else {
                 JOptionPane.showMessageDialog(new JButton(), "Input number of mines please", "Warning",
-                        JOptionPane.WARNING_MESSAGE );
+                        JOptionPane.WARNING_MESSAGE);
                 return;
             }
 

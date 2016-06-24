@@ -14,6 +14,12 @@ public class Minesweeper {
     public static final int ROWS = 9;
     public static final int COLUMNS = 9;
     public static final int MINES = 10;
+
+    public static final int MIN_ROWS = 5;
+    public static final int MIN_COLUMNS = 5;
+    public static final int MAX_ROWS = 25;
+    public static final int MAX_COLUMNS = 50;
+
     private int rows;
     private int columns;
     private int mines;

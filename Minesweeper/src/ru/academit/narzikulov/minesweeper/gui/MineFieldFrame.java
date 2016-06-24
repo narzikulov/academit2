@@ -12,8 +12,8 @@ import java.util.ArrayList;
  * Created by tim on 21.06.2016.
  */
 public class MineFieldFrame {
-    private final static int CELL_SIZE_X = 50;
-    private final static int CELL_SIZE_Y = 50;
+    private final static int CELL_SIZE_X = 25;
+    private final static int CELL_SIZE_Y = 25;
 
     private JFrame minesweeperFrame = new JFrame("Minesweeper");
     private JPanel minesweeperPanel = new JPanel();
@@ -29,14 +29,14 @@ public class MineFieldFrame {
     private Icon mineIcon = new ImageIcon("Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\gui\\mine.png");
     private Icon flagIcon = new ImageIcon("Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\gui\\flag.png");
     private Icon questionIcon = new ImageIcon("Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\gui\\question.png");
-
+    private Font font = new Font("Arial", Font.BOLD, 12);
 
     public MineFieldFrame(int rowsValue, int columnsValue, int minesNumValue, Dimension screenSize) {
         this.rowsValue = rowsValue;
         this.columnsValue = columnsValue;
 
-        int x = (CELL_SIZE_X + 5) * this.columnsValue;
-        int y = (CELL_SIZE_Y +5) * this.rowsValue + 45;
+        int x = (CELL_SIZE_X + 2) * this.columnsValue;
+        int y = (CELL_SIZE_Y + 2) * this.rowsValue + 45;
 
         minesweeperFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         minesweeperFrame.setMinimumSize(new Dimension(x, y));
@@ -44,7 +44,7 @@ public class MineFieldFrame {
         minesweeperFrame.setResizable(false);
         minesweeperFrame.setLocation((int) (screenSize.getWidth() - x) / 2, (int) (screenSize.getHeight() - y) / 2);
         minesweeperPanel.setSize(x, y);
-        minesweeperPanel.setLayout(new GridLayout(rowsValue, columnsValue, 5, 5));
+        minesweeperPanel.setLayout(new GridLayout(rowsValue, columnsValue, 2, 2));
 
         //System.out.printf("rowsValue %d, columnsValue %d, minesNumValue %d", rowsValue, columnsValue, minesNumValue);
         minesweeper = new Minesweeper(rowsValue, columnsValue, minesNumValue);
@@ -64,6 +64,8 @@ public class MineFieldFrame {
                 mineFieldButtons.get(i).add(new GuiCell("", i, j));
                 minesweeperPanel.add(mineFieldButtons.get(i).get(j));
                 mineFieldButtons.get(i).get(j).addMouseListener(new MouseListenerForMineFieldButtons(i, j));
+                mineFieldButtons.get(i).get(j).setFont(font);
+                mineFieldButtons.get(i).get(j).setMargin(new Insets(0, 0, 0, 0));
             }
         }
     }
