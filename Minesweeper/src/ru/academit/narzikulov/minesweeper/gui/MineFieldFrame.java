@@ -19,6 +19,10 @@ public class MineFieldFrame {
     private JPanel minesweeperPanel = new JPanel();
     private JMenuBar menuBar = new JMenuBar();
     private JMenu fileMenu = new JMenu("File");
+    private JPanel mainPanel = new JPanel();
+    private JPanel playTimePanel = new JPanel();
+    private JLabel playTime = new JLabel("Playing time: ");
+    private Timer timer;
 
     private Minesweeper minesweeper = new Minesweeper();
 
@@ -26,10 +30,11 @@ public class MineFieldFrame {
     private int columnsValue;
 
     private ArrayList<ArrayList<GuiCell>> mineFieldButtons = new ArrayList<>();
-    private Icon mineIcon = new ImageIcon("Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\pics\\mine.png");
-    private Icon flagIcon = new ImageIcon("Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\pics\\flag.png");
-    private Icon questionIcon = new ImageIcon("Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\pics\\question.png");
-    private Icon borderIcon = new ImageIcon("Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\pics\\border.png");
+    private String picsPath = "Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\pics\\";
+    private Icon mineIcon = new ImageIcon(picsPath + "mine.png");
+    private Icon flagIcon = new ImageIcon(picsPath + "flag.png");
+    private Icon questionIcon = new ImageIcon(picsPath + "question.png");
+    private Icon borderIcon = new ImageIcon(picsPath + "border.png");
     private Font font = new Font("Arial", Font.BOLD, 12);
 
     public MineFieldFrame(int rowsValue, int columnsValue, int minesNumValue, Dimension screenSize) {
@@ -37,22 +42,41 @@ public class MineFieldFrame {
         this.columnsValue = columnsValue;
 
         int x = (CELL_SIZE_X + 2) * this.columnsValue;
-        int y = (CELL_SIZE_Y + 2) * this.rowsValue + 45;
+        //45 - ширина меню, 50 - ширина JLabel для времени
+        int y = (CELL_SIZE_Y + 2) * this.rowsValue + 45 + 50;
 
         minesweeperFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         minesweeperFrame.setMinimumSize(new Dimension(x, y));
         minesweeperFrame.setSize(x, y);
-        minesweeperFrame.setResizable(false);
+        //minesweeperFrame.setResizable(false);
         minesweeperFrame.setLocation((int) (screenSize.getWidth() - x) / 2, (int) (screenSize.getHeight() - y) / 2);
-        minesweeperPanel.setSize(x, y);
+
+        minesweeperPanel.setSize(x, y - 50);
         minesweeperPanel.setLayout(new GridLayout(rowsValue, columnsValue, 2, 2));
+
+        mainPanel.setSize(x, y);
+
+        timer = new Timer(0, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                playTime.setText(String.format("Plaing time: %d seconds",
+                        (System.currentTimeMillis() - minesweeper.getPlayingTime()) / 1000));
+            }
+        });
+
+        playTimePanel.setSize(x, 50);
+        playTimePanel.add(playTime);
+
+        mainPanel.setLayout(new BorderLayout());
+        mainPanel.add(minesweeperPanel, BorderLayout.CENTER);
+        mainPanel.add(playTimePanel, BorderLayout.SOUTH);
 
         minesweeper = new Minesweeper(rowsValue, columnsValue, minesNumValue);
 
         fillMineField();
         createMenu();
 
-        minesweeperFrame.setContentPane(minesweeperPanel);
+        minesweeperFrame.setContentPane(mainPanel);
         minesweeperFrame.setVisible(true);
     }
 
@@ -71,19 +95,23 @@ public class MineFieldFrame {
     }
 
     private void createMenu() {
-        JMenuItem newGameFileMenuItem = new JMenuItem(String.format("%-20s %20s", "New game", "n"), KeyEvent.VK_N);
+        JMenuItem newGameFileMenuItem = new JMenuItem("New game");
+        newGameFileMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.ALT_MASK));
         newGameFileMenuItem.addActionListener(new ActionListenerMenuFileNewGame());
         fileMenu.add(newGameFileMenuItem);
 
-        JMenuItem highScoresFileMenuItem = new JMenuItem(String.format("%-20s %20s", "High scores", "s"), KeyEvent.VK_S);
+        JMenuItem highScoresFileMenuItem = new JMenuItem("High scores");
+        highScoresFileMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.ALT_MASK));
         highScoresFileMenuItem.addActionListener(new ActionListenerMenuFileHighScores());
         fileMenu.add(highScoresFileMenuItem);
 
-        JMenuItem aboutFileMenuItem = new JMenuItem(String.format("%-26s %20s", "About", "a"), KeyEvent.VK_A);
+        JMenuItem aboutFileMenuItem = new JMenuItem("About");
+        aboutFileMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.ALT_MASK));
         aboutFileMenuItem.addActionListener(new ActionListenerMenuFileAbout());
         fileMenu.add(aboutFileMenuItem);
 
-        JMenuItem exitFileMenuItem = new JMenuItem(String.format("%-29s %20s", "Exit", "e"), KeyEvent.VK_E);
+        JMenuItem exitFileMenuItem = new JMenuItem("Exit");
+        exitFileMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.ALT_MASK));
         exitFileMenuItem.addActionListener(new ActionListenerMenuFileExit());
         fileMenu.add(exitFileMenuItem);
 
@@ -110,8 +138,7 @@ public class MineFieldFrame {
                         mineFieldButtons.get(i).get(j).setVisible(false);
                     } else {
                         String minesNum = Integer.toString(minesweeper.getCell(i, j).getMinesAround());
-                        if (minesweeper.getCell(i, j).getIsMineFound() || minesweeper.getCell(i, j).getUnderQuestion()) {
-                        } else {
+                        if (!minesweeper.getCell(i, j).getIsMineFound() && !minesweeper.getCell(i, j).getUnderQuestion()) {
                             mineFieldButtons.get(i).get(j).setText(minesNum);
                         }
                     }
@@ -122,13 +149,15 @@ public class MineFieldFrame {
     }
 
     private void showGameOver() {
+        timer.stop();
         JOptionPane.showMessageDialog(new JFrame(), "Game over! You lost!", "Game over", JOptionPane.WARNING_MESSAGE);
     }
 
     private void showGameIsWon() throws IOException {
-        JOptionPane.showMessageDialog(new JFrame(), "You won the game!", "You won the game!", JOptionPane.WARNING_MESSAGE);
+        timer.stop();
+        JOptionPane.showMessageDialog(minesweeperFrame, "You won the game!", "You won the game!", JOptionPane.WARNING_MESSAGE);
         minesweeper.setPlayerName(JOptionPane.showInputDialog("Input player name:"));
-        JOptionPane.showMessageDialog(new JButton(), minesweeper.highScoresTableToString(),
+        JOptionPane.showMessageDialog(minesweeperFrame, minesweeper.highScoresTableToString(),
                 "High scores table", JOptionPane.WARNING_MESSAGE);
     }
 
@@ -154,6 +183,7 @@ public class MineFieldFrame {
     private class MouseListenerForMineFieldButtons extends MouseAdapter {
         private int i;
         private int j;
+        private boolean mouseLeavedCell = false;
 
         public MouseListenerForMineFieldButtons(int i, int j) {
             this.i = i;
@@ -161,12 +191,45 @@ public class MineFieldFrame {
         }
 
         @Override
+        public void mouseExited(MouseEvent e) {
+            super.mouseExited(e);
+            mouseLeavedCell = true;
+            markAllCellsAround(i, j, null);
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            super.mouseEntered(e);
+            mouseLeavedCell = false;
+        }
+
+        @Override
         public void mousePressed(MouseEvent e) {
+            if (e.getButton() == MouseEvent.BUTTON1) {
+                timer.start();
+            }
+
+            if (e.getButton() == MouseEvent.BUTTON2) {
+                markAllCellsAround(i, j, borderIcon);
+            }
+
+            if (minesweeper.gameIsWon()) {
+                try {
+                    showGameIsWon();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
             if (minesweeper.getGameIsWon() || minesweeper.getGameIsLost()) {
                 return;
             }
 
-            if (e.getButton() == MouseEvent.BUTTON1) {
+            if (e.getButton() == MouseEvent.BUTTON1 && !mouseLeavedCell) {
                 if (minesweeper.getCell(i, j).getIsOpen()) {
                     return;
                 }
@@ -184,14 +247,19 @@ public class MineFieldFrame {
                 }
             }
 
-            if (e.getButton() == MouseEvent.BUTTON2) {
-                if (e.getButton() == MouseEvent.BUTTON2) {
-                    markAllCellsAround(i, j, borderIcon);
-                    //updateMineField();
+            if (e.getButton() == MouseEvent.BUTTON2 && !mouseLeavedCell) {
+                markAllCellsAround(i, j, null);
+                minesweeper.openCellsAroundForOpenedCell(i, j);
+                if (minesweeper.getGameIsLost()) {
+                    minesweeper.openAllCell();
+                    updateMineField();
+                    showGameOver();
+                } else {
+                    updateMineField();
                 }
             }
 
-            if (e.getButton() == MouseEvent.BUTTON3) {
+            if (e.getButton() == MouseEvent.BUTTON3 && !mouseLeavedCell) {
                 if (minesweeper.getCell(i, j).getIsOpen()) {
                     return;
                 }
@@ -220,24 +288,9 @@ public class MineFieldFrame {
         }
 
         @Override
-        public void mouseReleased(MouseEvent e) {
-            if (e.getButton() == MouseEvent.BUTTON2) {
-                markAllCellsAround(i, j, null);
-                updateMineField();
-            }
-        }
-
-        @Override
         public void mouseClicked(MouseEvent e) {
             if (e.getButton() == MouseEvent.BUTTON2) {
-                minesweeper.openCellsAroundForOpenedCell(i, j);
-                if (minesweeper.getGameIsLost()) {
-                    minesweeper.openAllCell();
-                    updateMineField();
-                    showGameOver();
-                } else {
-                    updateMineField();
-                }
+
             }
 
             if (minesweeper.gameIsWon()) {
@@ -254,7 +307,7 @@ public class MineFieldFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            JOptionPane.showMessageDialog(new JButton(), minesweeper.about(), "About", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(minesweeperFrame, minesweeper.about(), "About", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -262,7 +315,7 @@ public class MineFieldFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             minesweeperFrame.dispose();
-            InitialMinisweeperFrame minesweeperField = new InitialMinisweeperFrame();
+            InitialMinesweeperFrame minesweeperField = new InitialMinesweeperFrame();
             minesweeperField.showInitialFrame();
         }
     }
@@ -270,7 +323,7 @@ public class MineFieldFrame {
     private class ActionListenerMenuFileHighScores implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            JOptionPane.showMessageDialog(new JButton(), minesweeper.highScoresTableToString(),
+            JOptionPane.showMessageDialog(minesweeperFrame, minesweeper.highScoresTableToString(),
                     "High scores table", JOptionPane.WARNING_MESSAGE);
         }
 

@@ -1,5 +1,7 @@
 package ru.academit.narzikulov;
 
+import ru.academit.narzikulov.timelabel.TimeLabelMain;
+
 import java.io.FileNotFoundException;
 
 /**
@@ -18,7 +20,7 @@ public class Main {
         //GenericsTaskMain.main();
         //InputOutputMain.main();
         //ru.academit.narzikulov.strings.StingsMain.main();
-
+        //TimeLabelMain.main();
 
     }
 }

@@ -6,7 +6,7 @@ package ru.academit.narzikulov.minesweeper.gui;
 public class MinesweeperGui {
 
     public MinesweeperGui() {
-        InitialMinisweeperFrame initialFrame = new InitialMinisweeperFrame();
+        InitialMinesweeperFrame initialFrame = new InitialMinesweeperFrame();
         //MineFieldFrame mineFieldFrame = new MineFieldFrame();
     }
 }

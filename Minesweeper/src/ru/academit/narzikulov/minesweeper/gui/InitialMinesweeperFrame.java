@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 /**
  * Created by tim on 21.06.2016.
  */
-public class InitialMinisweeperFrame {
+public class InitialMinesweeperFrame {
     private final static int FRAME_X_SIZE = 250;
     private final static int FRAME_Y_SIZE = 200;
 
@@ -24,7 +24,7 @@ public class InitialMinisweeperFrame {
     //size of the screen
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-    public InitialMinisweeperFrame() {
+    public InitialMinesweeperFrame() {
         initialFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         initialFrame.setLocation((int) screenSize.getWidth() / 2 - FRAME_X_SIZE, (int) screenSize.getHeight() / 3 - FRAME_Y_SIZE);
@@ -65,7 +65,7 @@ public class InitialMinisweeperFrame {
 
     private boolean isNumber(String str) {
         try {
-            Integer.parseInt(str);
+            int i = Integer.parseInt(str);
             return true;
         } catch (NumberFormatException e) {
             return false;
@@ -81,11 +81,11 @@ public class InitialMinisweeperFrame {
                 if (rowsValue < Minesweeper.MIN_ROWS || rowsValue > Minesweeper.MAX_ROWS) {
                     String str = String.format("Input number beetwen %d and %d", Minesweeper.MIN_ROWS,
                             Minesweeper.MAX_ROWS);
-                    JOptionPane.showMessageDialog(new JButton(), str, "Warning", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(initialFrame, str, "Warning", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
             } else {
-                JOptionPane.showMessageDialog(new JButton(), "Input number of rows please", "Warning",
+                JOptionPane.showMessageDialog(initialFrame, "Input number of rows please", "Warning",
                         JOptionPane.WARNING_MESSAGE);
                 return;
             }
@@ -96,11 +96,11 @@ public class InitialMinisweeperFrame {
                 if (columnsValue < Minesweeper.MIN_COLUMNS || columnsValue > Minesweeper.MAX_COLUMNS) {
                     String str = String.format("Input number beetwen %d and %d", Minesweeper.MIN_COLUMNS,
                             Minesweeper.MAX_COLUMNS);
-                    JOptionPane.showMessageDialog(new JButton(), str, "Warning", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(initialFrame, str, "Warning", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
             } else {
-                JOptionPane.showMessageDialog(new JButton(), "Input number of columns please", "Warning",
+                JOptionPane.showMessageDialog(initialFrame, "Input number of columns please", "Warning",
                         JOptionPane.WARNING_MESSAGE);
                 return;
             }
@@ -111,16 +111,16 @@ public class InitialMinisweeperFrame {
                 minesNumValue = Integer.valueOf(minesNum.getText());
                 if (minesNumValue < Minesweeper.MIN_MINES || minesNumValue > maxMinesNum) {
                     String str = String.format("Input number beetwen %d and %d", Minesweeper.MIN_MINES, maxMinesNum);
-                    JOptionPane.showMessageDialog(new JButton(), str, "Warning", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(initialFrame, str, "Warning", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
             } else {
-                JOptionPane.showMessageDialog(new JButton(), "Input number of mines please", "Warning",
+                JOptionPane.showMessageDialog(initialFrame, "Input number of mines please", "Warning",
                         JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
-            MineFieldFrame mineFieldFrame = new MineFieldFrame(rowsValue, columnsValue, minesNumValue, screenSize);
+            new MineFieldFrame(rowsValue, columnsValue, minesNumValue, screenSize);
             initialFrame.dispose();
         }
     }

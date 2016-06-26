@@ -240,9 +240,10 @@ public class Minesweeper {
         }
         gameIsWon = true;
         //TODO додумать метод расчет очков за игру
-        scores = (int) ((rows - mines / columns) * (columns - mines / rows)
-                * (System.currentTimeMillis() - playingTime)) / 1000 / (mines * mines);
-        System.out.printf("scores = %d%n", scores);
+        scores = (int) (System.currentTimeMillis() - playingTime) / 1000;
+        //scores = (int) ((rows - mines / columns) * (columns - mines / rows)
+        //        * (System.currentTimeMillis() - playingTime)) / 1000 / (mines * mines);
+        //System.out.printf("scores = %d%n", scores);
         return true;
     }
 
@@ -397,6 +398,10 @@ public class Minesweeper {
 
     public boolean getIsGameStarted() {
         return isGameStarted;
+    }
+
+    public long getPlayingTime() {
+        return playingTime;
     }
 
     public String about() {
