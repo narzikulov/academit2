@@ -266,8 +266,9 @@ public class Minesweeper {
                     break;
                 }
             }
-        } catch (FileNotFoundException ignored) {
+        } catch (FileNotFoundException e) {
             //e.printStackTrace();
+            System.out.println("High scores fle not found!");
         }
         return scoresTable.toString();
     }
