@@ -42,8 +42,8 @@ public class MineFieldFrame {
         this.columnsValue = columnsValue;
 
         int x = (CELL_SIZE_X + 2) * this.columnsValue;
-        //75 - ширина меню + JLabel для вывода времени
-        int y = (CELL_SIZE_Y + 2) * this.rowsValue + 75;
+        //80 - ширина меню + JLabel для вывода времени
+        int y = (CELL_SIZE_Y + 2) * this.rowsValue + 80;
 
         minesweeperFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         minesweeperFrame.setMinimumSize(new Dimension(x, y));
@@ -59,7 +59,7 @@ public class MineFieldFrame {
 
         timer = new Timer(0, new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent ae) {
+            public void actionPerformed(ActionEvent e) {
                 playTime.setText(String.format("Plaing time: %d seconds",
                         (System.currentTimeMillis() - minesweeper.getPlayingTime()) / 1000));
             }
