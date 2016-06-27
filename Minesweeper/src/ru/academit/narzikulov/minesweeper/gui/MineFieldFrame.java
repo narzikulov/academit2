@@ -21,8 +21,6 @@ public class MineFieldFrame {
     private JPanel minesweeperPanel = new JPanel();
     private JMenuBar menuBar = new JMenuBar();
     private JMenu fileMenu = new JMenu("File");
-    private JPanel mainPanel = new JPanel();
-    private JPanel playTimePanel = new JPanel();
     private JLabel playTime = new JLabel("Playing time: ");
     private Timer timer;
 
@@ -44,8 +42,8 @@ public class MineFieldFrame {
         this.columnsValue = columnsValue;
 
         int x = (CELL_SIZE_X + 2) * this.columnsValue;
-        //45 - ширина меню, 50 - ширина JLabel для времени
-        int y = (CELL_SIZE_Y + 2) * this.rowsValue + 45 + 50;
+        //75 - ширина меню + JLabel для вывода времени
+        int y = (CELL_SIZE_Y + 2) * this.rowsValue + 75;
 
         minesweeperFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         minesweeperFrame.setMinimumSize(new Dimension(x, y));
@@ -53,9 +51,10 @@ public class MineFieldFrame {
         //minesweeperFrame.setResizable(false);
         minesweeperFrame.setLocation((int) (screenSize.getWidth() - x) / 2, (int) (screenSize.getHeight() - y) / 2);
 
-        minesweeperPanel.setSize(x, y - 50);
+        minesweeperPanel.setSize(x, y);
         minesweeperPanel.setLayout(new GridLayout(rowsValue, columnsValue, 2, 2));
 
+        JPanel mainPanel = new JPanel();
         mainPanel.setSize(x, y);
 
         timer = new Timer(0, new ActionListener() {
@@ -66,6 +65,7 @@ public class MineFieldFrame {
             }
         });
 
+        JPanel playTimePanel = new JPanel();
         playTimePanel.setSize(x, 50);
         playTimePanel.add(playTime);
 
