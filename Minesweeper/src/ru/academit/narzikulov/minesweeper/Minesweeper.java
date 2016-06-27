@@ -31,11 +31,10 @@ public class Minesweeper {
     private int scores;
     private long playingTime;
 
-    public final static String HIGH_SCORES_FILE_NAME = "Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\hs.txt";
     private String playerName;
 
-    //Ограниченное количество игроков, выводящихся в таблице победителей
-    private final static int OUTPUT_NUM_OF_WINNERS = 20;
+    public final static String HIGH_SCORES_FILE_NAME = "Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\hs.txt";
+    private HighScoresFileWriter highScoresFile = new HighScoresFileWriter();
 
     public Minesweeper(int rows, int columns, int mines) {
         this.rows = rows;
@@ -249,71 +248,19 @@ public class Minesweeper {
 
     public void setPlayerName(String playerName) throws IOException {
         this.playerName = playerName;
-        highScoresFileWriter();
+        highScoresFile.highScoresFileWriter(this);
     }
 
-    public String highScoresTableToString() {
-        StringBuilder scoresTable = new StringBuilder();
-        try (Scanner highScoresFile = new Scanner(new FileInputStream(HIGH_SCORES_FILE_NAME))) {
-            int i = 0;
-            while (highScoresFile.hasNextLine()) {
-                ++i;
-                String[] str = highScoresFile.nextLine().split(":");
-                int record = Integer.valueOf(str[0]);
-                String name = str[1];
-                scoresTable.append(String.format("%6d %s %n", record, name));
-                if (i == OUTPUT_NUM_OF_WINNERS) {
-                    break;
-                }
-            }
-        } catch (FileNotFoundException e) {
-            //e.printStackTrace();
-            System.out.println("High scores fle not found!");
-        }
-        return scoresTable.toString();
+    public HighScoresFileWriter getHighScoresFile() {
+        return highScoresFile;
     }
 
-    private void addWinnerToHighScoresTable(ArrayList<Winner> highScoresTable, Winner winner) {
-        int index = -1;
-        for (int i = 0; i < highScoresTable.size(); ++i) {
-            if (winner.getRecord() <= highScoresTable.get(i).getRecord()) {
-                index = i;
-                break;
-            }
-        }
-
-        if (index == -1) {
-            highScoresTable.add(winner);
-            return;
-        }
-
-        highScoresTable.add(index, winner);
+    public String getPlayerName() {
+        return playerName;
     }
 
-    private void highScoresFileWriter() throws IOException {
-        ArrayList<Winner> highScoresTable = new ArrayList<>();
-        try (Scanner highScoresFile = new Scanner(new FileInputStream(HIGH_SCORES_FILE_NAME))) {
-            while (highScoresFile.hasNextLine()) {
-                String[] str = highScoresFile.nextLine().split(":");
-                int record = Integer.valueOf(str[0]);
-                String name = str[1];
-                highScoresTable.add(new Winner(record, name));
-            }
-        } catch (IOException ignored) {
-        }
-
-        if (playerName == null) {
-            return;
-        }
-
-        Winner winner = new Winner(scores, playerName);
-        addWinnerToHighScoresTable(highScoresTable, winner);
-
-        try (PrintWriter highScoresFile = new PrintWriter(new FileWriter(HIGH_SCORES_FILE_NAME))) {
-            for (Winner aHighScoresTable : highScoresTable) {
-                highScoresFile.println(aHighScoresTable.toString());
-            }
-        }
+    public int getScores() {
+        return scores;
     }
 
     public void openCell(int iTurn, int jTurn) {

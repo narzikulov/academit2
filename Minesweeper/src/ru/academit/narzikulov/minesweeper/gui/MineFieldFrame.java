@@ -159,7 +159,7 @@ public class MineFieldFrame {
         timer.stop();
         JOptionPane.showMessageDialog(minesweeperFrame, "You won the game!", "You won the game!", JOptionPane.WARNING_MESSAGE);
         minesweeper.setPlayerName(JOptionPane.showInputDialog("Input player name:"));
-        JOptionPane.showMessageDialog(minesweeperFrame, minesweeper.highScoresTableToString(),
+        JOptionPane.showMessageDialog(minesweeperFrame, minesweeper.getHighScoresFile().highScoresTableToString(),
                 "High scores table", JOptionPane.WARNING_MESSAGE);
     }
 
@@ -325,7 +325,7 @@ public class MineFieldFrame {
     private class ActionListenerMenuFileHighScores implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            JOptionPane.showMessageDialog(minesweeperFrame, minesweeper.highScoresTableToString(),
+            JOptionPane.showMessageDialog(minesweeperFrame, minesweeper.getHighScoresFile().highScoresTableToString(),
                     "High scores table", JOptionPane.WARNING_MESSAGE);
         }
 
