@@ -1,6 +1,7 @@
 0:Tim5
 0:Tim 5
 2:Tom
+3:25x50 winner
 8:Tim
 8:Tim
 11:Tim 11 sec

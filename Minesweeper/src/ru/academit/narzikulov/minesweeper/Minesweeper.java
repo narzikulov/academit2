@@ -238,7 +238,7 @@ public class Minesweeper {
             }
         }
         gameIsWon = true;
-        //TODO додумать метод расчет очков за игру
+        //TODO додумать метод расчета очков за игру для разных размерностей полей
         scores = (int) (System.currentTimeMillis() - playingTime) / 1000;
         //scores = (int) ((rows - mines / columns) * (columns - mines / rows)
         //        * (System.currentTimeMillis() - playingTime)) / 1000 / (mines * mines);

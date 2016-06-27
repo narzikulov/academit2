@@ -8,8 +8,6 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static java.awt.event.ActionEvent.ALT_MASK;
-
 /**
  * Created by tim on 21.06.2016.
  */
@@ -98,22 +96,22 @@ public class MineFieldFrame {
 
     private void createMenu() {
         JMenuItem newGameFileMenuItem = new JMenuItem("New game");
-        newGameFileMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ALT_MASK));
+        newGameFileMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.ALT_MASK));
         newGameFileMenuItem.addActionListener(new ActionListenerMenuFileNewGame());
         fileMenu.add(newGameFileMenuItem);
 
         JMenuItem highScoresFileMenuItem = new JMenuItem("High scores");
-        highScoresFileMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ALT_MASK));
+        highScoresFileMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.ALT_MASK));
         highScoresFileMenuItem.addActionListener(new ActionListenerMenuFileHighScores());
         fileMenu.add(highScoresFileMenuItem);
 
         JMenuItem aboutFileMenuItem = new JMenuItem("About");
-        aboutFileMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ALT_MASK));
+        aboutFileMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.ALT_MASK));
         aboutFileMenuItem.addActionListener(new ActionListenerMenuFileAbout());
         fileMenu.add(aboutFileMenuItem);
 
         JMenuItem exitFileMenuItem = new JMenuItem("Exit");
-        exitFileMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, ALT_MASK));
+        exitFileMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.ALT_MASK));
         exitFileMenuItem.addActionListener(new ActionListenerMenuFileExit());
         fileMenu.add(exitFileMenuItem);
 
@@ -291,10 +289,6 @@ public class MineFieldFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (e.getButton() == MouseEvent.BUTTON2) {
-
-            }
-
             if (minesweeper.gameIsWon()) {
                 try {
                     showGameIsWon();
