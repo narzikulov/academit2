@@ -65,7 +65,7 @@ public class HighScoresFileWriter {
         }
 
         if (winner.getName() == null) {
-            return;
+            //return;
         }
 
         addWinnerToHighScoresTable(highScoresTable, winner);

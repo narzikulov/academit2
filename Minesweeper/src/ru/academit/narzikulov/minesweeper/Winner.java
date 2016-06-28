@@ -12,6 +12,17 @@ public class Winner {
         this.name = name;
     }
 
+    public Winner() {
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRecord(int record) {
+        this.record = record;
+    }
+
     public String getName() {
         return this.name;
     }

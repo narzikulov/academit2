@@ -31,7 +31,7 @@ public class Minesweeper {
     private int scores;
     private long playingTime;
 
-    private String playerName;
+    private Winner winner = new Winner();
 
     private String pathToHighScoresFileName = "Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\";
     private String highScoresFileName = pathToHighScoresFileName + "hs.txt";
@@ -244,7 +244,7 @@ public class Minesweeper {
         gameIsOver = true;
         //TODO додумать метод расчета очков за игру для разных размерностей полей
         scores = (int) (System.currentTimeMillis() - playingTime) / 1000;
-        Winner winner = new Winner(scores, playerName);
+        winner.setRecord(scores);
         try {
             highScoresFile.addWinnerToHighScoresFile(winner);
         } catch (IOException e) {
@@ -256,20 +256,21 @@ public class Minesweeper {
         return true;
     }
 
-    public void setPlayerName(String playerName) throws IOException {
+    public void setWinnerName(String playerName) throws IOException {
         if ("".equals(playerName)) {
-            this.playerName = "Anonymous";
+            winner.setName("Anonymous");
         } else {
-            this.playerName = playerName;
+            winner.setName(playerName);
         }
+        highScoresFile.addWinnerToHighScoresFile(winner);
     }
 
     public HighScoresFileWriter getHighScoresFile() {
         return highScoresFile;
     }
 
-    public String getPlayerName() {
-        return playerName;
+    public Winner getWinner() {
+        return winner;
     }
 
     public int getScores() {
