@@ -12,11 +12,6 @@ public class Winner {
         this.name = name;
     }
 
-    public void setWinner(int record, String name) {
-        this.record = record;
-        this.name = name;
-    }
-
     public String getName() {
         return this.name;
     }

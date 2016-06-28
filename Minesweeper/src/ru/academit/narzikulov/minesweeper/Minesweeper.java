@@ -31,13 +31,12 @@ public class Minesweeper {
     private int scores;
     private long playingTime;
 
-    private Winner winner;
     private String playerName;
 
     private String pathToHighScoresFileName = "Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\";
     private String highScoresFileName = pathToHighScoresFileName + "hs.txt";
     private String logFileName = pathToHighScoresFileName + "log.txt";
-    private HighScoresFileWriter highScoresFile = new HighScoresFileWriter(highScoresFileName, logFileName );
+    private HighScoresFileWriter highScoresFile = new HighScoresFileWriter(highScoresFileName, logFileName);
 
     public Minesweeper(int rows, int columns, int mines) {
         this.rows = rows;
@@ -245,7 +244,7 @@ public class Minesweeper {
         gameIsOver = true;
         //TODO додумать метод расчета очков за игру для разных размерностей полей
         scores = (int) (System.currentTimeMillis() - playingTime) / 1000;
-        winner = new Winner(scores, playerName);
+        Winner winner = new Winner(scores, playerName);
         try {
             highScoresFile.addWinnerToHighScoresFile(winner);
         } catch (IOException e) {
