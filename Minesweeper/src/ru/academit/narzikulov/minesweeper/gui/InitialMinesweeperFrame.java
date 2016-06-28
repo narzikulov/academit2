@@ -24,7 +24,21 @@ public class InitialMinesweeperFrame {
     //size of the screen
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
+    public InitialMinesweeperFrame(int rows, int columns, int minesNum) {
+        this.rows.setText(String.valueOf(rows));
+        this.columns.setText(String.valueOf(columns));
+        this.minesNum.setText(String.valueOf(minesNum));
+        startInitialFrame();
+    }
+
     public InitialMinesweeperFrame() {
+        rows.setText(Integer.toString(Minesweeper.ROWS));
+        columns.setText(Integer.toString(Minesweeper.COLUMNS));
+        minesNum.setText(Integer.toString(Minesweeper.MINES));
+        startInitialFrame();
+    }
+
+    private void startInitialFrame() {
         initialFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         initialFrame.setLocation((int) screenSize.getWidth() / 2 - FRAME_X_SIZE, (int) screenSize.getHeight() / 3 - FRAME_Y_SIZE);
@@ -32,15 +46,13 @@ public class InitialMinesweeperFrame {
         initialFrame.setSize(FRAME_X_SIZE, FRAME_Y_SIZE);
 
         //Значения по умолчанию
-        rows.setText(Integer.toString(Minesweeper.ROWS));
+
         rows.setHorizontalAlignment(SwingConstants.CENTER);
         rows.select(0, rows.getText().length());
 
-        columns.setText(Integer.toString(Minesweeper.COLUMNS));
         columns.setHorizontalAlignment(SwingConstants.CENTER);
         columns.select(0, columns.getText().length());
 
-        minesNum.setText(Integer.toString(Minesweeper.MINES));
         minesNum.setHorizontalAlignment(SwingConstants.CENTER);
         minesNum.select(0, minesNum.getText().length());
 
@@ -63,12 +75,12 @@ public class InitialMinesweeperFrame {
         okButton.addActionListener(new ActionListenerForButtonOK());
     }
 
-    private boolean isNumber(String str) {
+
+    private Integer isNumber(String str) {
         try {
-            int i = Integer.parseInt(str);
-            return true;
+            return Integer.parseInt(str);
         } catch (NumberFormatException e) {
-            return false;
+            return null;
         }
     }
 
@@ -76,7 +88,7 @@ public class InitialMinesweeperFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             int rowsValue;
-            if (isNumber(rows.getText())) {
+            if (isNumber(rows.getText()) != null) {
                 rowsValue = Integer.valueOf(rows.getText());
                 if (rowsValue < Minesweeper.MIN_ROWS || rowsValue > Minesweeper.MAX_ROWS) {
                     String str = String.format("Input number beetwen %d and %d", Minesweeper.MIN_ROWS,
@@ -91,7 +103,7 @@ public class InitialMinesweeperFrame {
             }
 
             int columnsValue;
-            if (isNumber(columns.getText())) {
+            if (isNumber(columns.getText()) != null) {
                 columnsValue = Integer.valueOf(columns.getText());
                 if (columnsValue < Minesweeper.MIN_COLUMNS || columnsValue > Minesweeper.MAX_COLUMNS) {
                     String str = String.format("Input number beetwen %d and %d", Minesweeper.MIN_COLUMNS,
@@ -107,7 +119,7 @@ public class InitialMinesweeperFrame {
 
             int minesNumValue;
             int maxMinesNum = (int) (rowsValue * columnsValue * 0.9);
-            if (isNumber(minesNum.getText())) {
+            if (isNumber(minesNum.getText()) != null) {
                 minesNumValue = Integer.valueOf(minesNum.getText());
                 if (minesNumValue < Minesweeper.MIN_MINES || minesNumValue > maxMinesNum) {
                     String str = String.format("Input number beetwen %d and %d", Minesweeper.MIN_MINES, maxMinesNum);

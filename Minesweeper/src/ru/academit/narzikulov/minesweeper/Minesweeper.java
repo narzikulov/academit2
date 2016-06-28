@@ -1,9 +1,8 @@
 package ru.academit.narzikulov.minesweeper;
 
-import java.io.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 /**
  * Created by tim on 18.05.2016.
@@ -26,15 +25,19 @@ public class Minesweeper {
     private ArrayList<CellCoordinate> cellCoordinate = new ArrayList<>();
     private boolean gameIsLost = false;
     private boolean gameIsWon = false;
+    private boolean gameIsOver = false;
 
     private boolean isGameStarted;
     private int scores;
     private long playingTime;
 
+    private Winner winner;
     private String playerName;
 
-    public final static String HIGH_SCORES_FILE_NAME = "Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\hs.txt";
-    private HighScoresFileWriter highScoresFile = new HighScoresFileWriter();
+    private String pathToHighScoresFileName = "Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\";
+    private String highScoresFileName = pathToHighScoresFileName + "hs.txt";
+    private String logFileName = pathToHighScoresFileName + "log.txt";
+    private HighScoresFileWriter highScoresFile = new HighScoresFileWriter(highScoresFileName, logFileName );
 
     public Minesweeper(int rows, int columns, int mines) {
         this.rows = rows;
@@ -190,6 +193,7 @@ public class Minesweeper {
         if (getCell(i, j).getIsOpen() && numberFoundedMinesAroundCell(i, j) == getCell(i, j).getMinesAround()) {
             if (!isAllFoundedMinesAreRealyMines(i, j)) {
                 gameIsLost = true;
+                gameIsOver = true;
                 return;
             }
             openCell(i - 1, j);
@@ -238,8 +242,15 @@ public class Minesweeper {
             }
         }
         gameIsWon = true;
+        gameIsOver = true;
         //TODO додумать метод расчета очков за игру для разных размерностей полей
         scores = (int) (System.currentTimeMillis() - playingTime) / 1000;
+        winner = new Winner(scores, playerName);
+        try {
+            highScoresFile.addWinnerToHighScoresFile(winner);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         //scores = (int) ((rows - mines / columns) * (columns - mines / rows)
         //        * (System.currentTimeMillis() - playingTime)) / 1000 / (mines * mines);
         //System.out.printf("scores = %d%n", scores);
@@ -247,8 +258,11 @@ public class Minesweeper {
     }
 
     public void setPlayerName(String playerName) throws IOException {
-        this.playerName = playerName;
-        highScoresFile.highScoresFileWriter(this);
+        if ("".equals(playerName)) {
+            this.playerName = "Anonymous";
+        } else {
+            this.playerName = playerName;
+        }
     }
 
     public HighScoresFileWriter getHighScoresFile() {
@@ -285,6 +299,7 @@ public class Minesweeper {
         if (!getCell(iTurn, jTurn).getIsMineFound()) {
             if (getCell(iTurn, jTurn).getIsMine()) {
                 gameIsLost = true;
+                gameIsOver = true;
                 return;
             }
             if (getCell(iTurn, jTurn).getMinesAround() == 0) {
@@ -328,6 +343,10 @@ public class Minesweeper {
         return columns;
     }
 
+    public int getMines() {
+        return mines;
+    }
+
     public Cell getCell(int i, int j) {
         return mineField.get(i).get(j);
     }
@@ -346,6 +365,10 @@ public class Minesweeper {
 
     public boolean getIsGameStarted() {
         return isGameStarted;
+    }
+
+    public boolean getGameIsOver() {
+        return gameIsOver;
     }
 
     public long getPlayingTime() {

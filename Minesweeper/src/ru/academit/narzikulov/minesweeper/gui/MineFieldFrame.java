@@ -22,17 +22,17 @@ public class MineFieldFrame {
     private JLabel playTime = new JLabel("Playing time: ");
     private Timer timer;
 
-    private Minesweeper minesweeper = new Minesweeper();
+    private Minesweeper minesweeper;
 
     private int rowsValue;
     private int columnsValue;
 
     private ArrayList<ArrayList<GuiCell>> mineFieldButtons = new ArrayList<>();
-    private String picsPath = "Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\pics\\";
-    private Icon mineIcon = new ImageIcon(picsPath + "mine.png");
-    private Icon flagIcon = new ImageIcon(picsPath + "flag.png");
-    private Icon questionIcon = new ImageIcon(picsPath + "question.png");
-    private Icon borderIcon = new ImageIcon(picsPath + "border.png");
+    private final static String PICS_PATH = "Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\pics\\";
+    private Icon mineIcon = new ImageIcon(PICS_PATH + "mine.png");
+    private Icon flagIcon = new ImageIcon(PICS_PATH + "flag.png");
+    private Icon questionIcon = new ImageIcon(PICS_PATH + "question.png");
+    private Icon borderIcon = new ImageIcon(PICS_PATH + "border.png");
     private Font font = new Font("Arial", Font.BOLD, 12);
 
     public MineFieldFrame(int rowsValue, int columnsValue, int minesNumValue, Dimension screenSize) {
@@ -150,12 +150,13 @@ public class MineFieldFrame {
 
     private void showGameOver() {
         timer.stop();
-        JOptionPane.showMessageDialog(new JFrame(), "Game over! You lost!", "Game over", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(minesweeperFrame, "Game over! You lost!", "Game over", JOptionPane.WARNING_MESSAGE);
     }
 
     private void showGameIsWon() throws IOException {
         timer.stop();
-        JOptionPane.showMessageDialog(minesweeperFrame, "You won the game!", "You won the game!", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(minesweeperFrame, "You won the game!", "You won the game!",
+                JOptionPane.WARNING_MESSAGE);
         minesweeper.setPlayerName(JOptionPane.showInputDialog("Input player name:"));
         JOptionPane.showMessageDialog(minesweeperFrame, minesweeper.getHighScoresFile().highScoresTableToString(),
                 "High scores table", JOptionPane.WARNING_MESSAGE);
@@ -206,6 +207,10 @@ public class MineFieldFrame {
 
         @Override
         public void mousePressed(MouseEvent e) {
+            if (minesweeper.getGameIsOver()) {
+                return;
+            }
+
             if (e.getButton() == MouseEvent.BUTTON1) {
                 timer.start();
             }
@@ -225,6 +230,10 @@ public class MineFieldFrame {
 
         @Override
         public void mouseReleased(MouseEvent e) {
+            if (minesweeper.getGameIsOver()) {
+                return;
+            }
+
             if (minesweeper.getGameIsWon() || minesweeper.getGameIsLost()) {
                 return;
             }
@@ -289,6 +298,10 @@ public class MineFieldFrame {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+            if (minesweeper.getGameIsOver()) {
+                return;
+            }
+
             if (minesweeper.gameIsWon()) {
                 try {
                     showGameIsWon();
@@ -311,7 +324,8 @@ public class MineFieldFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             minesweeperFrame.dispose();
-            InitialMinesweeperFrame minesweeperField = new InitialMinesweeperFrame();
+            InitialMinesweeperFrame minesweeperField =
+                    new InitialMinesweeperFrame(minesweeper.getRows(), minesweeper.getColumns(), minesweeper.getMines());
             minesweeperField.showInitialFrame();
         }
     }

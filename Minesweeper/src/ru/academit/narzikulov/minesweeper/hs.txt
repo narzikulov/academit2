@@ -1,14 +1,14 @@
-0:Tim5
-0:Tim 5
-2:Tom
-3:25x50 winner
-8:Tim
-8:Tim
 11:Tim 11 sec
+14:Anonymous
 18:HighScore plsyer
 18:Timur
 19:Tim19
+23:Anonymous
 23:High Score SeparateClass
 23:Resizable
+25:Frendly dims
+26:Anonymous
+28:Anonymous
+32:Timur
 42:Tim42
 43:Tim

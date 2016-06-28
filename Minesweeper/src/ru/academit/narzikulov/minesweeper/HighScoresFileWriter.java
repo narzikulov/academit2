@@ -1,26 +1,28 @@
 package ru.academit.narzikulov.minesweeper;
 
 import java.io.*;
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
-
-import static ru.academit.narzikulov.minesweeper.Minesweeper.HIGH_SCORES_FILE_NAME;
 
 /**
  * Created by tim on 27.06.2016.
  */
 public class HighScoresFileWriter {
-
-
     //Ограниченное количество игроков, выводящихся в таблице победителей
     private final static int OUTPUT_NUM_OF_WINNERS = 20;
+    private String highScoresFileName;
+    private String logFileName;
 
-    public HighScoresFileWriter() {
+    public HighScoresFileWriter(String highScoresFileName, String logFileName) {
+        this.highScoresFileName = highScoresFileName;
+        this.logFileName = logFileName;
     }
 
     public String highScoresTableToString() {
         StringBuilder scoresTable = new StringBuilder();
-        try (Scanner highScoresFile = new Scanner(new FileInputStream(HIGH_SCORES_FILE_NAME))) {
+        try (Scanner highScoresFile = new Scanner(new FileInputStream(highScoresFileName))) {
             int i = 0;
             while (highScoresFile.hasNextLine()) {
                 ++i;
@@ -34,31 +36,41 @@ public class HighScoresFileWriter {
             }
         } catch (FileNotFoundException e) {
             //e.printStackTrace();
-            System.out.println("High scores fle not found!");
+            try (PrintWriter logFile = new PrintWriter(new FileWriter(logFileName))) {
+                logFile.println(new Date(System.currentTimeMillis()));
+                logFile.println(new Time(System.currentTimeMillis()));
+                logFile.println(e);
+                logFile.println("High scores file not found!");
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
         return scoresTable.toString();
     }
 
-    public void highScoresFileWriter(Minesweeper minesweeper) throws IOException {
+    public void addWinnerToHighScoresFile(Winner winner) throws IOException {
         ArrayList<Winner> highScoresTable = new ArrayList<>();
-        try (Scanner highScoresFile = new Scanner(new FileInputStream(HIGH_SCORES_FILE_NAME))) {
+        try (Scanner highScoresFile = new Scanner(new FileInputStream(highScoresFileName))) {
             while (highScoresFile.hasNextLine()) {
                 String[] str = highScoresFile.nextLine().split(":");
                 int record = Integer.valueOf(str[0]);
                 String name = str[1];
                 highScoresTable.add(new Winner(record, name));
             }
-        } catch (IOException ignored) {
+        } catch (IOException e) {
+            try (PrintWriter logFile = new PrintWriter(new FileWriter(logFileName))) {
+                logFile.println(e);
+                logFile.println("Error reading High Scores file");
+            }
         }
 
-        if (minesweeper.getPlayerName() == null) {
+        if (winner.getName() == null) {
             return;
         }
 
-        Winner winner = new Winner(minesweeper.getScores(), minesweeper.getPlayerName());
         addWinnerToHighScoresTable(highScoresTable, winner);
 
-        try (PrintWriter highScoresFile = new PrintWriter(new FileWriter(HIGH_SCORES_FILE_NAME))) {
+        try (PrintWriter highScoresFile = new PrintWriter(new FileWriter(highScoresFileName))) {
             for (Winner aHighScoresTable : highScoresTable) {
                 highScoresFile.println(aHighScoresTable.toString());
             }
