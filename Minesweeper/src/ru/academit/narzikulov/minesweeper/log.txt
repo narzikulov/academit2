@@ -1,0 +1,4 @@
+Wed Jun 29 15:06:39 YEKT 2016
+15:06:39
+java.io.FileNotFoundException: Minesweeper\src\ru\academit\narzikulov\minesweeper\hs.txt (Отказано в доступе)
+Error reading High Scores file!

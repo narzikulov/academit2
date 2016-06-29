@@ -1,8 +1,5 @@
-0:null
-2:1234wwer
-2:null
-3:null
-4:null
+5:Super Winny Pooh
+5:null
 11:Tim 11 sec
 14:Anonymous
 18:HighScore plsyer
@@ -13,6 +10,8 @@
 23:Resizable
 25:Frendly dims
 26:Anonymous
+27:Asddsa
+27:null
 28:Anonymous
 32:Timur
 42:Tim42

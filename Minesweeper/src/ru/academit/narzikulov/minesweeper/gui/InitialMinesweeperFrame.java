@@ -46,7 +46,6 @@ public class InitialMinesweeperFrame {
         initialFrame.setSize(FRAME_X_SIZE, FRAME_Y_SIZE);
 
         //Значения по умолчанию
-
         rows.setHorizontalAlignment(SwingConstants.CENTER);
         rows.select(0, rows.getText().length());
 
@@ -76,11 +75,12 @@ public class InitialMinesweeperFrame {
     }
 
 
-    private Integer isNumber(String str) {
+    private boolean isNumber(String str) {
         try {
-            return Integer.parseInt(str);
+            Integer.parseInt(str);
+            return true;
         } catch (NumberFormatException e) {
-            return null;
+            return false;
         }
     }
 
@@ -88,7 +88,7 @@ public class InitialMinesweeperFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             int rowsValue;
-            if (isNumber(rows.getText()) != null) {
+            if (isNumber(rows.getText())) {
                 rowsValue = Integer.valueOf(rows.getText());
                 if (rowsValue < Minesweeper.MIN_ROWS || rowsValue > Minesweeper.MAX_ROWS) {
                     String str = String.format("Input number beetwen %d and %d", Minesweeper.MIN_ROWS,
@@ -103,7 +103,7 @@ public class InitialMinesweeperFrame {
             }
 
             int columnsValue;
-            if (isNumber(columns.getText()) != null) {
+            if (isNumber(columns.getText())) {
                 columnsValue = Integer.valueOf(columns.getText());
                 if (columnsValue < Minesweeper.MIN_COLUMNS || columnsValue > Minesweeper.MAX_COLUMNS) {
                     String str = String.format("Input number beetwen %d and %d", Minesweeper.MIN_COLUMNS,
@@ -119,7 +119,7 @@ public class InitialMinesweeperFrame {
 
             int minesNumValue;
             int maxMinesNum = (int) (rowsValue * columnsValue * 0.9);
-            if (isNumber(minesNum.getText()) != null) {
+            if (isNumber(minesNum.getText())) {
                 minesNumValue = Integer.valueOf(minesNum.getText());
                 if (minesNumValue < Minesweeper.MIN_MINES || minesNumValue > maxMinesNum) {
                     String str = String.format("Input number beetwen %d and %d", Minesweeper.MIN_MINES, maxMinesNum);

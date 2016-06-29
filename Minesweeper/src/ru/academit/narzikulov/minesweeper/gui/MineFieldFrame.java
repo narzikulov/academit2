@@ -46,7 +46,6 @@ public class MineFieldFrame {
         minesweeperFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         minesweeperFrame.setMinimumSize(new Dimension(x, y));
         minesweeperFrame.setSize(x, y);
-        //minesweeperFrame.setResizable(false);
         minesweeperFrame.setLocation((int) (screenSize.getWidth() - x) / 2, (int) (screenSize.getHeight() - y) / 2);
 
         minesweeperPanel.setSize(x, y);
@@ -153,12 +152,18 @@ public class MineFieldFrame {
         JOptionPane.showMessageDialog(minesweeperFrame, "Game over! You lost!", "Game over", JOptionPane.WARNING_MESSAGE);
     }
 
-    private void showGameIsWon() throws IOException {
+    private void showGameIsWon(){
         timer.stop();
         JOptionPane.showMessageDialog(minesweeperFrame, "You won the game!", "You won the game!",
                 JOptionPane.WARNING_MESSAGE);
-        minesweeper.setWinnerName(JOptionPane.showInputDialog("Input player name:"));
-        JOptionPane.showMessageDialog(minesweeperFrame, minesweeper.getHighScoresFile().highScoresTableToString(),
+        try {
+            minesweeper.setWinnerName(JOptionPane.showInputDialog("Input player name:"));
+        } catch (IOException e1) {
+            e1.printStackTrace();
+            JOptionPane.showMessageDialog(minesweeperFrame, "Unable to write record to High Scores table", "Warning!",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+        JOptionPane.showMessageDialog(minesweeperFrame, minesweeper.getHighScoresFile().toString(),
                 "High scores table", JOptionPane.WARNING_MESSAGE);
     }
 
@@ -169,14 +174,12 @@ public class MineFieldFrame {
     private void markAllCellsAround(int iTurn, int jTurn, Icon icon) {
         for (int i = iTurn - 1; i <= iTurn + 1; ++i) {
             for (int j = jTurn - 1; j <= jTurn + 1; ++j) {
-                //if (i != iTurn && j != jTurn) {
                 if (indexesAreNotOutOfBounds(i, j)
                         && !minesweeper.getCell(i, j).getIsOpen()
                         && !minesweeper.getCell(i, j).getIsMineFound()
                         && !minesweeper.getCell(i, j).getUnderQuestion()) {
                     mineFieldButtons.get(i).get(j).setIcon(icon);
                 }
-                //}
             }
         }
     }
@@ -220,11 +223,7 @@ public class MineFieldFrame {
             }
 
             if (minesweeper.gameIsWon()) {
-                try {
-                    showGameIsWon();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
+                showGameIsWon();
             }
         }
 
@@ -288,11 +287,7 @@ public class MineFieldFrame {
             }
 
             if (minesweeper.gameIsWon()) {
-                try {
-                    showGameIsWon();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
+                showGameIsWon();
             }
         }
 
@@ -303,11 +298,7 @@ public class MineFieldFrame {
             }
 
             if (minesweeper.gameIsWon()) {
-                try {
-                    showGameIsWon();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
+                showGameIsWon();
             }
         }
     }
@@ -333,7 +324,7 @@ public class MineFieldFrame {
     private class ActionListenerMenuFileHighScores implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            JOptionPane.showMessageDialog(minesweeperFrame, minesweeper.getHighScoresFile().highScoresTableToString(),
+            JOptionPane.showMessageDialog(minesweeperFrame, minesweeper.getHighScoresFile().toString(),
                     "High scores table", JOptionPane.WARNING_MESSAGE);
         }
 

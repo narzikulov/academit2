@@ -33,10 +33,10 @@ public class Minesweeper {
 
     private Winner winner = new Winner();
 
-    private String pathToHighScoresFileName = "Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\";
-    private String highScoresFileName = pathToHighScoresFileName + "hs.txt";
-    private String logFileName = pathToHighScoresFileName + "log.txt";
-    private HighScoresFileWriter highScoresFile = new HighScoresFileWriter(highScoresFileName, logFileName);
+    private String pathToFiles = "Minesweeper\\src\\ru\\academit\\narzikulov\\minesweeper\\";
+    private String highScoresFileName = pathToFiles + "hs.txt";
+    private String logFileName = pathToFiles + "log.txt";
+    private HighScores highScoresFile = new HighScores(highScoresFileName, logFileName);
 
     public Minesweeper(int rows, int columns, int mines) {
         this.rows = rows;
@@ -246,13 +246,10 @@ public class Minesweeper {
         scores = (int) (System.currentTimeMillis() - playingTime) / 1000;
         winner.setRecord(scores);
         try {
-            highScoresFile.addWinnerToHighScoresFile(winner);
+            highScoresFile.write(winner);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //scores = (int) ((rows - mines / columns) * (columns - mines / rows)
-        //        * (System.currentTimeMillis() - playingTime)) / 1000 / (mines * mines);
-        //System.out.printf("scores = %d%n", scores);
         return true;
     }
 
@@ -262,10 +259,10 @@ public class Minesweeper {
         } else {
             winner.setName(playerName);
         }
-        highScoresFile.addWinnerToHighScoresFile(winner);
+        highScoresFile.write(winner);
     }
 
-    public HighScoresFileWriter getHighScoresFile() {
+    public HighScores getHighScoresFile() {
         return highScoresFile;
     }
 
