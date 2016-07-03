@@ -34,9 +34,9 @@ public class SymmetricMatrix implements Serializable {
 
     public void print() {
         int dim = matrix.length;
-        for (int i = 0; i < dim; ++i) {
+        for (int[] aMatrix : matrix) {
             for (int j = 0; j < dim; ++j) {
-                System.out.printf("%5d", matrix[i][j]);
+                System.out.printf("%5d", aMatrix[j]);
             }
             System.out.println();
         }
@@ -65,8 +65,8 @@ public class SymmetricMatrix implements Serializable {
 
     public void printVector() {
         System.out.println("Vector");
-        for (int k = 0; k < vector.length; ++k) {
-            System.out.printf("%5d", vector[k]);
+        for (int aVector : vector) {
+            System.out.printf("%5d", aVector);
         }
         System.out.println();
     }
