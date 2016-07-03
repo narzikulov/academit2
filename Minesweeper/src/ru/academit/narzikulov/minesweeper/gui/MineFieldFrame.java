@@ -159,6 +159,7 @@ public class MineFieldFrame {
         try {
             minesweeper.setWinnerName(JOptionPane.showInputDialog("Input player name:"));
         } catch (IOException e1) {
+            //Все равно выдает информацию в консоль
             e1.printStackTrace();
             JOptionPane.showMessageDialog(minesweeperFrame, "Unable to write record to High Scores table", "Warning!",
                     JOptionPane.WARNING_MESSAGE);

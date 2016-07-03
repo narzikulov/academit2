@@ -20,5 +20,6 @@
     <orderEntry type="module" module-name="InputOutput" />
     <orderEntry type="module" module-name="Strings" />
     <orderEntry type="module" module-name="TimeLabel" />
+    <orderEntry type="module" module-name="Reflection" />
   </component>
 </module>
