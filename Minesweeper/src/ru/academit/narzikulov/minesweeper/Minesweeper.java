@@ -247,13 +247,13 @@ public class Minesweeper {
         winner.setRecord(scores);
         try {
             highScoresFile.write(winner);
-        } catch (IOException e) {
+        } catch (CannotLoadHighScoresException e) {
             e.printStackTrace();
         }
         return true;
     }
 
-    public void setWinnerName(String playerName) throws IOException {
+    public void setWinnerName(String playerName) throws CannotLoadHighScoresException {
         if ("".equals(playerName)) {
             winner.setName("Anonymous");
         } else {

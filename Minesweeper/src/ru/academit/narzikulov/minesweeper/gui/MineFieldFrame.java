@@ -1,10 +1,12 @@
 package ru.academit.narzikulov.minesweeper.gui;
 
+import ru.academit.narzikulov.minesweeper.CannotLoadHighScoresException;
 import ru.academit.narzikulov.minesweeper.Minesweeper;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -158,9 +160,7 @@ public class MineFieldFrame {
                 JOptionPane.WARNING_MESSAGE);
         try {
             minesweeper.setWinnerName(JOptionPane.showInputDialog("Input player name:"));
-        } catch (IOException e1) {
-            //Все равно выдает информацию в консоль
-            e1.printStackTrace();
+        } catch (CannotLoadHighScoresException e1) {
             JOptionPane.showMessageDialog(minesweeperFrame, "Unable to write record to High Scores table", "Warning!",
                     JOptionPane.WARNING_MESSAGE);
         }

@@ -41,7 +41,7 @@ public class HighScores {
         return scoresTable.toString();
     }
 
-    public void write(Winner winner) throws IOException {
+    public void write(Winner winner) throws CannotLoadHighScoresException {
         ArrayList<Winner> highScoresTable = new ArrayList<>();
         try (Scanner highScoresFile = new Scanner(new FileInputStream(fileName))) {
             while (highScoresFile.hasNextLine()) {
@@ -52,6 +52,7 @@ public class HighScores {
             }
         } catch (IOException e) {
             fileLogger.writeLog(e);
+            new CannotLoadHighScoresException(e);
         }
 
         add(highScoresTable, winner);
@@ -60,6 +61,8 @@ public class HighScores {
             for (Winner aHighScoresTable : highScoresTable) {
                 highScoresFile.println(aHighScoresTable.toString());
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

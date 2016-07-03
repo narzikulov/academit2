@@ -17,12 +17,12 @@ public class Main {
         //HashTableMain.main();
         //RangeMain.main();
         //TemperatureMain.main();
-        //ru.academit.narzikulov.minesweeper.MinesweeperMain.main();
+        ru.academit.narzikulov.minesweeper.MinesweeperMain.main();
         //GenericsTaskMain.main();
         //InputOutputMain.main();
         //ru.academit.narzikulov.strings.StingsMain.main();
         //TimeLabelMain.main();
-        ReflectionMain.main();
+        //ReflectionMain.main();
 
     }
 }
