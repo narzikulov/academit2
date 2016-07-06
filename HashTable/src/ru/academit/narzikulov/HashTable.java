@@ -1,8 +1,10 @@
 package ru.academit.narzikulov;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
-public class HashTable<E> {
+public class HashTable<E> implements Collection<E> {
     private ArrayList<E>[] hTable;
     private final int HT_DIM = 100;
     private int lastElementIndex = 0;
@@ -13,7 +15,9 @@ public class HashTable<E> {
     }
 
     public HashTable(int hTableSize) {
-        if (hTableSize <= 0) throw new IllegalArgumentException("Некорректно задана размерность хэш-таблицы");
+        if (hTableSize <= 0) {
+            throw new IllegalArgumentException("Некорректно задана размерность хэш-таблицы");
+        }
         //noinspection unchecked
         this.hTable = new ArrayList[hTableSize];
     }
@@ -30,13 +34,13 @@ public class HashTable<E> {
         return s.toString();
     }
 
-    private int hashCode(E element) {
+    private int hashCode(Object element) {
         return Math.abs(element.hashCode() % HT_DIM);
     }
 
-    public void add(E element) {
+    public boolean add(E element) {
         if (element == null) {
-            return;
+            return false;
         }
         int curElementIndex = hashCode(element);
         if (hTable[curElementIndex] == null) {
@@ -44,6 +48,69 @@ public class HashTable<E> {
         }
         hTable[curElementIndex].add(element);
         lastElementIndex = Math.max(lastElementIndex, curElementIndex);
+        return false;
+    }
+
+    @Override
+    public boolean remove(Object element) {
+        if (element == null) {
+            return false;
+        }
+        int curElementIndex = hashCode(element);
+        if (hTable[curElementIndex] != null) {
+            hTable[curElementIndex].remove(element);
+            return true;
+        }
+        lastElementIndex = Math.max(lastElementIndex, curElementIndex);
+        return false;
+    }
+
+    @Override
+    public boolean containsAll(Collection<?> c) {
+        Object[] collection = c.toArray();
+        for (Object aCollection : collection) {
+            if (!this.contains(aCollection)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends E> c) {
+        boolean result = false;
+        for (Object aCollection : c) {
+            if (this.add((E) aCollection)) {
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        boolean result = false;
+        Object[] collection = c.toArray();
+        for (Object aCollection : collection) {
+            if (this.contains(aCollection)) {
+                this.remove(aCollection);
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        boolean result = false;
+        Object[] collection = c.toArray();
+        for (Object aCollection : collection) {
+            if (!this.contains(aCollection)) {
+                this.remove(aCollection);
+                result = true;
+            }
+        }
+        return result;
     }
 
     public int size() {
@@ -60,7 +127,7 @@ public class HashTable<E> {
         int arraySize = this.size();
         Object[] array = new Object[arraySize];
         if (this.isEmpty()) {
-            throw new ArrayIndexOutOfBoundsException("Список пуст");
+            return new Object[0];
         }
         int k = 0;
         for (int i = 0; i <= lastElementIndex; ++i) {
@@ -68,9 +135,9 @@ public class HashTable<E> {
                 continue;
             }
             for (int j = 0; j < hTable[i].size(); ++j) {
-                if (hTable[i].get(j) == null) {
+                /*if (hTable[i].get(j) == null) {
                     continue;
-                }
+                }*/
                 array[k] = hTable[i].get(j);
                 ++k;
             }
@@ -78,8 +145,24 @@ public class HashTable<E> {
         return array;
     }
 
+    @Override
+    public <T> T[] toArray(T[] a) {
+        return null;
+    }
+
     public boolean isEmpty() {
         return this.lastElementIndex <= 0;
+    }
+
+    @Override
+    public boolean contains(Object o) {
+        int hashCode = hashCode(o);
+        return this.hTable[hashCode] != null && this.hTable[hashCode].contains(o);
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return null;
     }
 
     public void clear() {
@@ -93,27 +176,5 @@ public class HashTable<E> {
             }
         }
         lastElementIndex = 0;
-    }
-
-    public boolean contains(E element) {
-        for (int i = 0; i < HT_DIM; ++i) {
-            if (hTable[i] != null) {
-                if (hTable[i].contains(element)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public void remove(E element) {
-        if (element == null) {
-            return;
-        }
-        int curElementIndex = hashCode(element);
-        if (hTable[curElementIndex] != null) {
-            hTable[curElementIndex].remove(element);
-        }
-        lastElementIndex = Math.max(lastElementIndex, curElementIndex);
     }
 }
