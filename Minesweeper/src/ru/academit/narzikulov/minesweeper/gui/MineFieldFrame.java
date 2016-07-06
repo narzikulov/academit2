@@ -1,13 +1,11 @@
 package ru.academit.narzikulov.minesweeper.gui;
 
-import ru.academit.narzikulov.minesweeper.CannotLoadHighScoresException;
 import ru.academit.narzikulov.minesweeper.Minesweeper;
+import ru.academit.narzikulov.minesweeper.exceptions.CannotLoadHighScoresException;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -159,7 +157,10 @@ public class MineFieldFrame {
         JOptionPane.showMessageDialog(minesweeperFrame, "You won the game!", "You won the game!",
                 JOptionPane.WARNING_MESSAGE);
         try {
-            minesweeper.setWinnerName(JOptionPane.showInputDialog("Input player name:"));
+            if (!minesweeper.setWinnerName(JOptionPane.showInputDialog("Input player name:"))) {
+                JOptionPane.showMessageDialog(minesweeperFrame, "Unable write record to High Scores table", "Warning!",
+                        JOptionPane.WARNING_MESSAGE);
+            }
         } catch (CannotLoadHighScoresException e1) {
             JOptionPane.showMessageDialog(minesweeperFrame, "Unable to write record to High Scores table", "Warning!",
                     JOptionPane.WARNING_MESSAGE);
@@ -325,8 +326,12 @@ public class MineFieldFrame {
     private class ActionListenerMenuFileHighScores implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            JOptionPane.showMessageDialog(minesweeperFrame, minesweeper.getHighScoresFile().toString(),
-                    "High scores table", JOptionPane.WARNING_MESSAGE);
+            String str = minesweeper.getHighScoresFile().toString();
+            if (str.length() == 0) {
+                JOptionPane.showMessageDialog(minesweeperFrame, "There is no winner yet", "", JOptionPane.WARNING_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(minesweeperFrame, str,"High scores table", JOptionPane.WARNING_MESSAGE);
+            }
         }
 
     }

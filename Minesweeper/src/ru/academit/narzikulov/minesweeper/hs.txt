@@ -1,6 +1,7 @@
+0:Qweasd
 5:Super Winny Pooh
-5:null
 11:Tim 11 sec
+12:1
 14:Anonymous
 18:HighScore plsyer
 18:Timur
@@ -11,8 +12,9 @@
 25:Frendly dims
 26:Anonymous
 27:Asddsa
-27:null
 28:Anonymous
+30:Tim
+30:Tim
 32:Timur
 42:Tim42
 43:Tim

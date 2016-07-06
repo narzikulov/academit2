@@ -1,6 +1,7 @@
 package ru.academit.narzikulov.minesweeper;
 
-import java.io.IOException;
+import ru.academit.narzikulov.minesweeper.exceptions.CannotLoadHighScoresException;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -245,21 +246,16 @@ public class Minesweeper {
         //TODO додумать метод расчета очков за игру для разных размерностей полей
         scores = (int) (System.currentTimeMillis() - playingTime) / 1000;
         winner.setRecord(scores);
-        try {
-            highScoresFile.write(winner);
-        } catch (CannotLoadHighScoresException e) {
-            e.printStackTrace();
-        }
         return true;
     }
 
-    public void setWinnerName(String playerName) throws CannotLoadHighScoresException {
+    public boolean setWinnerName(String playerName) throws CannotLoadHighScoresException {
         if ("".equals(playerName)) {
             winner.setName("Anonymous");
         } else {
             winner.setName(playerName);
         }
-        highScoresFile.write(winner);
+        return highScoresFile.write(winner);
     }
 
     public HighScores getHighScoresFile() {

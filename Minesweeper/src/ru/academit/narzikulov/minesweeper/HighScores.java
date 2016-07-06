@@ -1,6 +1,11 @@
 package ru.academit.narzikulov.minesweeper;
 
-import java.io.*;
+import ru.academit.narzikulov.minesweeper.exceptions.CannotLoadHighScoresException;
+
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -12,6 +17,7 @@ public class HighScores {
     private final static int OUTPUT_NUM_OF_WINNERS = 20;
     private String fileName;
     private FileLogger fileLogger;
+    private ArrayList<Winner> highScoresTable;
 
     public HighScores(String highScoresFileName, String logFileName) {
         this.fileName = highScoresFileName;
@@ -19,30 +25,30 @@ public class HighScores {
     }
 
     public String toString() {
-        StringBuilder scoresTable = new StringBuilder();
-        try (Scanner highScoresFile = new Scanner(new FileInputStream(fileName))) {
-            int i = 0;
-            while (highScoresFile.hasNextLine()) {
-                ++i;
-                String[] str = highScoresFile.nextLine().split(":");
-                int record = Integer.valueOf(str[0]);
-                String name = str[1];
-                scoresTable.append(String.format("%6d %s %n", record, name));
-                if (i == OUTPUT_NUM_OF_WINNERS) {
-                    break;
+        try {
+            read();
+        } catch (CannotLoadHighScoresException e) {
+            try (PrintWriter highScoresFile = new PrintWriter(new FileWriter(fileName))) {
                 }
+            catch (IOException e1) {
+                e1.printStackTrace();
             }
-        } catch (FileNotFoundException e) {
-            fileLogger.writeLog(e);
         }
-        if (scoresTable.length() == 0) {
-            return "There is no winners yet.";
+
+        StringBuilder scoresTable = new StringBuilder();
+        for (int i = 0; i < highScoresTable.size(); ++i) {
+            if (i == OUTPUT_NUM_OF_WINNERS) {
+                break;
+            }
+            scoresTable.append(String.format("%6d %s %n",
+                    highScoresTable.get(i).getRecord(), highScoresTable.get(i).getName()));
         }
+
         return scoresTable.toString();
     }
 
-    public void write(Winner winner) throws CannotLoadHighScoresException {
-        ArrayList<Winner> highScoresTable = new ArrayList<>();
+    private boolean read() throws CannotLoadHighScoresException {
+        highScoresTable = new ArrayList<>();
         try (Scanner highScoresFile = new Scanner(new FileInputStream(fileName))) {
             while (highScoresFile.hasNextLine()) {
                 String[] str = highScoresFile.nextLine().split(":");
@@ -52,9 +58,15 @@ public class HighScores {
             }
         } catch (IOException e) {
             fileLogger.writeLog(e);
-            new CannotLoadHighScoresException(e);
+            throw new CannotLoadHighScoresException(e);
         }
+        return true;
+    }
 
+    public boolean write(Winner winner) throws CannotLoadHighScoresException {
+        if (!read()) {
+            highScoresTable = new ArrayList<>();
+        }
         add(highScoresTable, winner);
 
         try (PrintWriter highScoresFile = new PrintWriter(new FileWriter(fileName))) {
@@ -63,7 +75,9 @@ public class HighScores {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
+        return true;
     }
 
     private void add(ArrayList<Winner> highScoresTable, Winner winner) {

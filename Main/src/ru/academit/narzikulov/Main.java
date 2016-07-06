@@ -1,9 +1,5 @@
 package ru.academit.narzikulov;
 
-import ru.academit.narzikulov.reflection.ReflectionMain;
-import ru.academit.narzikulov.serializator.SymmetricMatrixMain;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
@@ -22,13 +18,13 @@ public class Main {
         //HashTableMain.main();
         //RangeMain.main();
         //TemperatureMain.main();
-        //ru.academit.narzikulov.minesweeper.MinesweeperMain.main();
+        ru.academit.narzikulov.minesweeper.MinesweeperMain.main();
         //GenericsTaskMain.main();
         //InputOutputMain.main();
         //ru.academit.narzikulov.strings.StingsMain.main();
         //TimeLabelMain.main();
         //ReflectionMain.main();
-        SymmetricMatrixMain.main();
+        //SymmetricMatrixMain.main();
 
     }
 }
