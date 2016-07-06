@@ -1,6 +1,7 @@
 package ru.academit.narzikulov.minesweeper;
 
 import ru.academit.narzikulov.minesweeper.exceptions.CannotLoadHighScoresException;
+import ru.academit.narzikulov.minesweeper.exceptions.UnableWriteHighScoresException;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -249,7 +250,7 @@ public class Minesweeper {
         return true;
     }
 
-    public boolean setWinnerName(String playerName) throws CannotLoadHighScoresException {
+    public boolean setWinnerName(String playerName) throws CannotLoadHighScoresException, UnableWriteHighScoresException {
         if ("".equals(playerName)) {
             winner.setName("Anonymous");
         } else {

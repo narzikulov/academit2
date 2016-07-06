@@ -2,6 +2,7 @@ package ru.academit.narzikulov.minesweeper.gui;
 
 import ru.academit.narzikulov.minesweeper.Minesweeper;
 import ru.academit.narzikulov.minesweeper.exceptions.CannotLoadHighScoresException;
+import ru.academit.narzikulov.minesweeper.exceptions.UnableWriteHighScoresException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -152,7 +153,7 @@ public class MineFieldFrame {
         JOptionPane.showMessageDialog(minesweeperFrame, "Game over! You lost!", "Game over", JOptionPane.WARNING_MESSAGE);
     }
 
-    private void showGameIsWon(){
+    private void showGameIsWon() throws UnableWriteHighScoresException {
         timer.stop();
         JOptionPane.showMessageDialog(minesweeperFrame, "You won the game!", "You won the game!",
                 JOptionPane.WARNING_MESSAGE);
@@ -162,7 +163,7 @@ public class MineFieldFrame {
                         JOptionPane.WARNING_MESSAGE);
             }
         } catch (CannotLoadHighScoresException e1) {
-            JOptionPane.showMessageDialog(minesweeperFrame, "Unable to write record to High Scores table", "Warning!",
+            JOptionPane.showMessageDialog(minesweeperFrame, "No winners yet", "Warning!",
                     JOptionPane.WARNING_MESSAGE);
         }
         JOptionPane.showMessageDialog(minesweeperFrame, minesweeper.getHighScoresFile().toString(),
@@ -225,7 +226,11 @@ public class MineFieldFrame {
             }
 
             if (minesweeper.gameIsWon()) {
-                showGameIsWon();
+                try {
+                    showGameIsWon();
+                } catch (UnableWriteHighScoresException e1) {
+                    e1.printStackTrace();
+                }
             }
         }
 
@@ -289,7 +294,11 @@ public class MineFieldFrame {
             }
 
             if (minesweeper.gameIsWon()) {
-                showGameIsWon();
+                try {
+                    showGameIsWon();
+                } catch (UnableWriteHighScoresException e1) {
+                    e1.printStackTrace();
+                }
             }
         }
 
@@ -300,7 +309,11 @@ public class MineFieldFrame {
             }
 
             if (minesweeper.gameIsWon()) {
-                showGameIsWon();
+                try {
+                    showGameIsWon();
+                } catch (UnableWriteHighScoresException e1) {
+                    e1.printStackTrace();
+                }
             }
         }
     }

@@ -1,6 +1,7 @@
 package ru.academit.narzikulov.minesweeper;
 
 import ru.academit.narzikulov.minesweeper.exceptions.CannotLoadHighScoresException;
+import ru.academit.narzikulov.minesweeper.exceptions.UnableWriteHighScoresException;
 
 import java.io.FileInputStream;
 import java.io.FileWriter;
@@ -31,7 +32,12 @@ public class HighScores {
             try (PrintWriter highScoresFile = new PrintWriter(new FileWriter(fileName))) {
                 }
             catch (IOException e1) {
-                e1.printStackTrace();
+                fileLogger.writeLog(e1);
+                try {
+                    throw new UnableWriteHighScoresException (e1);
+                } catch (UnableWriteHighScoresException e2) {
+                    e2.printStackTrace();
+                }
             }
         }
 
@@ -74,7 +80,6 @@ public class HighScores {
                 highScoresFile.println(aHighScoresTable.toString());
             }
         } catch (IOException e) {
-            e.printStackTrace();
             return false;
         }
         return true;
