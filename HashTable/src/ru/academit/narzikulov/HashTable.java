@@ -147,7 +147,13 @@ public class HashTable<E> implements Collection<E> {
 
     @Override
     public <T> T[] toArray(T[] a) {
-        return null;
+        T[] array = (T[]) new Object[this.size()];
+        int arrayIndex = 0;
+        for (E element : this) {
+            array[arrayIndex] = (T) element;
+            ++arrayIndex;
+        }
+        return array;
     }
 
     public boolean isEmpty() {
