@@ -250,13 +250,13 @@ public class Minesweeper {
         return true;
     }
 
-    public boolean setWinnerName(String playerName) throws CannotLoadHighScoresException, UnableWriteHighScoresException {
+    public void setWinnerName(String playerName) throws CannotLoadHighScoresException, UnableWriteHighScoresException {
         if ("".equals(playerName)) {
             winner.setName("Anonymous");
         } else {
             winner.setName(playerName);
         }
-        return highScoresFile.write(winner);
+        highScoresFile.write(winner);
     }
 
     public HighScores getHighScoresFile() {

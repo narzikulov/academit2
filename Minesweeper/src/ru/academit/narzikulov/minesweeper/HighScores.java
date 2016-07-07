@@ -25,19 +25,15 @@ public class HighScores {
         fileLogger = new FileLogger(logFileName);
     }
 
-    public String toString() {
+    public String makeString() {
         try {
             read();
         } catch (CannotLoadHighScoresException e) {
-            try (PrintWriter highScoresFile = new PrintWriter(new FileWriter(fileName))) {
-                }
-            catch (IOException e1) {
-                fileLogger.writeLog(e1);
-                try {
-                    throw new UnableWriteHighScoresException (e1);
-                } catch (UnableWriteHighScoresException e2) {
-                    e2.printStackTrace();
-                }
+            fileLogger.writeLog(e);
+            try {
+                throw new UnableWriteHighScoresException(e);
+            } catch (UnableWriteHighScoresException e1) {
+                e1.printStackTrace();
             }
         }
 
@@ -53,7 +49,10 @@ public class HighScores {
         return scoresTable.toString();
     }
 
-    private boolean read() throws CannotLoadHighScoresException {
+    private void read() throws CannotLoadHighScoresException {
+        if (highScoresTable != null) {
+            return;
+        }
         highScoresTable = new ArrayList<>();
         try (Scanner highScoresFile = new Scanner(new FileInputStream(fileName))) {
             while (highScoresFile.hasNextLine()) {
@@ -66,13 +65,11 @@ public class HighScores {
             fileLogger.writeLog(e);
             throw new CannotLoadHighScoresException(e);
         }
-        return true;
     }
 
-    public boolean write(Winner winner) throws CannotLoadHighScoresException {
-        if (!read()) {
-            highScoresTable = new ArrayList<>();
-        }
+    public void write(Winner winner) throws CannotLoadHighScoresException, UnableWriteHighScoresException {
+        read();
+        highScoresTable = new ArrayList<>();
         add(highScoresTable, winner);
 
         try (PrintWriter highScoresFile = new PrintWriter(new FileWriter(fileName))) {
@@ -80,9 +77,8 @@ public class HighScores {
                 highScoresFile.println(aHighScoresTable.toString());
             }
         } catch (IOException e) {
-            return false;
+            throw new UnableWriteHighScoresException(e);
         }
-        return true;
     }
 
     private void add(ArrayList<Winner> highScoresTable, Winner winner) {

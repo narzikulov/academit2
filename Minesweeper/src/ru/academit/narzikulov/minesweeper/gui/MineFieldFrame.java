@@ -158,15 +158,12 @@ public class MineFieldFrame {
         JOptionPane.showMessageDialog(minesweeperFrame, "You won the game!", "You won the game!",
                 JOptionPane.WARNING_MESSAGE);
         try {
-            if (!minesweeper.setWinnerName(JOptionPane.showInputDialog("Input player name:"))) {
-                JOptionPane.showMessageDialog(minesweeperFrame, "Unable write record to High Scores table", "Warning!",
-                        JOptionPane.WARNING_MESSAGE);
-            }
+            minesweeper.setWinnerName(JOptionPane.showInputDialog("Input player name:"));
         } catch (CannotLoadHighScoresException e1) {
             JOptionPane.showMessageDialog(minesweeperFrame, "No winners yet", "Warning!",
                     JOptionPane.WARNING_MESSAGE);
         }
-        JOptionPane.showMessageDialog(minesweeperFrame, minesweeper.getHighScoresFile().toString(),
+        JOptionPane.showMessageDialog(minesweeperFrame, minesweeper.getHighScoresFile().makeString(),
                 "High scores table", JOptionPane.WARNING_MESSAGE);
     }
 
@@ -339,7 +336,7 @@ public class MineFieldFrame {
     private class ActionListenerMenuFileHighScores implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            String str = minesweeper.getHighScoresFile().toString();
+            String str = minesweeper.getHighScoresFile().makeString();
             if (str.length() == 0) {
                 JOptionPane.showMessageDialog(minesweeperFrame, "There is no winner yet", "", JOptionPane.WARNING_MESSAGE);
             } else {
