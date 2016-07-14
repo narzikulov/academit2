@@ -3,10 +3,12 @@ package ru.academit.narzikulov;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class HashTable<E> implements Collection<E> {
     private ArrayList<E>[] hashTable;
     private final int HASH_TABLE_DIM = 100;
+    private int size = 0;
     private int lastElementIndex = 0;
 
     public HashTable() {
@@ -50,6 +52,7 @@ public class HashTable<E> implements Collection<E> {
         }
         hashTable[curElementIndex].add(element);
         lastElementIndex = Math.max(lastElementIndex, curElementIndex);
+        ++size;
         return true;
     }
 
@@ -62,6 +65,7 @@ public class HashTable<E> implements Collection<E> {
         if (hashTable[curElementIndex] != null) {
             hashTable[curElementIndex].remove(element);
             lastElementIndex = Math.max(lastElementIndex, curElementIndex);
+            --size;
             return true;
         }
         return false;
@@ -96,6 +100,7 @@ public class HashTable<E> implements Collection<E> {
                 result = true;
             }
         }
+        size = 0;
         return result;
     }
 
@@ -112,13 +117,7 @@ public class HashTable<E> implements Collection<E> {
     }
 
     public int size() {
-        int num = 0;
-        for (int i = 0; i < HASH_TABLE_DIM; ++i) {
-            if (hashTable[i] != null) {
-                num += hashTable[i].size();
-            }
-        }
-        return num;
+        return size;
     }
 
     public Object[] toArray() {
@@ -133,9 +132,6 @@ public class HashTable<E> implements Collection<E> {
                 continue;
             }
             for (int j = 0; j < hashTable[i].size(); ++j) {
-                /*if (hashTable[i].get(j) == null) {
-                    continue;
-                }*/
                 array[k] = hashTable[i].get(j);
                 ++k;
             }
@@ -174,7 +170,44 @@ public class HashTable<E> implements Collection<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return null;
+        return new Iterator<E>() {
+            private int currentElementIndex = 0;
+
+            @Override
+            public boolean hasNext() {
+                return currentElementIndex < size;
+            }
+
+            @Override
+            public E next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+
+                ++currentElementIndex;
+                E currentElement = null;
+                int k = 0;
+
+                for (int i = 0; i <= lastElementIndex; ++i) {
+                    if (hashTable[i] == null) {
+                        continue;
+                    }
+                    for (int j = 0; j < hashTable[i].size(); ++j) {
+                        if (currentElementIndex == k) {
+                            currentElement = hashTable[i].get(j);
+                            ++currentElementIndex;
+                            break;
+                        }
+                        ++k;
+                    }
+                    if (currentElement != null) {
+                        break;
+                    }
+                }
+
+                return currentElement;
+            }
+        };
     }
 
     public void clear() {

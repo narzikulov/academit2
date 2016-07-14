@@ -33,5 +33,12 @@ public class HashTableMain {
 
         Object[] array = hTable.toArray();
         for (Object anArray : array) System.out.print(anArray + "; ");
+
+        System.out.println();
+        System.out.println("Iterator");
+        System.out.println(hTable.iterator().next());
+        System.out.println(hTable.iterator().next());
+        System.out.println(hTable.iterator().next());
+        System.out.println(hTable.iterator().next());
     }
 }
