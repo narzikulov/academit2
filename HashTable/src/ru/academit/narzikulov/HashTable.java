@@ -210,13 +210,25 @@ public class HashTable<E> implements Collection<E> {
                 throw new ConcurrentModificationException();
             }
 
+            E element = null;
+
             for (int i = currentArrayIndex; i < hashTable.length; ++i) {
                 ArrayList<E> list = (ArrayList<E>) hashTable[i];
                 if (list == null || list.isEmpty()) {
                     continue;
                 }
 
-                if (currentListElementIndex == list.size() - 1) {
+                element = list.get(currentListElementIndex);
+                ++currentListElementIndex;
+                if (currentListElementIndex >= list.size()) {
+                    currentListElementIndex = 0;
+                    ++i;
+                }
+                ++returnedElementsCounter;
+                currentArrayIndex = i;
+                break;
+
+                /*if (currentListElementIndex == list.size() - 1) {
                     E result = list.get(currentListElementIndex);
                     ++returnedElementsCounter;
                     ++currentArrayIndex;
@@ -227,10 +239,10 @@ public class HashTable<E> implements Collection<E> {
                     ++returnedElementsCounter;
                     ++currentListElementIndex;
                     return result;
-                }
+                }*/
             }
 
-            throw new NoSuchElementException();
+            return element;
         }
     }
 }
