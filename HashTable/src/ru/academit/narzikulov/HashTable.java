@@ -227,19 +227,6 @@ public class HashTable<E> implements Collection<E> {
                 ++returnedElementsCounter;
                 currentArrayIndex = i;
                 break;
-
-                /*if (currentListElementIndex == list.size() - 1) {
-                    E result = list.get(currentListElementIndex);
-                    ++returnedElementsCounter;
-                    ++currentArrayIndex;
-                    currentListElementIndex = 0;
-                    return result;
-                } else {
-                    E result = list.get(currentListElementIndex);
-                    ++returnedElementsCounter;
-                    ++currentListElementIndex;
-                    return result;
-                }*/
             }
 
             return element;
