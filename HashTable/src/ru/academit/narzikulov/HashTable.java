@@ -1,15 +1,13 @@
 package ru.academit.narzikulov;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class HashTable<E> implements Collection<E> {
     private ArrayList<E>[] hashTable;
     private final int HASH_TABLE_DIM = 100;
     private int size = 0;
     private int lastElementIndex = 0;
+    private long version;
 
     public HashTable() {
         //noinspection unchecked
@@ -53,6 +51,7 @@ public class HashTable<E> implements Collection<E> {
         hashTable[curElementIndex].add(element);
         lastElementIndex = Math.max(lastElementIndex, curElementIndex);
         ++size;
+        ++version;
         return true;
     }
 
@@ -66,6 +65,7 @@ public class HashTable<E> implements Collection<E> {
             hashTable[curElementIndex].remove(element);
             lastElementIndex = Math.max(lastElementIndex, curElementIndex);
             --size;
+            ++version;
             return true;
         }
         return false;
@@ -100,7 +100,6 @@ public class HashTable<E> implements Collection<E> {
                 result = true;
             }
         }
-        size = 0;
         return result;
     }
 
@@ -143,8 +142,8 @@ public class HashTable<E> implements Collection<E> {
     public <T> T[] toArray(T[] a) {
         T[] array;
 
-        if (a.length < this.lastElementIndex) {
-            array = (T[]) new Object[this.size()];
+        if (a.length < this.size) {
+            array = (T[]) new Object[this.size];
         } else {
             array = a;
         }
@@ -155,11 +154,15 @@ public class HashTable<E> implements Collection<E> {
             ++arrayIndex;
         }
 
+        if (array.length > this.size) {
+            array[this.size] = null;
+        }
+
         return array;
     }
 
     public boolean isEmpty() {
-        return this.lastElementIndex == 0;
+        return this.size == 0;
     }
 
     @Override
@@ -170,44 +173,7 @@ public class HashTable<E> implements Collection<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return new Iterator<E>() {
-            private int currentElementIndex = 0;
-
-            @Override
-            public boolean hasNext() {
-                return currentElementIndex < size;
-            }
-
-            @Override
-            public E next() {
-                if (!hasNext()) {
-                    throw new NoSuchElementException();
-                }
-
-                ++currentElementIndex;
-                E currentElement = null;
-                int k = 0;
-
-                for (int i = 0; i <= lastElementIndex; ++i) {
-                    if (hashTable[i] == null) {
-                        continue;
-                    }
-                    for (int j = 0; j < hashTable[i].size(); ++j) {
-                        if (currentElementIndex == k) {
-                            currentElement = hashTable[i].get(j);
-                            ++currentElementIndex;
-                            break;
-                        }
-                        ++k;
-                    }
-                    if (currentElement != null) {
-                        break;
-                    }
-                }
-
-                return currentElement;
-            }
-        };
+        return new HashTableIterator<E>();
     }
 
     public void clear() {
@@ -216,6 +182,55 @@ public class HashTable<E> implements Collection<E> {
                 hashTable[i].clear();
             }
         }
-        lastElementIndex = 0;
+        size = 0;
+    }
+
+    private class HashTableIterator<E> implements Iterator<E> {
+        private int currentListElementIndex;
+        private int currentArrayIndex;
+        private int returnedElementsCounter;
+        private long hashTableVersion;
+
+        public HashTableIterator() {
+            hashTableVersion = version;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return returnedElementsCounter < size;
+        }
+
+        @Override
+        public E next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+
+            if (hashTableVersion != version) {
+                throw new ConcurrentModificationException();
+            }
+
+            for (int i = currentArrayIndex; i < hashTable.length; ++i) {
+                ArrayList<E> list = (ArrayList<E>) hashTable[i];
+                if (list == null || list.isEmpty()) {
+                    continue;
+                }
+
+                if (currentListElementIndex == list.size() - 1) {
+                    E result = list.get(currentListElementIndex);
+                    ++returnedElementsCounter;
+                    ++currentArrayIndex;
+                    currentListElementIndex = 0;
+                    return result;
+                } else {
+                    E result = list.get(currentListElementIndex);
+                    ++returnedElementsCounter;
+                    ++currentListElementIndex;
+                    return result;
+                }
+            }
+
+            throw new NoSuchElementException();
+        }
     }
 }
