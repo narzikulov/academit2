@@ -40,7 +40,8 @@ public class HashTableMain {
         System.out.println("Iterator");
         Iterator iterator = hTable.iterator();
         while (iterator.hasNext()) {
-            System.out.println(iterator.next());
+            Object element = iterator.next();
+            System.out.println(element.toString());
         }
     }
 }
