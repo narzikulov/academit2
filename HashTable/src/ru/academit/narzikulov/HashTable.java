@@ -171,11 +171,6 @@ public class HashTable<E> implements Collection<E> {
         return this.hashTable[hashCode] != null && this.hashTable[hashCode].contains(o);
     }
 
-    @Override
-    public Iterator<E> iterator() {
-        return new HashTableIterator<E>();
-    }
-
     public void clear() {
         for (int i = 0; i < lastElementIndex; ++i) {
             if (hashTable[i] != null) {
@@ -183,6 +178,11 @@ public class HashTable<E> implements Collection<E> {
             }
         }
         size = 0;
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return new HashTableIterator<E>();
     }
 
     private class HashTableIterator<E> implements Iterator<E> {

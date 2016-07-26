@@ -1,11 +1,13 @@
 package ru.academit.narzikulov;
 
+import java.util.Iterator;
+
 /**
  * Created by tim on 28.12.2015.
  */
 public class HashTableMain {
     public static void main() {
-        HashTable<Object> hTable = new HashTable<Object>();
+        HashTable<Object> hTable = new HashTable<>();
 
         hTable.add(-5);
         hTable.add("two");
@@ -36,9 +38,9 @@ public class HashTableMain {
 
         System.out.println();
         System.out.println("Iterator");
-        System.out.println(hTable.iterator().next());
-        System.out.println(hTable.iterator().next());
-        System.out.println(hTable.iterator().next());
-        System.out.println(hTable.iterator().next());
+        Iterator iterator = hTable.iterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+        }
     }
 }
