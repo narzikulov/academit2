@@ -63,7 +63,6 @@ public class HashTable<E> implements Collection<E> {
         int curElementIndex = hashCode(element);
         if (hashTable[curElementIndex] != null) {
             hashTable[curElementIndex].remove(element);
-            lastElementIndex = Math.max(lastElementIndex, curElementIndex);
             --size;
             ++version;
             return true;
@@ -106,7 +105,8 @@ public class HashTable<E> implements Collection<E> {
     @Override
     public boolean retainAll(Collection<?> collection) {
         boolean result = false;
-        for (Object element : this) {
+        Object[] thisCollection = this.toArray();
+        for (Object element : thisCollection) {
             if (!collection.contains(element)) {
                 this.remove(element);
                 result = true;
