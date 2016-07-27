@@ -45,7 +45,6 @@ public class HashTable<E> implements Collection<E> {
             throw new NullPointerException("Unable add NULL element");
         }
         int curElementIndex = hashCode(element);
-        System.out.println(curElementIndex);
         if (hashTable[curElementIndex] == null) {
             hashTable[curElementIndex] = new ArrayList<>();
         }
