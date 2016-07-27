@@ -10,34 +10,32 @@ public class HashTableMain {
     public static void main() {
         HashTable<Object> hTable = new HashTable<>();
 
+        hTable.add("ABCDEF4646");
         hTable.add(-5);
+        hTable.add(98);
+        hTable.add(38);
+        hTable.add("a");
+        hTable.add(97);
         hTable.add("two");
+        hTable.add(76);
         hTable.add("three");
-        hTable.add(4);
+        hTable.add(86);
+        hTable.add("--test");
         hTable.add(5);
         hTable.add(23);
         hTable.add("two");
-        hTable.add("three");
+        hTable.add("11");
         hTable.add("three");
         hTable.add(34);
         hTable.add("three");
-        hTable.add("two");
+        hTable.add(Math.PI);
         hTable.add(1);
         hTable.add(34);
         hTable.add("Hello world!");
+        hTable.add("Hello world?");
 
         System.out.println(hTable.toString());
         System.out.println("Num of elements in Hash Table: " + hTable.size());
-
-        ArrayList<Object> retainCollection = new ArrayList<>();
-        retainCollection.add("three");
-        retainCollection.add("two");
-        retainCollection.add(34);
-        hTable.retainAll(retainCollection);
-        System.out.println("retain collection:");
-        System.out.println(retainCollection.toString());
-        System.out.println(hTable.toString());
-        System.out.println();
 
         System.out.println(hTable.contains(5));
         System.out.println(hTable.contains("5"));
@@ -54,12 +52,29 @@ public class HashTableMain {
         Object[] array = hTable.toArray();
         for (Object anArray : array) System.out.print(anArray + "; ");
 
+        ArrayList<Object> retainCollection = new ArrayList<>();
+        retainCollection.add("three");
+        retainCollection.add("two");
+        retainCollection.add(34);
+        retainCollection.add(2);
+        retainCollection.add(-5);
+        retainCollection.add("ABCDEF4646");
+        retainCollection.add(Math.PI);
+        retainCollection.add("Hello world!");
+
+        System.out.println();
+        System.out.println();
+        System.out.print("retain collection: ");
+        System.out.println(retainCollection.toString());
+        hTable.retainAll(retainCollection);
+        System.out.println(hTable.toString());
+
         System.out.println();
         System.out.println("Iterator");
         Iterator iterator = hTable.iterator();
         while (iterator.hasNext()) {
             Object element = iterator.next();
-            System.out.println(element.toString());
+            System.out.print(element.toString() + "; ");
         }
     }
 }

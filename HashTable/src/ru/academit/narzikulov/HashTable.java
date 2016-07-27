@@ -45,6 +45,7 @@ public class HashTable<E> implements Collection<E> {
             throw new NullPointerException("Unable add NULL element");
         }
         int curElementIndex = hashCode(element);
+        System.out.println(curElementIndex);
         if (hashTable[curElementIndex] == null) {
             hashTable[curElementIndex] = new ArrayList<>();
         }
@@ -62,7 +63,11 @@ public class HashTable<E> implements Collection<E> {
         }
         int curElementIndex = hashCode(element);
         if (hashTable[curElementIndex] != null) {
-            hashTable[curElementIndex].remove(element);
+            if (hashTable[curElementIndex].size() == 1) {
+                hashTable[curElementIndex] = null;
+            } else {
+                hashTable[curElementIndex].remove(element);
+            }
             --size;
             ++version;
             return true;
@@ -122,8 +127,8 @@ public class HashTable<E> implements Collection<E> {
     public Object[] toArray() {
         int arraySize = this.size();
         Object[] array = new Object[arraySize];
-        if (this.isEmpty()) {
-            return new Object[0];
+        if (arraySize == 0) {
+            return array;
         }
         int k = 0;
         for (int i = 0; i <= lastElementIndex; ++i) {
@@ -182,10 +187,10 @@ public class HashTable<E> implements Collection<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return new HashTableIterator<E>();
+        return new HashTableIterator();
     }
 
-    private class HashTableIterator<E> implements Iterator<E> {
+    private class HashTableIterator implements Iterator<E> {
         private int currentListElementIndex;
         private int currentArrayIndex;
         private int returnedElementsCounter;
@@ -213,7 +218,7 @@ public class HashTable<E> implements Collection<E> {
             E element = null;
 
             for (int i = currentArrayIndex; i < hashTable.length; ++i) {
-                ArrayList<E> list = (ArrayList<E>) hashTable[i];
+                ArrayList<E> list = hashTable[i];
                 if (list == null || list.isEmpty()) {
                     continue;
                 }
