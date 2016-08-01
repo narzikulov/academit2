@@ -4,7 +4,7 @@ import java.util.*;
 
 public class HashTable<E> implements Collection<E> {
     private ArrayList<E>[] hashTable;
-    private final int HASH_TABLE_DIM = 100;
+    private final static int HASH_TABLE_DIM = 100;
     private int size = 0;
     private int lastElementIndex = 0;
     private long version;
@@ -60,17 +60,14 @@ public class HashTable<E> implements Collection<E> {
         if (element == null) {
             throw new NullPointerException("Unable remove NULL element");
         }
+
         int curElementIndex = hashCode(element);
-        if (hashTable[curElementIndex] != null) {
-            if (hashTable[curElementIndex].size() == 1) {
-                hashTable[curElementIndex] = null;
-            } else {
-                hashTable[curElementIndex].remove(element);
-            }
+        if (hashTable[curElementIndex].remove(element)) {
             --size;
             ++version;
             return true;
         }
+
         return false;
     }
 

@@ -40,8 +40,9 @@ public class HashTableMain {
         System.out.println(hTable.contains(5));
         System.out.println(hTable.contains("5"));
         hTable.remove(5);
+        hTable.remove(1);
         hTable.remove("two");
-        System.out.println("Deleted elements: " + "5" + " and " + "two");
+        System.out.println("Deleted elements: " + "5, " + "1" + " and " + "two");
         System.out.println(hTable.toString());
         System.out.println("Num of elements in Hash Table: " + hTable.size());
 
