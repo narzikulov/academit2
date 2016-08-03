@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Резюме</title>
+</head>
+<body>
+    <form action="handler.php" method="post">
+        <label>
+            Имя: <input type="text" name="name"/>
+        </label>
+        <label>
+            Фамилия: <input type="text" name="surname"/>
+        </label>
+
+        <p>Дополнительная информация</p>
+        <textarea name="about">Кратко о себе
+        </textarea>
+
+        <p></p>
+        <label>
+            Женат/замужем: <input type="checkbox" name="married"/>
+        </label>
+
+        <p>Возраст</p>
+        <p><input type="radio" name="age"/>моложе 18</p>
+        <p><input type="radio" name="age"/>18 - 25</p>
+        <p><input type="radio" name="age"/>26 - 35</p>
+        <p><input type="radio" name="age"/>36 - 45</p>
+        <p><input type="radio" name="age"/>старше 46</p>
+
+        <p>Район проживания</p>
+        <select name="district" size="5" multiple>
+            <option selected value="d1">Дзержинский</option>
+            <option value="d2">Железнодорожный</option>
+            <option value="d3">Заельцовский</option>
+            <option value="d4">Калининский</option>
+            <option value="d5">Кировский</option>
+            <option value="d6">Ленинский</option>
+            <option value="d7">Первомайский</option>
+            <option value="d8">Советский</option>
+        </select>
+
+        <p>Желаемый размер оплаты труда</p>
+        <select name="district">
+            <option selected value="s1">менее 10 т.р.</option>
+            <option value="s2">10 - 20 т.р.</option>
+            <option value="s3">20 - 30 т.р.</option>
+            <option value="s4">30 - 40 т.р.</option>
+            <option value="s5">40 - 50 т.р.</option>
+            <option value="s6">50 - 60 т.р.</option>
+            <option value="s7">60 - 70 т.р.</option>
+            <option value="s8">70 - 80 т.р.</option>
+            <option value="s8">80 - 90 т.р.</option>
+            <option value="s8">90 - 100 т.р.</option>
+            <option value="s8">более 100 т.р.</option>
+        </select>
+
+        <p><button type="submit">Отправить резюме</button></p>
+    </form>
+
+</body>
+</html>
