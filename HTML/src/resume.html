@@ -18,8 +18,8 @@
             Фамилия: <input type="text" name="surname"/>
         </label>
 
-        <p>Дополнительная информация</p>
-        <textarea name="about" cols="60" rows="7">Кратко о себе</textarea>
+        <label><p>Дополнительная информация</p>
+        <textarea name="about" cols="60" rows="7">Кратко о себе</textarea></label>
 
         <p></p>
         <label>
@@ -27,11 +27,11 @@
         </label>
 
         <p>Возраст</p>
-        <p><input type="radio" name="age"/>моложе 18</p>
-        <p><input type="radio" name="age"/>18 - 25</p>
-        <p><input type="radio" name="age"/>26 - 35</p>
-        <p><input type="radio" name="age"/>36 - 45</p>
-        <p><input type="radio" name="age"/>старше 46</p>
+        <p><label><input type="radio" name="age" value="age1">моложе 18</label></p>
+        <p><label><input type="radio" name="age" value="age2">18 - 25</label></p>
+        <p><label><input type="radio" name="age" value="age3">26 - 35</label></p>
+        <p><label><input type="radio" name="age" value="age4">36 - 45</label></p>
+        <p><label><input type="radio" name="age" value="age5">старше 46</label></p>
 
         <p>Район проживания</p>
         <select name="district" size="5" multiple>
@@ -45,7 +45,7 @@
             <option value="d8">Советский</option>
         </select>
 
-        <p>Желаемый размер оплаты труда</p>
+        <label><p>Желаемый размер оплаты труда</p>
         <select name="district">
             <option selected value="s1">менее 10 т.р.</option>
             <option value="s2">10 - 20 т.р.</option>
@@ -58,7 +58,7 @@
             <option value="s8">80 - 90 т.р.</option>
             <option value="s8">90 - 100 т.р.</option>
             <option value="s8">более 100 т.р.</option>
-        </select>
+        </select></label>
 
         <p><button type="submit">Отправить резюме</button></p>
     </form>
