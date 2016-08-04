@@ -15,7 +15,7 @@ public class Main {
         //MatrixMain.main();
         //GaussMain.main();
         //ShapeMain.main();
-        HashTableMain.main();
+        //HashTableMain.main();
         //RangeMain.main();
         //TemperatureMain.main();
         //ru.academit.narzikulov.minesweeper.MinesweeperMain.main();
