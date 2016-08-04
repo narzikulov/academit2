@@ -1,4 +1,4 @@
-Thu Jul 07 16:51:31 YEKT 2016
-16:51:31
+Thu Aug 04 15:14:11 NOVT 2016
+15:14:11
 ru.academit.narzikulov.minesweeper.exceptions.CannotLoadHighScoresException: java.io.FileNotFoundException: Minesweeper\src\ru\academit\narzikulov\minesweeper\hs.txt (Не удается найти указанный файл)
 Error reading High Scores file!

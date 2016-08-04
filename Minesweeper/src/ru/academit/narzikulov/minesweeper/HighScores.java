@@ -20,7 +20,7 @@ public class HighScores {
     private FileLogger fileLogger;
     private ArrayList<Winner> highScoresTable;
 
-    public HighScores(String highScoresFileName, String logFileName) {
+    public HighScores(String highScoresFileName, String logFileName){
         this.fileName = highScoresFileName;
         fileLogger = new FileLogger(logFileName);
     }
@@ -68,8 +68,7 @@ public class HighScores {
     }
 
     public void write(Winner winner) throws CannotLoadHighScoresException, UnableWriteHighScoresException {
-        read();
-        highScoresTable = new ArrayList<>();
+        //highScoresTable = new ArrayList<>();
         add(highScoresTable, winner);
 
         try (PrintWriter highScoresFile = new PrintWriter(new FileWriter(fileName))) {
