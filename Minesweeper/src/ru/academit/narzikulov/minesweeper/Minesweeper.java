@@ -94,7 +94,7 @@ public class Minesweeper {
         }
     }
 
-    private boolean indexesAreNotOutOfBounds(int i, int j) {
+    public boolean indexesAreNotOutOfBounds(int i, int j) {
         return i >= 0 && j >= 0 && i < mineField.size() && j < mineField.get(0).size();
     }
 

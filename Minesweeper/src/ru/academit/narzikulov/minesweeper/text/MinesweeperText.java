@@ -76,84 +76,117 @@ public class MinesweeperText {
         return !(iTurn < 0 || iTurn >= mineField.size() || jTurn < 0 || jTurn >= mineField.get(0).size());
     }
 
+    private boolean parseTurn(String[] turn) {
+        if (turn[0].equals("e")) {
+            action = "e";
+            return true;
+        }
+
+        if (turn.length < 3) {
+            return false;
+        }
+
+        action = turn[0];
+        if (!action.equals("o")) {
+            if (!action.equals("f")) {
+                if (!action.equals("a")) {
+                    return false;
+                }
+            }
+        }
+
+        try {
+            iTurn = Integer.parseInt(turn[1]);
+            jTurn = Integer.parseInt(turn[2]);
+            if (!minesweeper.indexesAreNotOutOfBounds(iTurn, jTurn)) {
+                System.out.println("The turn is out of the minefield");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
+        return true;
+    }
+
     public void startGame() {
+        printOpenedMineField();
         printMineField();
         Scanner scn = new Scanner(System.in);
         do {
-            System.out.println("Enter you turn please ('i' and 'j') and action ('e' - exit):");
-            try {
-                iTurn = scn.nextInt();
-                jTurn = scn.nextInt();
-                if (checkTurn(iTurn, jTurn)) {
-
-                }
-
-            } catch (InputMismatchException e) {
+            if (minesweeper.getGameIsOver()) {
+                minesweeper.openAllCell();
                 break;
             }
 
-            action = scn.nextLine();
+            System.out.println("Enter you turn please ('action' 'i' and 'j', 'e' - exit, o - open cell, " +
+                    "f - flag/question/clear, a - open cells around):");
+            String[] turn = scn.nextLine().split(" ");
+            if (!parseTurn(turn)) {
+                System.out.println("Incorrect turn, try again.");
+                continue;
+            }
+
             if (action.equals("e")) {
                 break;
             }
 
-            if (action.equals("o")) {
+            Cell cell = minesweeper.getCell(iTurn, jTurn);
+
+            if (action.equals("o") && !cell.getIsMineFound()) {
                 minesweeper.openCell(iTurn, jTurn);
             }
 
-            System.out.println("Action: " + action + "; turn: " + iTurn + ", " + jTurn);
-
-        } while (!minesweeper.getGameIsOver() || !action.equals("e"));
-
-/*        do {
-            System.out.println("Enter you turn please ('i' and 'j') or ANY to stop the game: ");
-            boolean correctTurn;
-            do {
-                correctTurn = true;
-                try {
-                    iTurn = scn.nextInt();
-                    jTurn = scn.nextInt();
-                    if (iTurn < 0 || iTurn >= mineField.size() ||
-                            jTurn < 0 || jTurn >= mineField.get(0).size()) {
-                        System.out.println("You are over the mine field, try again");
-                        correctTurn = false;
-                    }
-                } catch (InputMismatchException e) {
-                    //System.out.println(e);
-                    return;
-                }
-            } while(!correctTurn);
-
-            System.out.println("Opened minefield");
-            printOpenedMineField();
-            if (mineField.get(iTurn).get(jTurn).getIsMine()) {
-                //System.out.println("You lose! It's mine.");
-                minesweeper.setGameIsLost(true);
-                minesweeper.openAllCell();
+            if (action.equals("f") && cell.getIsMineFound()) {
+                minesweeper.getCell(iTurn, jTurn).setIsMineFound(false);
+                minesweeper.getCell(iTurn, jTurn).setUnderQuestion(true);
             }
 
-            minesweeper.openCell(iTurn, jTurn);
+            if (action.equals("f") && !cell.getIsOpen() && !cell.getUnderQuestion()) {
+                minesweeper.getCell(iTurn, jTurn).setIsMineFound(true);
+                System.out.println(minesweeper.getCell(iTurn, jTurn).getIsMineFound());
+            }
+
+
+
+            if (action.equals("f") && cell.getUnderQuestion()) {
+                minesweeper.getCell(iTurn, jTurn).setUnderQuestion(false);
+            }
+
+            System.out.println("Action: " + action + "; turn: " + iTurn + ", " + jTurn);
+            printOpenedMineField();
             printMineField();
 
-        } while (!minesweeper.isAllCellsOpen()); */
+        } while (!minesweeper.gameIsWon() || !minesweeper.getGameIsLost());
+
+        if (minesweeper.getGameIsLost()) {
+            System.out.println("You lost the game");
+        }
+
+        if (minesweeper.getGameIsWon()) {
+            System.out.println("You won the game");
+            System.out.println("Your scores: " + minesweeper.getScores());
+        }
     }
 
     public void printMineField() {
-        for (int i = 0; i < mineField.size(); ++i) {
+        for (int i = 0; i < minesweeper.getMineField().size(); ++i) {
             for (int j = 0; j < mineField.get(0).size(); ++j) {
-                if (mineField.get(i).get(j).getIsOpen()) {
-                    if (mineField.get(i).get(j).getIsMine()) {
+                if (minesweeper.getCell(i, j).getIsOpen()) {
+                    if (minesweeper.getCell(i, j).getIsMine()) {
                         System.out.printf("%3s", "*");
+                    } else {
+                        System.out.printf("%3d", minesweeper.getCell(i, j).getMinesAround());
                     }
-                    if (mineField.get(i).get(j).getIsMineFound()) {
-                        System.out.printf("%3s", "M");
-                    }
-                    if (mineField.get(i).get(j).getUnderQuestion()) {
+                } else {
+                    if (minesweeper.getCell(i, j).getIsMineFound()) {
+                        System.out.printf("%3s", "F");
+                    } else if (minesweeper.getCell(i, j).getUnderQuestion()) {
                         System.out.printf("%3s", "?");
                     } else {
-                        System.out.printf("%3d", mineField.get(i).get(j).getMinesAround());
+                        System.out.printf("%3s", "x");
                     }
-                } else System.out.printf("%3s", "x");
+                }
             }
             System.out.println();
         }
@@ -161,12 +194,12 @@ public class MinesweeperText {
     }
 
     public void printOpenedMineField() {
-        for (int i = 0; i < mineField.size(); ++i) {
-            for (int j = 0; j < mineField.get(0).size(); ++j) {
-                if (mineField.get(i).get(j).getIsMine()) {
+        for (int i = 0; i < minesweeper.getMineField().size(); ++i) {
+            for (int j = 0; j < minesweeper.getMineField().get(0).size(); ++j) {
+                if (minesweeper.getCell(i, j).getIsMine()) {
                     System.out.printf("%3s", "*");
                 } else {
-                    System.out.printf("%3d", mineField.get(i).get(j).getMinesAround());
+                    System.out.printf("%3d", minesweeper.getCell(i, j).getMinesAround());
                 }
             }
             System.out.println();
