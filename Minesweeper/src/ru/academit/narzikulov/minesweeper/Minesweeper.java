@@ -63,6 +63,13 @@ public class Minesweeper {
         this(ROWS, COLUMNS, MINES);
     }
 
+    //Проверка указанных размерностей минного поля
+    public boolean checkMinefiledEnteredDim (int rows, int columns, int mines) {
+        return (MIN_ROWS <= rows && rows <= MAX_ROWS &&
+                MIN_COLUMNS <= columns && columns <= MAX_COLUMNS &&
+                MIN_MINES <= mines);
+    }
+
     //Заполнение ячеек игрового поля нулями
     private void makeEmptyMineField() {
         for (int i = 0; i < rows; ++i) {

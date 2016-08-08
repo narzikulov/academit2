@@ -23,10 +23,15 @@ public class HighScores {
     public HighScores(String highScoresFileName, String logFileName){
         this.fileName = highScoresFileName;
         fileLogger = new FileLogger(logFileName);
+        try {
+            read();
+        } catch (CannotLoadHighScoresException e) {
+            e.printStackTrace();
+        }
     }
 
     public String makeString() {
-        try {
+        /*try {
             read();
         } catch (CannotLoadHighScoresException e) {
             fileLogger.writeLog(e);
@@ -35,7 +40,7 @@ public class HighScores {
             } catch (UnableWriteHighScoresException e1) {
                 e1.printStackTrace();
             }
-        }
+        }*/
 
         StringBuilder scoresTable = new StringBuilder();
         for (int i = 0; i < highScoresTable.size(); ++i) {

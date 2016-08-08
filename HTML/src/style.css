@@ -1,0 +1,18 @@
+label {
+    color: green;
+    font-size: 20px;
+}
+
+td {
+    text-align: center;
+    font: arial;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: blink;
+}
+
+textarea {
+    font-size: 12px;
+    font: arail;
+    color: blue;
+}

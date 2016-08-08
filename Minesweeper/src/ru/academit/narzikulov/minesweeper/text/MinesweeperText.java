@@ -2,6 +2,8 @@ package ru.academit.narzikulov.minesweeper.text;
 
 import ru.academit.narzikulov.minesweeper.Cell;
 import ru.academit.narzikulov.minesweeper.Minesweeper;
+import ru.academit.narzikulov.minesweeper.exceptions.CannotLoadHighScoresException;
+import ru.academit.narzikulov.minesweeper.exceptions.UnableWriteHighScoresException;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -42,20 +44,21 @@ public class MinesweeperText {
                     System.out.println(minesweeper.about());
                     break;
                 case "n":
-                    setTheMineFieldSize();
-                    startGame();
+                    if (setTheMineFieldSize()) {
+                        startGame();
+                    }
                     break;
+                case "s":
+                    System.out.println(minesweeper.getHighScoresFile().makeString());
             }
-        } while (!minesweeper.getGameIsLost() || !minesweeper.isAllCellsOpen());
-
-        if (minesweeper.getGameIsLost()) {
-            System.out.println("You lost the game!");
-        } else {
-            System.out.println("You won the game!");
-        }
+        } while (true);
     }
 
-    private void setTheMineFieldSize() {
+    private boolean setTheMineFieldSize() {
+        System.out.printf("Minimum number of rows: %d, columns: %d, mines: %d\n",
+                Minesweeper.MIN_ROWS, Minesweeper.MIN_COLUMNS, Minesweeper.MIN_MINES);
+        System.out.printf("Maximum number of rows: %d, columns: %d\n",
+                Minesweeper.MAX_ROWS, Minesweeper.MAX_COLUMNS);
         System.out.print("Input num of rows, columns, mines or ANY for default size (9x9 with 10 mines): ");
         Scanner scn = new Scanner(System.in);
         int rows;
@@ -65,11 +68,17 @@ public class MinesweeperText {
             rows = scn.nextInt();
             columns = scn.nextInt();
             mines = scn.nextInt();
-            minesweeper = new Minesweeper(rows, columns, mines);
+            if (minesweeper.checkMinefiledEnteredDim(rows, columns, mines)) {
+                minesweeper = new Minesweeper(rows, columns, mines);
+            } else {
+                System.out.println("Incorrect number rows, columns or mines. Default size will be used!");
+                return false;
+            }
         } catch (InputMismatchException e) {
             System.out.println("Default size selected.");
         }
-        mineField = minesweeper.getMineField();
+        return true;
+        //mineField = minesweeper.getMineField();
     }
 
     private boolean checkTurn(int i, int j) {
@@ -160,18 +169,30 @@ public class MinesweeperText {
         } while (!minesweeper.gameIsWon() || !minesweeper.getGameIsLost());
 
         if (minesweeper.getGameIsLost()) {
-            System.out.println("You lost the game");
+            System.out.println("+-------------------+");
+            System.out.println("| You lost the game! |");
+            System.out.println("+-------------------+");
         }
 
         if (minesweeper.getGameIsWon()) {
-            System.out.println("You won the game");
+            System.out.println("+-------------------+");
+            System.out.println("| You won the game! |");
+            System.out.println("+-------------------+");
             System.out.println("Your scores: " + minesweeper.getScores());
+            System.out.println("Input winner name please: ");
+            try {
+                minesweeper.setWinnerName(scn.nextLine());
+            } catch (CannotLoadHighScoresException e) {
+                e.printStackTrace();
+            } catch (UnableWriteHighScoresException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public void printMineField() {
         for (int i = 0; i < minesweeper.getMineField().size(); ++i) {
-            for (int j = 0; j < mineField.get(0).size(); ++j) {
+            for (int j = 0; j < minesweeper.getMineField().get(0).size(); ++j) {
                 if (minesweeper.getCell(i, j).getIsOpen()) {
                     if (minesweeper.getCell(i, j).getIsMine()) {
                         System.out.printf("%3s", "*");
