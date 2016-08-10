@@ -5,7 +5,6 @@ import ru.academit.narzikulov.minesweeper.Minesweeper;
 import ru.academit.narzikulov.minesweeper.exceptions.CannotLoadHighScoresException;
 import ru.academit.narzikulov.minesweeper.exceptions.UnableWriteHighScoresException;
 
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -17,21 +16,13 @@ public class MinesweeperText {
     private int iTurn;
     private int jTurn;
     private String action;
-    private ArrayList<ArrayList<Cell>> mineField;
+    private final static String ACTION_EXIT = "e";
+    private final static String ACTION_OPEN = "o";
+    private final static String ACTION_FLAG = "f";
+    private final static String ACTION_OPENAROUND = "a";
 
     public MinesweeperText() {
         Scanner scn = new Scanner(System.in);
-
-        /*System.out.println("Default game field size is 9x9 with 10 mines.");
-        System.out.println("Press 'y + ENTER' to input new dimension and num of mines or just ENTER to use default size?");
-        System.out.println("Press 'e' to STOP the game.");
-        if (scn.nextLine().equalsIgnoreCase("e")) {
-            System.exit(1);
-        }
-        if (scn.nextLine().equalsIgnoreCase("y")) {
-        }
-        */
-
 
         do {
             System.out.print("Input command:\n'e' Exit\n'a' About\n'n' New Game\n's' High Scores\n");
@@ -44,7 +35,7 @@ public class MinesweeperText {
                     System.out.println(minesweeper.about());
                     break;
                 case "n":
-                    if (setTheMineFieldSize()) {
+                    if (setMineFieldSize()) {
                         startGame();
                     }
                     break;
@@ -54,20 +45,18 @@ public class MinesweeperText {
         } while (true);
     }
 
-    private boolean setTheMineFieldSize() {
+    private boolean setMineFieldSize() {
         System.out.printf("Minimum number of rows: %d, columns: %d, mines: %d\n",
                 Minesweeper.MIN_ROWS, Minesweeper.MIN_COLUMNS, Minesweeper.MIN_MINES);
         System.out.printf("Maximum number of rows: %d, columns: %d\n",
                 Minesweeper.MAX_ROWS, Minesweeper.MAX_COLUMNS);
         System.out.println("Input num of rows, columns, mines or ANY for default size (9x9 with 10 mines): ");
         Scanner scn = new Scanner(System.in);
-        int rows;
-        int columns;
-        int mines;
+
         try {
-            rows = scn.nextInt();
-            columns = scn.nextInt();
-            mines = scn.nextInt();
+            int rows = scn.nextInt();
+            int columns = scn.nextInt();
+            int mines = scn.nextInt();
             if (minesweeper.checkMinefiledEnteredDim(rows, columns, mines)) {
                 minesweeper = new Minesweeper(rows, columns, mines);
             } else {
@@ -79,16 +68,13 @@ public class MinesweeperText {
             System.out.println("Default minefield size selected.");
         }
         return true;
-        //mineField = minesweeper.getMineField();
     }
 
-    private boolean checkTurn(int i, int j) {
-        return !(iTurn < 0 || iTurn >= mineField.size() || jTurn < 0 || jTurn >= mineField.get(0).size());
-    }
+    private boolean parseTurn(String unsplitedTurn) {
+        String[] turn = unsplitedTurn.split(" ");
 
-    private boolean parseTurn(String[] turn) {
-        if (turn[0].equals("e")) {
-            action = "e";
+        if (turn[0].equals(ACTION_EXIT)) {
+            action = ACTION_EXIT;
             return true;
         }
 
@@ -97,9 +83,9 @@ public class MinesweeperText {
         }
 
         action = turn[0];
-        if (!action.equals("o")) {
-            if (!action.equals("f")) {
-                if (!action.equals("a")) {
+        if (!action.equals(ACTION_OPEN)) {
+            if (!action.equals(ACTION_FLAG)) {
+                if (!action.equals(ACTION_OPENAROUND)) {
                     return false;
                 }
             }
@@ -120,7 +106,6 @@ public class MinesweeperText {
     }
 
     public void startGame() {
-        //printOpenedMineField();
         printMineField();
         Scanner scn = new Scanner(System.in);
         do {
@@ -132,23 +117,23 @@ public class MinesweeperText {
             System.out.println("Enter you turn please ('action' 'i' and 'j', 'e' - exit, o - open cell, " +
                     "f - flag/question/clear, a - open cells around):");
             System.out.println("Example: 'o 1 1' - opens cell (1, 1). 'f 2 0' - flags cell (2, 0). 'e' - exit");
-            String[] turn = scn.nextLine().split(" ");
+            String turn = scn.nextLine();
             if (!parseTurn(turn)) {
                 System.out.println("Incorrect turn, try again.");
                 continue;
             }
 
-            if (action.equals("e")) {
+            if (action.equals(ACTION_EXIT)) {
                 break;
             }
 
             Cell cell = minesweeper.getCell(iTurn, jTurn);
 
-            if (action.equals("o") && !cell.getIsMineFound()) {
+            if (action.equals(ACTION_OPEN) && !cell.getIsMineFound()) {
                 minesweeper.openCell(iTurn, jTurn);
             }
 
-            if (action.equals("f") && !cell.getIsOpen()) {
+            if (action.equals(ACTION_FLAG) && !cell.getIsOpen()) {
                 if (!cell.getIsMineFound() && !cell.getUnderQuestion()) {
                     minesweeper.getCell(iTurn, jTurn).setIsMineFound(true);
                 } else if (cell.getIsMineFound()) {
@@ -159,7 +144,7 @@ public class MinesweeperText {
                 }
             }
 
-            if (action.equals("a")) {
+            if (action.equals(ACTION_OPENAROUND)) {
                 minesweeper.openCellsAroundForOpenedCell(iTurn, jTurn);
                 if (minesweeper.getGameIsLost()) {
                     minesweeper.openAllCell();
@@ -169,9 +154,6 @@ public class MinesweeperText {
 
 
             System.out.println("Action: " + actionCodeToString(action) + " cell(" + iTurn + ", " + jTurn + ")");
-
-            //Debug. Every turn printed opened minefield above.
-            //printOpenedMineField();
 
             printMineField();
 
@@ -183,7 +165,6 @@ public class MinesweeperText {
             System.out.println("+--------------------+");
             printOpenedMineField();
         }
-
         if (minesweeper.getGameIsWon()) {
             System.out.println("+-------------------+");
             System.out.println("| You won the game! |");
@@ -192,25 +173,23 @@ public class MinesweeperText {
             System.out.println("Input winner name please: ");
             try {
                 minesweeper.setWinnerName(scn.nextLine());
-            } catch (CannotLoadHighScoresException e) {
-                e.printStackTrace();
-            } catch (UnableWriteHighScoresException e) {
+            } catch (CannotLoadHighScoresException | UnableWriteHighScoresException e) {
                 e.printStackTrace();
             }
         }
     }
 
     private String actionCodeToString(String actionCode) {
-        if (actionCode.equals("e")) {
+        if (actionCode.equals(ACTION_EXIT)) {
             return "Exit";
         }
-        if (actionCode.equals("o")) {
+        if (actionCode.equals(ACTION_OPEN)) {
             return "Open";
         }
-        if (actionCode.equals("f")) {
+        if (actionCode.equals(ACTION_FLAG)) {
             return "Set flag/question/clear";
         }
-        if (actionCode.equals("a")) {
+        if (actionCode.equals(ACTION_OPENAROUND)) {
             return "Open all cells around selected one";
         }
         return "";
