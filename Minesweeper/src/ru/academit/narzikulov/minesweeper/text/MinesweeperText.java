@@ -76,7 +76,7 @@ public class MinesweeperText {
             }
         } catch (InputMismatchException e) {
             minesweeper = new Minesweeper();
-            System.out.println("Default or previous game size selected.");
+            System.out.println("Default minefield size selected.");
         }
         return true;
         //mineField = minesweeper.getMineField();
