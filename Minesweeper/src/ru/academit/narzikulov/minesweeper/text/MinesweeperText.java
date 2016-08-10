@@ -196,7 +196,19 @@ public class MinesweeperText {
     }
 
     public void printMineField() {
+        System.out.printf("   \\ ");
+        for (int j = 0; j < minesweeper.getMineField().get(0).size(); ++j) {
+            System.out.printf("%3d", j);
+        }
+        System.out.println();
+        System.out.print("     ");
+        for (int j = 0; j < minesweeper.getMineField().get(0).size(); ++j) {
+            System.out.printf("---");
+        }
+        System.out.println();
+
         for (int i = 0; i < minesweeper.getMineField().size(); ++i) {
+            System.out.printf("%3d| ", i);
             for (int j = 0; j < minesweeper.getMineField().get(0).size(); ++j) {
                 if (minesweeper.getCell(i, j).getIsOpen()) {
                     if (minesweeper.getCell(i, j).getIsMine()) {
@@ -220,7 +232,19 @@ public class MinesweeperText {
     }
 
     private void printOpenedMineField() {
+        System.out.printf("   \\ ");
+        for (int j = 0; j < minesweeper.getMineField().get(0).size(); ++j) {
+            System.out.printf("%3d", j);
+        }
+        System.out.println();
+        System.out.print("     ");
+        for (int j = 0; j < minesweeper.getMineField().get(0).size(); ++j) {
+            System.out.printf("---");
+        }
+        System.out.println();
+
         for (int i = 0; i < minesweeper.getMineField().size(); ++i) {
+            System.out.printf("%3d| ", i);
             for (int j = 0; j < minesweeper.getMineField().get(0).size(); ++j) {
                 if (minesweeper.getCell(i, j).getIsMine()) {
                     System.out.printf("%3s", "*");
