@@ -119,7 +119,7 @@ public class MinesweeperText {
     }
 
     public void startGame() {
-        printOpenedMineField();
+        //printOpenedMineField();
         printMineField();
         Scanner scn = new Scanner(System.in);
         do {
