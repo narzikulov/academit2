@@ -130,7 +130,7 @@ public class MinesweeperText {
 
             System.out.println("Enter you turn please ('action' 'i' and 'j', 'e' - exit, o - open cell, " +
                     "f - flag/question/clear, a - open cells around):");
-            System.out.println("Example: 'o 1 1' - opens cell (1, 1). 'f 2 0' - flags cell (2, 0)");
+            System.out.println("Example: 'o 1 1' - opens cell (1, 1). 'f 2 0' - flags cell (2, 0). 'e' - exit");
             String[] turn = scn.nextLine().split(" ");
             if (!parseTurn(turn)) {
                 System.out.println("Incorrect turn, try again.");
@@ -200,16 +200,16 @@ public class MinesweeperText {
     }
 
     private String actionCodeToString(String actionCode) {
-        if (action.equals("e")) {
+        if (actionCode.equals("e")) {
             return "Exit";
         }
-        if (action.equals("o")) {
+        if (actionCode.equals("o")) {
             return "Open";
         }
-        if (action.equals("f")) {
+        if (actionCode.equals("f")) {
             return "Set flag/question/clear";
         }
-        if (action.equals("a")) {
+        if (actionCode.equals("a")) {
             return "Open all cells around selected one";
         }
         return "";
