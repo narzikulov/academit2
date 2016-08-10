@@ -239,7 +239,7 @@ public class MinesweeperText {
         System.out.println("_________________________________________");
     }
 
-    public void printOpenedMineField() {
+    private void printOpenedMineField() {
         for (int i = 0; i < minesweeper.getMineField().size(); ++i) {
             for (int j = 0; j < minesweeper.getMineField().get(0).size(); ++j) {
                 if (minesweeper.getCell(i, j).getIsMine()) {
