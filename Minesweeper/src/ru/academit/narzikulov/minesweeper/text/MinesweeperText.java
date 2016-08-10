@@ -59,7 +59,7 @@ public class MinesweeperText {
                 Minesweeper.MIN_ROWS, Minesweeper.MIN_COLUMNS, Minesweeper.MIN_MINES);
         System.out.printf("Maximum number of rows: %d, columns: %d\n",
                 Minesweeper.MAX_ROWS, Minesweeper.MAX_COLUMNS);
-        System.out.print("Input num of rows, columns, mines or ANY for default size (9x9 with 10 mines): ");
+        System.out.println("Input num of rows, columns, mines or ANY for default size (9x9 with 10 mines): ");
         Scanner scn = new Scanner(System.in);
         int rows;
         int columns;
@@ -130,6 +130,7 @@ public class MinesweeperText {
 
             System.out.println("Enter you turn please ('action' 'i' and 'j', 'e' - exit, o - open cell, " +
                     "f - flag/question/clear, a - open cells around):");
+            System.out.println("Example: 'o 1 1' - opens cell (1, 1). 'f 2 0' - flags cell (2, 0)");
             String[] turn = scn.nextLine().split(" ");
             if (!parseTurn(turn)) {
                 System.out.println("Incorrect turn, try again.");
@@ -146,24 +147,31 @@ public class MinesweeperText {
                 minesweeper.openCell(iTurn, jTurn);
             }
 
-            if (action.equals("f") && cell.getIsMineFound()) {
-                minesweeper.getCell(iTurn, jTurn).setIsMineFound(false);
-                minesweeper.getCell(iTurn, jTurn).setUnderQuestion(true);
+            if (action.equals("f") && !cell.getIsOpen()) {
+                if (!cell.getIsMineFound() && !cell.getUnderQuestion()) {
+                    minesweeper.getCell(iTurn, jTurn).setIsMineFound(true);
+                } else if (cell.getIsMineFound()) {
+                    minesweeper.getCell(iTurn, jTurn).setIsMineFound(false);
+                    minesweeper.getCell(iTurn, jTurn).setUnderQuestion(true);
+                } else {
+                    minesweeper.getCell(iTurn, jTurn).setUnderQuestion(false);
+                }
             }
 
-            if (action.equals("f") && !cell.getIsOpen() && !cell.getUnderQuestion()) {
-                minesweeper.getCell(iTurn, jTurn).setIsMineFound(true);
-                System.out.println(minesweeper.getCell(iTurn, jTurn).getIsMineFound());
+            if (action.equals("a")) {
+                minesweeper.openCellsAroundForOpenedCell(iTurn, jTurn);
+                if (minesweeper.getGameIsLost()) {
+                    minesweeper.openAllCell();
+                    break;
+                }
             }
 
 
+            System.out.println("Action: " + actionCodeToString(action) + " cell(" + iTurn + ", " + jTurn + ")");
 
-            if (action.equals("f") && cell.getUnderQuestion()) {
-                minesweeper.getCell(iTurn, jTurn).setUnderQuestion(false);
-            }
+            //Debug. Every turn printed opened minefield above.
+            //printOpenedMineField();
 
-            System.out.println("Action: " + action + "; turn: " + iTurn + ", " + jTurn);
-            printOpenedMineField();
             printMineField();
 
         } while (!minesweeper.gameIsWon() || !minesweeper.getGameIsLost());
@@ -172,6 +180,7 @@ public class MinesweeperText {
             System.out.println("+-------------------+");
             System.out.println("| You lost the game! |");
             System.out.println("+-------------------+");
+            printOpenedMineField();
         }
 
         if (minesweeper.getGameIsWon()) {
@@ -188,6 +197,22 @@ public class MinesweeperText {
                 e.printStackTrace();
             }
         }
+    }
+
+    private String actionCodeToString(String actionCode) {
+        if (action.equals("e")) {
+            return "Exit";
+        }
+        if (action.equals("o")) {
+            return "Open";
+        }
+        if (action.equals("f")) {
+            return "Set flag/question/clear";
+        }
+        if (action.equals("a")) {
+            return "Open all cells around selected one";
+        }
+        return "";
     }
 
     public void printMineField() {
