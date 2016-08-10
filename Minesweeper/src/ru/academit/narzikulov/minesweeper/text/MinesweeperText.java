@@ -177,9 +177,9 @@ public class MinesweeperText {
         } while (!minesweeper.gameIsWon() || !minesweeper.getGameIsLost());
 
         if (minesweeper.getGameIsLost()) {
-            System.out.println("+-------------------+");
+            System.out.println("+--------------------+");
             System.out.println("| You lost the game! |");
-            System.out.println("+-------------------+");
+            System.out.println("+--------------------+");
             printOpenedMineField();
         }
 
