@@ -85,7 +85,7 @@ public class Minesweeper {
         Random randomNumber = new Random();
         for (int i = 1; i <= mines; ++i) {
             int iRandom = randomNumber.nextInt(mineField.size());
-            int jRandom = randomNumber.nextInt(mineField.get(0).size());
+            int jRandom = randomNumber.nextInt(getMinefieldHorisontalSize());
             if (getCell(iRandom, jRandom).getIsMine()) {
                 --i;
             }
@@ -93,7 +93,7 @@ public class Minesweeper {
         }
 
         for (int i = 0; i < mineField.size(); ++i) {
-            for (int j = 0; j < mineField.get(0).size(); ++j) {
+            for (int j = 0; j < getMinefieldHorisontalSize(); ++j) {
                 if (getCell(i, j).getIsMine()) {
                     setNumbersAroundMineCell(i, j);
                 }
@@ -101,8 +101,12 @@ public class Minesweeper {
         }
     }
 
+    public int getMinefieldHorisontalSize() {
+        return mineField.get(0).size();
+    }
+
     public boolean indexesAreNotOutOfBounds(int i, int j) {
-        return i >= 0 && j >= 0 && i < mineField.size() && j < mineField.get(0).size();
+        return i >= 0 && j >= 0 && i < mineField.size() && j < getMinefieldHorisontalSize();
     }
 
     private void incValueInMineFieldCell(int i, int j) {
@@ -243,7 +247,7 @@ public class Minesweeper {
             return false;
         }
         for (int i = 0; i < mineField.size(); ++i) {
-            for (int j = 0; j < mineField.get(0).size(); ++j) {
+            for (int j = 0; j < getMinefieldHorisontalSize(); ++j) {
                 if (getCell(i, j).getIsMine() && getCell(i, j).getIsOpen()) {
                     return false;
                 }
@@ -293,7 +297,7 @@ public class Minesweeper {
         isGameStarted = true;
 
         if (iTurn < 0 || iTurn >= mineField.size() ||
-                jTurn < 0 || jTurn >= mineField.get(0).size()) {
+                jTurn < 0 || jTurn >= getMinefieldHorisontalSize()) {
             return;
         }
 
@@ -315,7 +319,7 @@ public class Minesweeper {
 
     public void openAllCell() {
         for (int i = 0; i < mineField.size(); ++i) {
-            for (int j = 0; j < mineField.get(0).size(); ++j) {
+            for (int j = 0; j < getMinefieldHorisontalSize(); ++j) {
                 getCell(i, j).setIsOpen(true);
             }
         }
@@ -323,7 +327,7 @@ public class Minesweeper {
 
     public boolean isAllCellsOpen() {
         for (int i = 0; i < mineField.size(); ++i) {
-            for (int j = 0; j < mineField.get(0).size(); ++j) {
+            for (int j = 0; j < getMinefieldHorisontalSize(); ++j) {
                 if (!getCell(i, j).getIsMine() && !getCell(i, j).getIsOpen()) {
                     return false;
                 }
