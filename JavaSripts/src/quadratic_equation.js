@@ -1,7 +1,7 @@
 function solveEquation(){
-    var aCoeff = parseInt(document.getElementById("a-coeff").value);
-    var bCoeff = parseInt(document.getElementById("b-coeff").value);
-    var cCoeff = parseInt(document.getElementById("c-coeff").value);
+    var aCoeff = parseInt(document.getElementById("a-coeff").value, 10);
+    var bCoeff = parseInt(document.getElementById("b-coeff").value, 10);
+    var cCoeff = parseInt(document.getElementById("c-coeff").value, 10);
 
     var discriminant = bCoeff * bCoeff - 4 * aCoeff * cCoeff;
     var result="There is no solve for this equation";
