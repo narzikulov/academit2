@@ -28,7 +28,7 @@ console.log("Sorted list: " + printList(list));
 var firstFiveElementsList = list.slice(0, 5);
 console.log("First five elements: " + printList(firstFiveElementsList));
 
-var lastFiveElementsList = list.slice(list.length - 5)
+var lastFiveElementsList = list.slice(list.length - 5);
 console.log("Last five elements: " + printList(lastFiveElementsList));
 
 function sumEvenNums(fullList) {
