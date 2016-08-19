@@ -10,7 +10,7 @@
 
 var list = [5, 23, 6, 1, -45, 0, 31, 7, 10, -6, 2, 12, 3];
 
-function printList(printingList) {
+function listToString(printingList) {
     var str = "{";
     for (var i = 0; i < printingList.length - 1; ++i) {
         str += printingList[i] + "; ";
@@ -18,18 +18,18 @@ function printList(printingList) {
     str += printingList[printingList.length - 1] + "}";
     return str;
 }
-console.log("Unsorted list: " + printList(list));
+console.log("Unsorted list: " + listToString(list));
 
 list.sort(function (num1, num2) {
     return num2 - num1;
 });
-console.log("Sorted list: " + printList(list));
+console.log("Sorted list: " + listToString(list));
 
 var firstFiveElementsList = list.slice(0, 5);
-console.log("First five elements: " + printList(firstFiveElementsList));
+console.log("First five elements: " + listToString(firstFiveElementsList));
 
 var lastFiveElementsList = list.slice(list.length - 5);
-console.log("Last five elements: " + printList(lastFiveElementsList));
+console.log("Last five elements: " + listToString(lastFiveElementsList));
 
 function sumEvenNums(fullList) {
     var result = 0;
@@ -47,4 +47,4 @@ var firstHundredList = [];
 for (var i = 0; i < 100; ++i) {
     firstHundredList[i] = i + 1;
 }
-console.log("First hundred list: " + printList(firstHundredList));
+console.log("First hundred list: " + listToString(firstHundredList));
