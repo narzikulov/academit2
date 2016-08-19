@@ -12,10 +12,8 @@ var list = [5, 23, 6, 1, -45, 0, 31, 7, 10, -6, 2, 12, 3];
 
 function listToString(printingList) {
     var str = "{";
-    for (var i = 0; i < printingList.length - 1; ++i) {
-        str += printingList[i] + "; ";
-    }
-    str += printingList[printingList.length - 1] + "}";
+    str += printingList.join("; ");
+    str += "}";
     return str;
 }
 console.log("Unsorted list: " + listToString(list));
@@ -45,6 +43,6 @@ console.log("Sum even numbers of list: " + sumEvenNums(list));
 
 var firstHundredList = [];
 for (var i = 0; i < 100; ++i) {
-    firstHundredList[i] = i + 1;
+    firstHundredList.push(i + 1);
 }
 console.log("First hundred list: " + listToString(firstHundredList));
