@@ -64,24 +64,27 @@ body {
     margin-left: 1em;
     margin-right: 1em;
     margin-bottom: 0;
-    padding: 0.5em;
-    align: center;
+    padding: 1em;
+    text-align: left;
     font-size: 14pt;
     color: grey;
     font-family: arial;
+    border: 0;
 }
 
 #table th {
     text-align: center;
+    border-bottom: 1px solid grey;
 }
 
-#table td .table-address-font {
+#table td.table-address-font {
     font-size: 75%;
 }
 
-#table td .table-ET-balance-font {
+#table td.table-ET-balance-font {
     font-size: 125%;
     font-weight: bold;
+    text-align: center;
 }
 
 #table td .demand-ET{
