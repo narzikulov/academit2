@@ -1,8 +1,8 @@
 .gradient {
      background: #fcfcfc;
      background: linear-gradient(to bottom, #fcfcfc, #dfe4e8);
-     padding-bottom: 2em;
-     border-radius: 6px 6px 0 0;
+     padding-bottom: 5em;
+     border-radius: 6px 6px 6px 6px;
     }
 
 body {
@@ -156,7 +156,7 @@ body {
     margin-right: 0em;
     margin-bottom: 3em;
     padding: 0em;
-    height: 1em;
+    height: 0.5em;
     width: 100%
 }
 
@@ -220,27 +220,26 @@ body {
     display: inline-block;
     font-family: arial;
     margin: 0px;
-    line-height: 500%;
+    line-height: 5em;
+    color: RGB(114, 116, 115);
 }
 
 #prev-orders-title .prev {
     float: left;
-    text-align: center;
-    vertical-align: middle;
     margin-left: 2em;
+    font-weight: bold;
+    vertical-align: bottom;
+    font-size: 125%;
 }
 
 #prev-orders-title .updated{
     float: right;
-    text-align: center;
-    vertical-align: middle;
     margin-right: 1em;
+    line-height:
 }
 
 #prev-orders-title .pic-button{
     float: right;
-    text-align: center;
-    vertical-align: middle;
     margin-right: 2em;
     color: grey;
 }
