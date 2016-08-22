@@ -1,15 +1,22 @@
+.gradient {
+     background: #fcfcfc;
+     background: linear-gradient(to bottom, #fcfcfc, #dfe4e8);
+     padding-bottom: 2em;
+     border-radius: 6px 6px 0 0;
+    }
+
 body {
-    background: url(origiqnal.jpg);
+    /*background-color: RGB(230, 232, 231);*/
     background-size: 100%;
 }
 
 #menu {
     text-align: justify;
     font-stretch: condensed;
-    margin-top: 1em;
-    margin-left: 1em;
-    margin-right: 1em;
-    margin-bottom: 0;
+    margin-top: 0em;
+    margin-left: 0em;
+    margin-right: 0em;
+    margin-bottom: 0em;
     padding: 2em;
     height: 2em;
     background-color: RGB(255, 212, 7);
@@ -60,21 +67,65 @@ body {
 }
 
 #table {
-    width: 100%
-    margin-left: 1em;
-    margin-right: 1em;
+    margin-left: 0em;
+    margin-right: 0em;
     margin-bottom: 0;
     padding: 1em;
     text-align: left;
-    font-size: 14pt;
+    font-size: 12pt;
     color: grey;
     font-family: arial;
     border: 0;
 }
 
+#table table {
+    width: 100%
+}
+
 #table th {
     text-align: center;
+    cellspacing: 0px;
+    margin: 0px;
+    padding: 10px;
+    padding-top: 0px;
     border-bottom: 1px solid grey;
+}
+
+#table .col1 {
+    width: 9%;
+    text-align: center;
+}
+
+#table .col2 {
+    width: 5%;
+}
+
+#table .col3 {
+    width: 24%;
+}
+
+#table .col4 {
+    width: 9%;
+}
+
+#table .col5 {
+    width: 22%;
+}
+
+#table .col6 {
+    width: 6%;
+}
+
+#table .col7 {
+    width: 25%;
+}
+
+#table td {
+    padding: 5px;
+}
+
+#table td.table-letter-column {
+    padding-left: 1%;
 }
 
 #table td.table-address-font {
@@ -88,9 +139,112 @@ body {
 }
 
 #table td .demand-ET{
-    width: 40px;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+
 }
 
 #table td .comment{
     width: 300px;
+}
+
+#buttons{
+    text-align: justify;
+    margin-top: 0em;
+    margin-left: 0em;
+    margin-right: 0em;
+    margin-bottom: 3em;
+    padding: 0em;
+    height: 1em;
+    width: 100%
+}
+
+#buttons ul {
+    display: inline; /* Отображать как строчный элемент */
+    margin: 0em; /* Обнуляем значение отступов */
+    padding: 0em; /* Значение полей */
+}
+
+#buttons ul li{
+    display: inline-block;
+    font-family: arial;
+    margin: 0px;
+}
+
+#buttons li input {
+    padding-top: 1em;
+    padding-left: 4em;
+    padding-right: 4em;
+    padding-bottom: 1em;
+    background-color: RGB(139, 184, 57);
+    font-family: arial;
+    font-size: 100%;
+    color: white;
+}
+
+#buttons .archive {
+    float: left;
+    margin-left: 2em;
+}
+
+#buttons .cancel{
+    float: right;
+    margin-right: 1em;
+}
+
+#buttons .send{
+    float: right;
+    margin-right: 2em;
+    color: grey;
+}
+
+#prev-orders-title{
+    text-align: justify;
+    margin-top: 0em;
+    margin-left: 0em;
+    margin-right: 0em;
+    margin-bottom: 0em;
+    padding: 0em;
+    height: 3em;
+    width: 100%
+}
+
+#prev-orders-title ul {
+    display: inline; /* Отображать как строчный элемент */
+    margin: 0em; /* Обнуляем значение отступов */
+    padding: 0em; /* Значение полей */
+}
+
+#prev-orders-title ul li{
+    display: inline-block;
+    font-family: arial;
+    margin: 0px;
+    line-height: 500%;
+}
+
+#prev-orders-title .prev {
+    float: left;
+    text-align: center;
+    vertical-align: middle;
+    margin-left: 2em;
+}
+
+#prev-orders-title .updated{
+    float: right;
+    text-align: center;
+    vertical-align: middle;
+    margin-right: 1em;
+}
+
+#prev-orders-title .pic-button{
+    float: right;
+    text-align: center;
+    vertical-align: middle;
+    margin-right: 2em;
+    color: grey;
+}
+
+#prev-orders-title .pic-button img{
+    vertical-align: middle;
 }
