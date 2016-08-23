@@ -19,6 +19,7 @@ div #booking-menu {
     height: 2em;
     background-color: RGB(255, 212, 7);
     border-radius: 6px 6px 0 0;
+    border-bottom: 1px solid RGB(194, 166, 22);
 }
 
 #booking-menu ul {
@@ -70,7 +71,7 @@ div #booking-menu {
 }
 
 div #booking-table {
-    height: 200px;
+    height: 250px;
     overflow: scroll; /* Добавляем полосы прокрутки */
     overflow-x: hidden;
     margin-left: 0;
@@ -127,6 +128,8 @@ div #booking-table {
 
 #booking-table td {
     padding: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 #booking-table td.table-letter-column {
@@ -181,6 +184,10 @@ div #booking-table {
     font-size: 100%;
     color: white;
     cursor: pointer;
+}
+
+#buttons input:hover {
+    background-color: RGB(143, 218, 5);
 }
 
 #buttons .archive {
@@ -281,7 +288,7 @@ div #prev-orders-table {
     padding: 10px 10px 10px 20px;
     border-right: 1px dotted grey;
     border-top: 1px dotted grey;
-    border-bottom: 1px dotted grey;
+    border-bottom: 1px solid grey;
     background-color: RGB(255, 212, 7);
     /*border-radius: 6px 6px 0 0;*/
 }
@@ -296,6 +303,10 @@ div #prev-orders-table {
 
 #prev-orders-table tr.underway {
     background-color: RGB(181, 211, 249);
+}
+
+#prev-orders-table table.first-table-string {
+    border-top: 1px solid red;
 }
 
 #prev-orders-table td {
