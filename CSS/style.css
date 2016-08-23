@@ -15,7 +15,7 @@ div #booking-menu {
     text-align: justify;
     font-stretch: condensed;
     margin: 0;
-    padding: 2em;
+    padding: 1em;
     height: 2em;
     background-color: RGB(255, 212, 7);
     border-radius: 6px 6px 0 0;
@@ -70,7 +70,7 @@ div #booking-menu {
 }
 
 div #booking-table {
-    height: 210px;
+    height: 200px;
     overflow: scroll; /* Добавляем полосы прокрутки */
     overflow-x: hidden;
     margin-left: 0;
@@ -78,7 +78,7 @@ div #booking-table {
     margin-bottom: 0;
     padding: 1em;
     text-align: left;
-    font-size: 12pt;
+    font-size: 14px;
     color: grey;
     font-family: arial;
 }
@@ -259,7 +259,7 @@ div #prev-orders-table {
     margin: 0;
     padding: 0;
     text-align: left;
-    font-size: 12pt;
+    font-size: 14px;
     color: grey;
     font-family: arial;
     border: 0;
@@ -280,6 +280,7 @@ div #prev-orders-table {
     margin: 0;
     padding: 10px 10px 10px 20px;
     border-right: 1px dotted grey;
+    border-top: 1px dotted grey;
     border-bottom: 1px dotted grey;
     background-color: RGB(255, 212, 7);
     /*border-radius: 6px 6px 0 0;*/
@@ -304,32 +305,36 @@ div #prev-orders-table {
 }
 
 #prev-orders-table td.date {
-    width: 15%;
+    width: 20%;
     padding-left: 40px;
     border-right: 1px dotted white;
 }
 
 #prev-orders-table td.order {
-    width: 15%;
+    width: 14%;
     border-right: 1px dotted white;
 }
 
 #prev-orders-table td.status {
-    width: 15%;
+    width: 14%;
     border-right: 1px dotted white;
 }
 
 #prev-orders-table td.reservation-system {
-    width: 18%;
+    width: 19%;
     border-right: 1px dotted white;
 }
 
 #prev-orders-table td.ordered-number {
-    width: 32%;
+    width: 29%;
 }
 
 #prev-orders-table td.delete {
-    width: 3%;
+    width: 2%;
+}
+
+#prev-orders-table td.delete img{
+    cursor: pointer;
 }
 
 #prev-orders-table td.slider {
