@@ -205,7 +205,7 @@ div #table {
     background-color: RGB(234, 234, 234);
 }
 
-#prev-orders-title {
+div #prev-orders-title {
     text-align: justify;
     margin-top: 0em;
     margin-left: 0em;
@@ -234,13 +234,13 @@ div #table {
     float: left;
     margin-left: 2em;
     font-weight: bold;
-    vertical-align: bottom;
     font-size: 125%;
 }
 
 #prev-orders-title .updated {
     float: right;
     margin-right: 1em;
+    font-size: 75%;
 }
 
 #prev-orders-title .pic-button {
@@ -251,7 +251,6 @@ div #table {
 
 #prev-orders-title .pic-button img {
     margin-right: 2em;
-    vertical-align: middle;
 }
 
 div #prev-orders-table {
