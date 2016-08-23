@@ -1,16 +1,16 @@
 .gradient {
-     background: #fcfcfc;
-     background: linear-gradient(to bottom, #fcfcfc, #dfe4e8);
-     padding-bottom: 5em;
-     border-radius: 6px 6px 6px 6px;
-    }
+    background: #fcfcfc;
+    background: linear-gradient(to bottom, #fcfcfc, #dfe4e8);
+    padding-bottom: 5em;
+    border-radius: 6px 6px 6px 6px;
+}
 
 body {
     /*background-color: RGB(230, 232, 231);*/
     background-size: 100%;
 }
 
-#menu {
+div #menu {
     text-align: justify;
     font-stretch: condensed;
     margin-top: 0em;
@@ -29,7 +29,7 @@ body {
     padding: 1em; /* Значение полей */
 }
 
-#menu ul li{
+#menu ul li {
     display: inline-block;
     font-family: tahoma;
     font-size: 26px;
@@ -37,16 +37,16 @@ body {
     height: 125%;
 }
 
-#menu ul li a:link{
+#menu ul li a:link {
     text-decoration: none;
     color: RGB(194, 166, 22);
 }
 
-#menu ul li a:hover, a:active{
+#menu ul li a:hover, a:active {
     text-decoration: underline;
 }
 
-#menu ul li a:visited{
+#menu ul li a:visited {
     text-decoration: underline;
     color: RGB(204, 69, 0);
 }
@@ -55,18 +55,18 @@ body {
     font-size: 75%;
 }
 
-#menu ul li.menu-items-devider{
+#menu ul li.menu-items-devider {
     border-right: 1px solid RGB(194, 166, 22);
 }
 
 #menu span {
-    display:inline-block;
-    width:100%;
-    height:0;
-    font-size:0;
+    display: inline-block;
+    width: 100%;
+    height: 0;
+    font-size: 0;
 }
 
-#table {
+div #table {
     margin-left: 0em;
     margin-right: 0em;
     margin-bottom: 0;
@@ -75,11 +75,11 @@ body {
     font-size: 12pt;
     color: grey;
     font-family: arial;
-    border: 0;
 }
 
 #table table {
-    width: 100%
+    width: 100%;
+    border-spacing: 0px;
 }
 
 #table th {
@@ -138,23 +138,23 @@ body {
     text-align: center;
 }
 
-#table td .demand-ET{
+#table td .demand-ET {
     width: 60%;
     margin-left: 20%;
     margin-right: 20%;
 
 }
 
-#table td .comment{
+#table td .comment {
     width: 300px;
 }
 
-#buttons{
+#buttons {
     text-align: justify;
-    margin-top: 0em;
+    margin-top: 1em;
     margin-left: 0em;
     margin-right: 0em;
-    margin-bottom: 3em;
+    margin-bottom: 6em;
     padding: 0em;
     height: 0.5em;
     width: 100%
@@ -166,7 +166,7 @@ body {
     padding: 0em; /* Значение полей */
 }
 
-#buttons ul li{
+#buttons ul li {
     display: inline-block;
     font-family: arial;
     margin: 0px;
@@ -188,18 +188,24 @@ body {
     margin-left: 2em;
 }
 
-#buttons .cancel{
+#buttons .cancel {
     float: right;
     margin-right: 1em;
 }
 
-#buttons .send{
+#buttons .send {
     float: right;
     margin-right: 2em;
-    color: grey;
+    color: RGB(146, 146, 146);
+    background-color: RGB(234, 234, 234);
 }
 
-#prev-orders-title{
+#buttons .send input{
+    color: RGB(146, 146, 146);
+    background-color: RGB(234, 234, 234);
+}
+
+#prev-orders-title {
     text-align: justify;
     margin-top: 0em;
     margin-left: 0em;
@@ -216,11 +222,11 @@ body {
     padding: 0em; /* Значение полей */
 }
 
-#prev-orders-title ul li{
+#prev-orders-title ul li {
     display: inline-block;
     font-family: arial;
     margin: 0px;
-    line-height: 5em;
+    line-height: 3em;
     color: RGB(114, 116, 115);
 }
 
@@ -232,18 +238,97 @@ body {
     font-size: 125%;
 }
 
-#prev-orders-title .updated{
+#prev-orders-title .updated {
     float: right;
     margin-right: 1em;
-    line-height:
 }
 
-#prev-orders-title .pic-button{
+#prev-orders-title .pic-button {
     float: right;
     margin-right: 2em;
     color: grey;
 }
 
-#prev-orders-title .pic-button img{
+#prev-orders-title .pic-button img {
+    margin-right: 2em;
     vertical-align: middle;
+}
+
+div #prev-orders-table {
+    margin: 0em;
+    padding: 0em;
+    text-align: left;
+    font-size: 12pt;
+    color: grey;
+    font-family: arial;
+    border: 0;
+    /* border-radius: 6px 6px 0 0;*/
+}
+
+#prev-orders-table table {
+    font-size: 100%;
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    border-style: dotted;
+    border: none;
+}
+
+#prev-orders-table th {
+    vertical-align: middle;
+    cellspacing: 0px;
+    margin: 0px;
+    padding: 10px;
+    padding-left: 20px;
+    border-right: 1px dotted grey;
+    border-bottom: 1px dotted grey;
+    background-color: RGB(255, 212, 7);
+    /*border-radius: 6px 6px 0 0;*/
+}
+
+#prev-orders-table th.last-title-head {
+    border-right: none;
+}
+
+#prev-orders-table tr.underway {
+    background-color: RGB(181, 211, 249);
+
+}
+
+#prev-orders-table td {
+    padding: 5px;
+    padding-left: 20px;
+    border-bottom: 1px dotted white;
+}
+
+#prev-orders-table td.date {
+    width: 15%;
+    border-right: 1px dotted white;
+}
+
+#prev-orders-table td.order {
+    width: 15%;
+    border-right: 1px dotted white;
+}
+
+#prev-orders-table td.status {
+    width: 15%;
+    border-right: 1px dotted white;
+}
+
+#prev-orders-table td.reservation-system {
+    width: 18%;
+    border-right: 1px dotted white;
+}
+
+#prev-orders-table td.ordered-number {
+    width: 32%;
+}
+
+#prev-orders-table td.delete {
+    width: 3%;
+}
+
+#prev-orders-table td.slider {
+    width: 2%;
 }
