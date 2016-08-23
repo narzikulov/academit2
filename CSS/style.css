@@ -13,10 +13,7 @@ body {
 div #menu {
     text-align: justify;
     font-stretch: condensed;
-    margin-top: 0em;
-    margin-left: 0em;
-    margin-right: 0em;
-    margin-bottom: 0em;
+    margin: 0;
     padding: 2em;
     height: 2em;
     background-color: RGB(255, 212, 7);
@@ -67,8 +64,8 @@ div #menu {
 }
 
 div #table {
-    margin-left: 0em;
-    margin-right: 0em;
+    margin-left: 0;
+    margin-right: 0;
     margin-bottom: 0;
     padding: 1em;
     text-align: left;
@@ -79,15 +76,14 @@ div #table {
 
 #table table {
     width: 100%;
-    border-spacing: 0px;
+    border-spacing: 0;
 }
 
 #table th {
     text-align: center;
     cellspacing: 0px;
-    margin: 0px;
-    padding: 10px;
-    padding-top: 0px;
+    margin: 0;
+    padding: 0 10px 10px;
     border-bottom: 1px solid grey;
 }
 
@@ -151,32 +147,26 @@ div #table {
 
 #buttons {
     text-align: justify;
-    margin-top: 1em;
-    margin-left: 0em;
-    margin-right: 0em;
-    margin-bottom: 6em;
-    padding: 0em;
+    margin: 1em 0 6em 0;
+    padding: 0;
     height: 0.5em;
     width: 100%
 }
 
 #buttons ul {
     display: inline; /* Отображать как строчный элемент */
-    margin: 0em; /* Обнуляем значение отступов */
-    padding: 0em; /* Значение полей */
+    margin: 0; /* Обнуляем значение отступов */
+    padding: 0; /* Значение полей */
 }
 
 #buttons ul li {
     display: inline-block;
     font-family: arial;
-    margin: 0px;
+    margin: 0;
 }
 
 #buttons li input {
-    padding-top: 1em;
-    padding-left: 4em;
-    padding-right: 4em;
-    padding-bottom: 1em;
+    padding: 1em 4em;
     background-color: RGB(139, 184, 57);
     font-family: arial;
     font-size: 100%;
@@ -207,25 +197,22 @@ div #table {
 
 div #prev-orders-title {
     text-align: justify;
-    margin-top: 0em;
-    margin-left: 0em;
-    margin-right: 0em;
-    margin-bottom: 0em;
-    padding: 0em;
+    margin: 0;
+    padding: 0;
     height: 3em;
     width: 100%
 }
 
 #prev-orders-title ul {
     display: inline; /* Отображать как строчный элемент */
-    margin: 0em; /* Обнуляем значение отступов */
-    padding: 0em; /* Значение полей */
+    margin: 0; /* Обнуляем значение отступов */
+    padding: 0; /* Значение полей */
 }
 
 #prev-orders-title ul li {
     display: inline-block;
     font-family: arial;
-    margin: 0px;
+    margin: 0;
     line-height: 3em;
     color: RGB(114, 116, 115);
 }
@@ -254,8 +241,8 @@ div #prev-orders-title {
 }
 
 div #prev-orders-table {
-    margin: 0em;
-    padding: 0em;
+    margin: 0;
+    padding: 0;
     text-align: left;
     font-size: 12pt;
     color: grey;
@@ -268,15 +255,14 @@ div #prev-orders-table {
     font-size: 100%;
     width: 100%;
     border-collapse: collapse;
-    border-spacing: 0px;
-    border-style: dotted;
+    border-spacing: 0;
     border: none;
 }
 
 #prev-orders-table th {
     vertical-align: middle;
     cellspacing: 0px;
-    margin: 0px;
+    margin: 0;
     padding: 10px;
     padding-left: 20px;
     border-right: 1px dotted grey;
