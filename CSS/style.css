@@ -305,8 +305,8 @@ div #prev-orders-table {
     background-color: RGB(181, 211, 249);
 }
 
-#prev-orders-table table.first-table-string {
-    border-top: 1px solid red;
+#prev-orders-table table .first-table-string {
+    /*border-top: 1px solid red;*/
 }
 
 #prev-orders-table td {
