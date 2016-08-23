@@ -278,8 +278,7 @@ div #prev-orders-table {
     vertical-align: middle;
     cellspacing: 0px;
     margin: 0;
-    padding: 10px;
-    padding-left: 40px;
+    padding: 10px 10px 10px 40px;
     border-right: 1px dotted grey;
     border-bottom: 1px dotted grey;
     background-color: RGB(255, 212, 7);
@@ -295,8 +294,7 @@ div #prev-orders-table {
 }
 
 #prev-orders-table td {
-    padding: 5px;
-    padding-left: 20px;
+    padding: 5px 5px 5px 20px;
     border-top: 1px dotted white;
     border-bottom: 1px dotted grey;
 }
