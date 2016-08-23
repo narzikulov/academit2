@@ -2,32 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="reset.css" type="text/css">
     <link rel="stylesheet" href="style.css" type="text/css">
     <title>Gabriel</title>
 </head>
 <body>
 <div class="gradient">
-    <div id="menu">
+    <div id="booking-menu">
         <ul>
-            <li class="gabriel"><a href="original.jpg">Gabriel</a></li>
+            <li class="opened"><a href="img/original.jpg">Gabriel</a></li>
             <li class="menu-items-devider"><span></span></li>
-            <li class="gabriel"><a href="original2.jpg">Gabriel <font class="menu-item-small-font">блоки</font></a></li>
+            <li class="closed"><a href="original2.jpg">Gabriel <font class="menu-item-small-font">блоки</font></a></li>
             <li class="menu-items-devider"><span></span></li>
-            <li class="sirena"><a href="original3.jpg">Сирена</a></li>
+            <li class="closed"><a href="original3.jpg">Сирена</a></li>
             <li class="menu-items-devider"><span></span></li>
-            <li class="amadeus"><a href="original4.jpg">Amadeus</a></li>
+            <li class="closed"><a href="original4.jpg">Amadeus</a></li>
             <li class="menu-items-devider"><span></span></li>
-            <li class="sabre">Sabre</li>
+            <li class="closed">Sabre</li>
             <li class="menu-items-devider"><span></span></li>
-            <li class="galileo">Galileo</li>
+            <li class="closed">Galileo</li>
             <li class="menu-items-devider"><span></span></li>
-            <li class="paper"><a href="original7.jpg">Бумажные</a></li>
+            <li class="closed"><a href="original7.jpg">Бумажные</a></li>
         </ul>
 
         <span></span>
     </div>
 
-    <div id="table">
+    <div id="booking-table">
         <table>
             <tr>
                 <th>Валидатор</th>
@@ -92,6 +93,33 @@
                 <td class="col6"><input class="demand-ET" type="text" value="20"></td>
                 <td class="col7"><input class="comment" type="text" value="Какой-то комментарий"></td>
             </tr>
+            <tr>
+                <td class="col1">421-3476-1</td>
+                <td class="col2 table-letter-column">A</td>
+                <td class="col3 table-address-font">...г.Кишинев, бульвар Штефан чел Маре, 3</td>
+                <td class="col4 table-ET-balance-font">100</td>
+                <td class="col5">O------------------------------------</td>
+                <td class="col6"><input class="demand-ET" type="text" value="20"></td>
+                <td class="col7"><input class="comment" type="text" value="Какой-то комментарий"></td>
+            </tr>
+            <tr>
+                <td class="col1">421-3476-1</td>
+                <td class="col2 table-letter-column">A</td>
+                <td class="col3 table-address-font">...г.Кишинев, бульвар Штефан чел Маре, 3</td>
+                <td class="col4 table-ET-balance-font">100</td>
+                <td class="col5">O------------------------------------</td>
+                <td class="col6"><input class="demand-ET" type="text" value="20"></td>
+                <td class="col7"><input class="comment" type="text" value="Какой-то комментарий"></td>
+            </tr>
+            <tr>
+                <td class="col1">421-3476-1</td>
+                <td class="col2 table-letter-column">A</td>
+                <td class="col3 table-address-font">...г.Кишинев, бульвар Штефан чел Маре, 3</td>
+                <td class="col4 table-ET-balance-font">100</td>
+                <td class="col5">O------------------------------------</td>
+                <td class="col6"><input class="demand-ET" type="text" value="20"></td>
+                <td class="col7"><input class="comment" type="text" value="Какой-то комментарий"></td>
+            </tr>
         </table>
     </div>
 
@@ -107,7 +135,7 @@
         <div id="prev-orders-title">
             <ul>
                 <li class="prev">Предыдущие заявки</li>
-                <li class="pic-button"><img src="arrows.png"></li>
+                <li class="pic-button"><img src="img/arrows.png"></li>
                 <li class="updated">Обновлено: 13.11.2012, 15:45</li>
 
             </ul>
@@ -129,7 +157,7 @@
                 <td class="status">На рассмотрении</td>
                 <td class="reservation-system">Gabriel</td>
                 <td class="ordered-number">400</td>
-                <td class="delete"><img src="basket.png"></td>
+                <td class="delete"><img src="img/basket.png"></td>
                 <td class="slider"><span></span></td>
             </tr>
             <tr class="underway">
@@ -138,7 +166,43 @@
                 <td class="status">На рассмотрении</td>
                 <td class="reservation-system">Amadeus</td>
                 <td class="ordered-number">350</td>
-                <td class="delete"><img src="basket.png"></td>
+                <td class="delete"><img src="img/basket.png"></td>
+                <td class="slider"><span></span></td>
+            </tr>
+            <tr>
+                <td class="date">13.12.2012, 08:23</td>
+                <td class="order">32512192E75B</td>
+                <td class="status">Рассмотрена</td>
+                <td class="reservation-system">Gabriel</td>
+                <td class="ordered-number">200</td>
+                <td class="delete"><span></span></td>
+                <td class="slider"><span></span></td>
+            </tr>
+            <tr>
+                <td class="date">13.12.2012, 08:23</td>
+                <td class="order">32512192E75B</td>
+                <td class="status">Рассмотрена</td>
+                <td class="reservation-system">Gabriel</td>
+                <td class="ordered-number">200</td>
+                <td class="delete"><span></span></td>
+                <td class="slider"><span></span></td>
+            </tr>
+            <tr>
+                <td class="date">13.12.2012, 08:23</td>
+                <td class="order">32512192E75B</td>
+                <td class="status">Рассмотрена</td>
+                <td class="reservation-system">Gabriel</td>
+                <td class="ordered-number">200</td>
+                <td class="delete"><span></span></td>
+                <td class="slider"><span></span></td>
+            </tr>
+            <tr>
+                <td class="date">13.12.2012, 08:23</td>
+                <td class="order">32512192E75B</td>
+                <td class="status">Рассмотрена</td>
+                <td class="reservation-system">Gabriel</td>
+                <td class="ordered-number">200</td>
+                <td class="delete"><span></span></td>
                 <td class="slider"><span></span></td>
             </tr>
             <tr>

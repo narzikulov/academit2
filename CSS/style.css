@@ -1,4 +1,5 @@
 .gradient {
+    margin: 0.5em;
     background: #ffffff;
     background: linear-gradient(to bottom, #ffffff, #dfe4e8);
     padding-bottom: 0;
@@ -10,7 +11,7 @@ body {
     background-size: 100%;
 }
 
-div #menu {
+div #booking-menu {
     text-align: justify;
     font-stretch: condensed;
     margin: 0;
@@ -20,50 +21,58 @@ div #menu {
     border-radius: 6px 6px 0 0;
 }
 
-#menu ul {
+#booking-menu ul {
     display: inline; /* Отображать как строчный элемент */
     margin: 1em; /* Обнуляем значение отступов */
     padding: 1em; /* Значение полей */
 }
 
-#menu ul li {
+#booking-menu ul li {
     display: inline-block;
-    font-family: tahoma;
+    font-family: Tahoma;
     font-size: 26px;
-    color: lightgray;
+    color: RGB(222, 183, 0);
     height: 125%;
 }
 
-#menu ul li a:link {
+#booking-menu ul li a {
     text-decoration: none;
-    color: RGB(194, 166, 22);
+    color: RGB(166, 130, 0);
 }
 
-#menu ul li a:hover, a:active {
+#booking-menu ul li a:hover{
     text-decoration: underline;
 }
 
-#menu ul li a:visited {
+#booking-menu ul li.opened a{
     text-decoration: underline;
-    color: RGB(204, 69, 0);
+    color: #b32e00;
 }
 
-.menu-item-small-font {
-    font-size: 75%;
+#booking-menu ul li a:visited{
+    text-decoration: underline;
 }
 
-#menu ul li.menu-items-devider {
+#booking-menu ul li.menu-items-devider {
     border-right: 1px solid RGB(194, 166, 22);
 }
 
-#menu span {
+#booking-menu span {
     display: inline-block;
     width: 100%;
     height: 0;
     font-size: 0;
 }
 
-div #table {
+.menu-item-small-font {
+    word-wrap: normal;
+    font-size: 75%;
+}
+
+div #booking-table {
+    height: 210px;
+    overflow: scroll; /* Добавляем полосы прокрутки */
+    overflow-x: hidden;
     margin-left: 0;
     margin-right: 0;
     margin-bottom: 0;
@@ -74,12 +83,12 @@ div #table {
     font-family: arial;
 }
 
-#table table {
+#booking-table table {
     width: 100%;
     border-spacing: 0;
 }
 
-#table th {
+#booking-table th {
     text-align: center;
     cellspacing: 0px;
     margin: 0;
@@ -87,61 +96,61 @@ div #table {
     border-bottom: 1px solid grey;
 }
 
-#table .col1 {
+#booking-table .col1 {
     width: 9%;
     text-align: center;
 }
 
-#table .col2 {
+#booking-table .col2 {
     width: 5%;
 }
 
-#table .col3 {
+#booking-table .col3 {
     width: 24%;
 }
 
-#table .col4 {
+#booking-table .col4 {
     width: 9%;
 }
 
-#table .col5 {
+#booking-table .col5 {
     width: 22%;
 }
 
-#table .col6 {
+#booking-table .col6 {
     width: 6%;
 }
 
-#table .col7 {
+#booking-table .col7 {
     width: 25%;
 }
 
-#table td {
+#booking-table td {
     padding: 5px;
 }
 
-#table td.table-letter-column {
+#booking-table td.table-letter-column {
     padding-left: 1%;
 }
 
-#table td.table-address-font {
+#booking-table td.table-address-font {
     font-size: 75%;
 }
 
-#table td.table-ET-balance-font {
+#booking-table td.table-ET-balance-font {
     font-size: 125%;
     font-weight: bold;
     text-align: center;
 }
 
-#table td .demand-ET {
-    width: 60%;
+#booking-table td .demand-ET {
+    width: 40px;
     margin-left: 20%;
     margin-right: 20%;
 
 }
 
-#table td .comment {
+#booking-table td .comment {
     width: 300px;
 }
 
@@ -171,6 +180,7 @@ div #table {
     font-family: arial;
     font-size: 100%;
     color: white;
+    cursor: pointer;
 }
 
 #buttons .archive {
@@ -238,9 +248,14 @@ div #prev-orders-title {
 
 #prev-orders-title .pic-button img {
     margin-right: 2em;
+    cursor: pointer;
 }
 
 div #prev-orders-table {
+    width: 100%;
+    height: 150px;
+    overflow: scroll; /* Добавляем полосы прокрутки */
+    overflow-x: hidden;
     margin: 0;
     padding: 0;
     text-align: left;
@@ -254,9 +269,9 @@ div #prev-orders-table {
 #prev-orders-table table {
     font-size: 100%;
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
     border-spacing: 0;
-    border: none;
+    border: 0;
 }
 
 #prev-orders-table th {
@@ -264,7 +279,7 @@ div #prev-orders-table {
     cellspacing: 0px;
     margin: 0;
     padding: 10px;
-    padding-left: 20px;
+    padding-left: 40px;
     border-right: 1px dotted grey;
     border-bottom: 1px dotted grey;
     background-color: RGB(255, 212, 7);
@@ -277,17 +292,18 @@ div #prev-orders-table {
 
 #prev-orders-table tr.underway {
     background-color: RGB(181, 211, 249);
-
 }
 
 #prev-orders-table td {
     padding: 5px;
     padding-left: 20px;
-    border-bottom: 1px dotted white;
+    border-top: 1px dotted white;
+    border-bottom: 1px dotted grey;
 }
 
 #prev-orders-table td.date {
     width: 15%;
+    padding-left: 40px;
     border-right: 1px dotted white;
 }
 
@@ -317,3 +333,4 @@ div #prev-orders-table {
 #prev-orders-table td.slider {
     width: 2%;
 }
+
