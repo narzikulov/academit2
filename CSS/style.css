@@ -278,11 +278,15 @@ div #prev-orders-table {
     vertical-align: middle;
     cellspacing: 0px;
     margin: 0;
-    padding: 10px 10px 10px 40px;
+    padding: 10px 10px 10px 20px;
     border-right: 1px dotted grey;
     border-bottom: 1px dotted grey;
     background-color: RGB(255, 212, 7);
     /*border-radius: 6px 6px 0 0;*/
+}
+
+#prev-orders-table th.first-title-head {
+    padding: 10px 10px 10px 40px;
 }
 
 #prev-orders-table th.last-title-head {
