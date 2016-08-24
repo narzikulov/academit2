@@ -41,16 +41,16 @@ div #booking-menu {
     color: RGB(166, 130, 0);
 }
 
-#booking-menu ul li a:hover{
+#booking-menu ul li a:hover {
     text-decoration: underline;
 }
 
-#booking-menu ul li.opened a{
+#booking-menu ul li.opened a {
     text-decoration: underline;
     color: #b32e00;
 }
 
-#booking-menu ul li a:visited{
+#booking-menu ul li a:visited {
     text-decoration: underline;
 }
 
@@ -70,14 +70,65 @@ div #booking-menu {
     font-size: 75%;
 }
 
+div #booking-table-fixed-title {
+    height: 30px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    padding: 1em 1em 0 0;
+    text-align: left;
+    font-size: 14px;
+    color: grey;
+    font-family: arial;
+}
+
+#booking-table-fixed-title table {
+    width: 100%;
+    border-spacing: 0;
+}
+
+#booking-table-fixed-title th {
+    cellspacing: 0px;
+    margin: 0;
+    padding: 0 10px 10px;
+    border-bottom: 1px solid grey;
+}
+
+#booking-table-fixed-title .col1 {
+    width: 10%;
+    text-align: center;
+    padding-left: 1em;
+}
+
+#booking-table-fixed-title .col2 {
+    width: 5%;
+}
+
+#booking-table-fixed-title .col3 {
+    width: 20%;
+}
+
+#booking-table-fixed-title .col4 {
+    width: 9%;
+}
+
+#booking-table-fixed-title .col5 {
+    width: 22%;
+}
+
+#booking-table-fixed-title .col6 {
+    padding-left: 3.5em;
+    width: 34%;
+}
+
 div #booking-table {
-    height: 250px;
-    overflow: scroll; /* Добавляем полосы прокрутки */
+    height: 240px;
+    overflow: auto; /* Добавляем полосы прокрутки */
     overflow-x: hidden;
     margin-left: 0;
     margin-right: 0;
     margin-bottom: 0;
-    padding: 1em;
+    padding-top: 0;
     text-align: left;
     font-size: 14px;
     color: grey;
@@ -89,16 +140,12 @@ div #booking-table {
     border-spacing: 0;
 }
 
-#booking-table th {
-    text-align: center;
-    cellspacing: 0px;
-    margin: 0;
-    padding: 0 10px 10px;
-    border-bottom: 1px solid grey;
+#booking-table table td {
+    padding-left: 1em;
 }
 
 #booking-table .col1 {
-    width: 9%;
+    width: 10%;
     text-align: center;
 }
 
@@ -107,7 +154,7 @@ div #booking-table {
 }
 
 #booking-table .col3 {
-    width: 24%;
+    width: 25%;
 }
 
 #booking-table .col4 {
@@ -133,7 +180,7 @@ div #booking-table {
 }
 
 #booking-table td.table-letter-column {
-    padding-left: 1%;
+    padding-left: 2.5%;
 }
 
 #booking-table td.table-address-font {
@@ -207,7 +254,7 @@ div #booking-table {
     background-color: RGB(234, 234, 234);
 }
 
-#buttons .send input{
+#buttons .send input {
     color: RGB(146, 146, 146);
     background-color: RGB(234, 234, 234);
 }
@@ -258,9 +305,70 @@ div #prev-orders-title {
     cursor: pointer;
 }
 
+div #prev-orders-table-fixed-title {
+    width: 100%;
+    height: 45px;
+    text-align: left;
+    font-size: 14px;
+    color: grey;
+    font-family: arial;
+    border: 0;
+    /* border-radius: 6px 6px 0 0;*/
+}
+
+#prev-orders-table-fixed-title table {
+    table-layout: fixed;
+    font-size: 100%;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-top: 1px solid RGB(194, 197, 232);
+    border-radius: 6px 6px 0 0;
+}
+
+#prev-orders-table-fixed-title th {
+    vertical-align: middle;
+    cellspacing: 0px;
+    padding: 10px 10px 10px 20px;
+    border-right: 1px dotted RGB(194, 197, 232);
+    /*border-top: 1px dotted grey;*/
+    border-bottom: 1px solid RGB(194, 197, 232);
+    background-color: RGB(255, 212, 7);
+}
+
+#prev-orders-table-fixed-title th.date {
+    border-radius: 6px 0 0 0;
+    width: 15%;
+    padding: 0 0 0 40px;
+}
+
+#prev-orders-table-fixed-title th.order {
+    width: 15%;
+}
+
+#prev-orders-table-fixed-title th.status {
+    width: 15%;
+}
+
+#prev-orders-table-fixed-title th.reservation-system {
+    width: 18%;
+}
+
+#prev-orders-table-fixed-title th.ordered-number {
+    width: 30%;
+    border-right: none;
+}
+
+#prev-orders-table-fixed-title th.delete {
+    width: 7%;
+    border-right: none;
+    border-left: none;
+    border-radius: 0 6px 0 0;
+}
+
 div #prev-orders-table {
     width: 100%;
-    height: 150px;
+    height: 120px;
     overflow: scroll; /* Добавляем полосы прокрутки */
     overflow-x: hidden;
     margin: 0;
@@ -270,85 +378,61 @@ div #prev-orders-table {
     color: grey;
     font-family: arial;
     border: 0;
-    /* border-radius: 6px 6px 0 0;*/
 }
 
 #prev-orders-table table {
+    table-layout: fixed;
     font-size: 100%;
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
     border: 0;
-}
-
-#prev-orders-table th {
-    vertical-align: middle;
-    cellspacing: 0px;
-    margin: 0;
-    padding: 10px 10px 10px 20px;
-    border-right: 1px dotted grey;
-    border-top: 1px dotted grey;
-    border-bottom: 1px solid grey;
-    background-color: RGB(255, 212, 7);
-    /*border-radius: 6px 6px 0 0;*/
-}
-
-#prev-orders-table th.first-title-head {
-    padding: 10px 10px 10px 40px;
-}
-
-#prev-orders-table th.last-title-head {
-    border-right: none;
+    border-top: 1px solid RGB(194, 197, 232);
 }
 
 #prev-orders-table tr.underway {
     background-color: RGB(181, 211, 249);
 }
 
-#prev-orders-table table .first-table-string {
-    /*border-top: 1px solid red;*/
-}
-
 #prev-orders-table td {
-    padding: 5px 5px 5px 20px;
+    padding: 10px 10px 10px 20px;
     border-top: 1px dotted white;
     border-bottom: 1px dotted grey;
 }
 
 #prev-orders-table td.date {
-    width: 20%;
-    padding-left: 40px;
+    width: 15%;
+    padding: 0 0 0 40px;
     border-right: 1px dotted white;
 }
 
 #prev-orders-table td.order {
-    width: 14%;
+    width: 15%;
     border-right: 1px dotted white;
 }
 
 #prev-orders-table td.status {
-    width: 14%;
+    width: 15%;
     border-right: 1px dotted white;
 }
 
 #prev-orders-table td.reservation-system {
-    width: 19%;
+    width: 18%;
     border-right: 1px dotted white;
 }
 
 #prev-orders-table td.ordered-number {
-    width: 29%;
+    width: 30%;
 }
 
 #prev-orders-table td.delete {
-    width: 2%;
+    width: 7%;
 }
 
-#prev-orders-table td.delete img{
+#prev-orders-table td.delete img {
     cursor: pointer;
 }
 
-#prev-orders-table td.slider {
-    width: 2%;
+#prev-orders-table .first-table-string td {
+    border-top: none;
 }
-
