@@ -117,7 +117,7 @@ div #booking-table-fixed-title {
 }
 
 #booking-table-fixed-title .col6 {
-    padding-left: 3.5em;
+    padding-left: 5.5em;
     width: 34%;
 }
 
@@ -154,7 +154,7 @@ div #booking-table {
 }
 
 #booking-table .col3 {
-    width: 25%;
+    width: 20%;
 }
 
 #booking-table .col4 {
@@ -166,11 +166,11 @@ div #booking-table {
 }
 
 #booking-table .col6 {
-    width: 6%;
+    width: 5%;
 }
 
 #booking-table .col7 {
-    width: 25%;
+    /*width: 25%;*/
 }
 
 #booking-table td {
@@ -195,9 +195,6 @@ div #booking-table {
 
 #booking-table td .demand-ET {
     width: 40px;
-    margin-left: 20%;
-    margin-right: 20%;
-
 }
 
 #booking-table td .comment {
