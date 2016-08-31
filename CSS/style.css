@@ -173,6 +173,8 @@ div #booking-table {
 
 #booking-table .col5 {
     width: 22%;
+    border: none;
+
 }
 
 #booking-table .col6 {

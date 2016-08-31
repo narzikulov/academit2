@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="reset.css" type="text/css">
     <link rel="stylesheet" href="style.css" type="text/css">
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
     <title>Gabriel</title>
 </head>
 <body>
@@ -12,7 +14,7 @@
         <ul>
             <li class="opened"><a href="img/original.jpg">Gabriel</a></li>
             <li class="menu-items-devider"><span></span></li>
-            <li class="closed"><a href="original2.jpg">Gabriel <sup class="menu-item-small-font">блоки</sup></a></li>
+            <li class="closed"><a href="original2.jpg">Gabriel <sup class="menu-item-small-font">блоки</sup class="menu-item-small-font"></a></li>
             <li class="menu-items-devider"><span></span></li>
             <li class="closed"><a href="original3.jpg">Сирена</a></li>
             <li class="menu-items-devider"><span></span></li>
@@ -55,8 +57,8 @@
                 <td class="col2 table-letter-column">A</td>
                 <td class="col3 table-address-font">РФ, г.Москва, ул.Усиевича, д.22, корп.1</td>
                 <td class="col4 table-ET-balance-font">10</td>
-                <td class="col5">--------O----------------------------</td>
-                <td class="col6"><input class="demand-ET" type="text" value="200"></td>
+                <td id="etslider" class="col5"></td>
+                <td class="col6"><input id="etSliderVal" class="demand-ET slider" type="text"></td>
                 <td class="col7"><input class="comment" type="text" value="Какой-то комментарий"></td>
             </tr>
             <tr>
@@ -237,5 +239,9 @@
     </div>
 
 </div>
+
+<script src="jquery-3.1.0.js"></script>
+<script src="jquery-ui-1.12.0/jquery-ui.js"></script>
+<script src="gabriel.js"></script>
 </body>
 </html>
