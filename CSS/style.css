@@ -31,7 +31,7 @@ div #booking-menu {
 #booking-menu ul li {
     display: inline-block;
     font-family: Tahoma;
-    font-size: 26px;
+    font-size: 24px;
     color: RGB(222, 183, 0);
     height: 125%;
 }
@@ -39,6 +39,8 @@ div #booking-menu {
 #booking-menu ul li a {
     text-decoration: none;
     color: RGB(166, 130, 0);
+    padding-left: 1em;
+    padding-right: 1em;
 }
 
 #booking-menu ul li a:hover {
@@ -180,7 +182,7 @@ div #booking-table {
 }
 
 #booking-table td.table-letter-column {
-    padding-left: 2.5%;
+    padding-left: 2%;
 }
 
 #booking-table td.table-address-font {
@@ -188,7 +190,6 @@ div #booking-table {
 }
 
 #booking-table td.table-ET-balance-font {
-    font-size: 125%;
     font-weight: bold;
     text-align: center;
 }
@@ -419,11 +420,13 @@ div #prev-orders-table {
 
 #prev-orders-table td.reservation-system {
     width: 18%;
+    border-right: none;
 }
 
 #prev-orders-table td.ordered-number {
     width: 30%;
     border-right: none;
+    border-left: 1px dotted white;
 }
 
 #prev-orders-table td.delete {
