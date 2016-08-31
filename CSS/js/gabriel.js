@@ -5,15 +5,11 @@ $(document).ready(function () {
     //var bookingTable = document.querySelectorAll("#booking-table table tr");
     var index = 0;
     var bookingTableDemandETValueArray = $("#booking-table table tr");
-    alert(bookingTableDemandETValueArray.length);
     bookingTableDemandETValueArray.each(function () {
         var value = 0;
 
         var sliderID = "etSlider" + index;
         var sliderValID = "etSliderVal" + index;
-
-        var selector = $(this).find("div[name=slider]");
-        alert(selector);
 
         $(this).find("div[name=slider]").attr("id", sliderID);
         $(this).find("input[name=sliderVal]").attr("id", sliderValID);
