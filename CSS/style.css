@@ -176,15 +176,6 @@ div #booking-table {
     border: none;
 }
 
-.ui-widget-overlay {
-    width: 150px;
-    height: 20px;
-}
-
-.ui-widget-shadow {
-    background-color: red;
-}
-
 #booking-table .col6 {
     width: 5%;
 }

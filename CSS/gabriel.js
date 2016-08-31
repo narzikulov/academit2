@@ -15,7 +15,7 @@ $(document).ready(function () {
         },
         slide: function (event, ui) {
             $("#etSliderVal").val(ui.value);//При изменении значения ползунка заполняем элемент с id contentSlider
-        }
+        },
     });
 
     value = $("#etslider").slider("value");
