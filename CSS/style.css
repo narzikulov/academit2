@@ -25,7 +25,7 @@ div #booking-menu {
 #booking-menu ul {
     display: inline; /* Отображать как строчный элемент */
     margin: 1em; /* Обнуляем значение отступов */
-    padding: 1em; /* Значение полей */
+    /*padding: 1em; /* Значение полей */
 }
 
 #booking-menu ul li {
@@ -45,6 +45,14 @@ div #booking-menu {
 
 #booking-menu ul li a:hover {
     text-decoration: underline;
+}
+
+/* Искусственное подчеркивание ссылки Gabriel блоки, чтобы линия была одной толщины*/
+#booking-menu ul li a:hover .menu-item-small-font {
+    text-decoration: none;
+    border-bottom: 2px solid RGB(166, 130, 0);
+    line-height: 1em;
+    display: inline-block;
 }
 
 #booking-menu ul li.opened a {
