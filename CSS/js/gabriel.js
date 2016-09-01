@@ -2,6 +2,10 @@
  * Created by tim on 31.08.2016.
  */
 $(document).ready(function () {
+    $("html").niceScroll();
+    $("#booking-table").niceScroll();
+    $("#prev-orders-table").niceScroll();
+
     //var bookingTable = document.querySelectorAll("#booking-table table tr");
     var index = 0;
     var bookingTableDemandETValueArray = $("#booking-table table tr");
