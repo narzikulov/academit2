@@ -25,13 +25,18 @@ $(document).ready(function () {
             value: 0,
             min: 0,
             max: 1000,
-            step: 1,
+            step: 10,
             create: function (event, ui) {
                 value = $(sliderID).slider("value");
                 $(sliderValID).val(ui.val);//Заполняем этим значением элемент с id
             },
             slide: function (event, ui) {
                 $(sliderValID).val(ui.value);//При изменении значения ползунка заполняем элемент с id contentSlider
+                if (ui.value > 100) {
+                    $(sliderID).slider("option", "step", 100);
+                } else {
+                    $(sliderID).slider("option", "step", 10);
+                }
             },
         });
 
