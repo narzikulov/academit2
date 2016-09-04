@@ -23,8 +23,8 @@ div #booking-menu {
 }
 
 #booking-menu ul {
+    list-style: none;
     display: inline; /* Отображать как строчный элемент */
-    margin: 1em; /* Обнуляем значение отступов */
     /*padding: 1em; /* Значение полей */
 }
 
@@ -34,13 +34,18 @@ div #booking-menu {
     font-size: 24px;
     color: RGB(222, 183, 0);
     height: 125%;
+    vertical-align: middle;
+}
+
+#booking-menu ul li.left{
+}
+
+#booking-menu ul li.right {
 }
 
 #booking-menu ul li a {
     text-decoration: none;
     color: RGB(166, 130, 0);
-    padding-left: 1em;
-    padding-right: 1em;
 }
 
 #booking-menu ul li a:hover {
@@ -77,7 +82,7 @@ div #booking-menu {
 
 .menu-item-small-font {
     word-wrap: normal;
-    font-size: 75%;
+    font-size: 60%;
 }
 
 div #booking-table-fixed-title {
@@ -127,7 +132,7 @@ div #booking-table-fixed-title {
 }
 
 #booking-table-fixed-title .col6 {
-    padding-left: 5.5em;
+    padding-left: 6.5%;
     width: 34%;
 }
 
@@ -191,7 +196,7 @@ div #booking-table {
 }
 
 #booking-table td.table-letter-column {
-    padding-left: 2%;
+    padding-left: 1%;
 }
 
 #booking-table td.table-address-font {
@@ -200,7 +205,8 @@ div #booking-table {
 
 #booking-table td.table-ET-balance-font {
     font-weight: bold;
-    text-align: center;
+    text-align: left;
+    padding-left: 1%;
 }
 
 #booking-table td .demand-ET {
@@ -208,7 +214,7 @@ div #booking-table {
 }
 
 #booking-table td .comment {
-    width: 300px;
+    width: 95%;
 }
 
 #buttons {
@@ -439,6 +445,8 @@ div #prev-orders-table {
 
 #prev-orders-table td.delete {
     width: 7%;
+    text-align: right;
+    padding-right: 1%;
     border-right: none;
 }
 

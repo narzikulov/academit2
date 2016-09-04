@@ -38,6 +38,20 @@ $(document).ready(function () {
         ++index;
         value = $(sliderID).slider("value");
         $(sliderValID).val(value);
+
+        $(sliderValID).change(function() {
+            if ($(sliderValID).val() > $(sliderID).slider("option", "max")) {
+                //alert("Max value " + $(sliderID).slider("option", "max"))
+                $(sliderID).slider('value', $(sliderID).slider("option", "max"));
+                $(sliderValID).val($(sliderID).slider("option", "max"));
+            } else if ($(sliderValID).val() < $(sliderID).slider("option", "min")) {
+                //alert("Min value " + $(sliderID).slider("option", "min"))
+                $(sliderID).slider('value', $(sliderID).slider("option", "min"));
+                $(sliderValID).val($(sliderID).slider("option", "min"));
+            } else {
+                $(sliderID).slider('value', $(sliderValID).val());
+            }
+        });
     });
 });
 
