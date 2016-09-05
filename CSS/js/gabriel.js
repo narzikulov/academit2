@@ -31,32 +31,53 @@ $(document).ready(function () {
                 $(sliderValID).val(ui.val);//Заполняем этим значением элемент с id
             },
             slide: function (event, ui) {
-                $(sliderValID).val(ui.value);//При изменении значения ползунка заполняем элемент с id contentSlider
-                if (ui.value > 100) {
+                if (ui.value > 99) {
                     $(sliderID).slider("option", "step", 100);
-                } else {
+                }
+                if (ui.value <= 100) {
                     $(sliderID).slider("option", "step", 10);
                 }
-            },
+
+                $(sliderValID).val(ui.value);//При изменении значения ползунка заполняем элемент с id contentSlider
+
+                //Вывод значения над слайдером
+                $(sliderID + " > span").text($(sliderValID).val());
+            }
         });
 
-        ++index;
         value = $(sliderID).slider("value");
         $(sliderValID).val(value);
 
-        $(sliderValID).change(function() {
+        filterInt = function (value) {
+            if (/^(\-|\+)?([0-9]+|Infinity)$/.test(value))
+                return Number(value);
+            return NaN;
+        }
+
+        $(sliderValID).change(function () {
+            //Проверка вводимого значения на число
+            if (isNaN(filterInt($(sliderValID).val()))) {
+                alert("Допускается ввод только числового значения!");
+                $(sliderValID).val($(sliderID).slider("value"));
+                return;
+            }
+
             if ($(sliderValID).val() > $(sliderID).slider("option", "max")) {
                 //alert("Max value " + $(sliderID).slider("option", "max"))
-                $(sliderID).slider('value', $(sliderID).slider("option", "max"));
+                $(sliderID).slider("value", $(sliderID).slider("option", "max"));
                 $(sliderValID).val($(sliderID).slider("option", "max"));
             } else if ($(sliderValID).val() < $(sliderID).slider("option", "min")) {
                 //alert("Min value " + $(sliderID).slider("option", "min"))
-                $(sliderID).slider('value', $(sliderID).slider("option", "min"));
+                $(sliderID).slider("value", $(sliderID).slider("option", "min"));
                 $(sliderValID).val($(sliderID).slider("option", "min"));
             } else {
-                $(sliderID).slider('value', $(sliderValID).val());
+                $(sliderID).slider("value", $(sliderValID).val());
             }
+            $(sliderID + " > span").text($(sliderValID).val());
         });
+
+        ++index;
+
     });
 });
 

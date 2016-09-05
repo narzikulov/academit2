@@ -210,7 +210,15 @@ div #booking-table {
 }
 
 #booking-table td .demand-ET {
-    width: 40px;
+    width: 100%;
+
+}
+
+/* Параметры ползунка слайдера*/
+#booking-table tr td div > span {
+    width: 30px;
+    font-weight: bold;
+    text-align: center;
 }
 
 #booking-table td .comment {
