@@ -2,9 +2,10 @@
  * Created by tim on 31.08.2016.
  */
 $(document).ready(function () {
-    $("html").niceScroll();
-    $("#booking-table").niceScroll();
-    $("#prev-orders-table").niceScroll();
+    $("html").niceScroll({cursorcolor:"#a19f98", autohidemode: true});
+    $("#booking-table").niceScroll({cursorcolor:"#a19f98", autohidemode: false});
+    $("#prev-orders-table").niceScroll({cursorcolor:"#a19f98", autohidemode: false});
+
 
     //var bookingTable = document.querySelectorAll("#booking-table table tr");
     var index = 0;
