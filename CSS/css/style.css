@@ -218,7 +218,7 @@ div #booking-table {
 /* Параметры ползунка слайдера */
 #booking-table tr td div > span {
     margin-top: -5px;
-    width: 5px;
+    width: 2px;
     height: 19px;
     font-weight: bold;
     text-align: left;
