@@ -30,6 +30,11 @@ $(document).ready(function () {
             create: function (event, ui) {
                 value = $(sliderID).slider("value");
                 $(sliderValID).val(ui.val);//Заполняем этим значением элемент с id
+
+                var sliderValueTooltipTag = "<div class='tooltip" + index + "' style='position: relative; bottom: 20px;'></div>";
+                //var sliderValueTooltipTag = "<div class='tooltip" + index + "'></div>";
+                //alert(sliderValueTooltipTag);
+                $(sliderID + " > span").append(sliderValueTooltipTag);
             },
             slide: function (event, ui) {
                 if (ui.value > 99) {
@@ -42,7 +47,10 @@ $(document).ready(function () {
                 $(sliderValID).val(ui.value);//При изменении значения ползунка заполняем элемент с id contentSlider
 
                 //Вывод значения над слайдером
-                $(sliderID + " > span").text($(sliderValID).val());
+                //$(sliderID + " > span").text($(sliderValID).val());
+                $(sliderID + " > span div").text($(sliderValID).val());
+
+
             }
         });
 
@@ -58,10 +66,11 @@ $(document).ready(function () {
         $(sliderValID).change(function () {
             //Проверка вводимого значения на число
             if (isNaN(filterInt($(sliderValID).val()))) {
-                alert("Допускается ввод только числового значения!");
                 $(sliderValID).val($(sliderID).slider("value"));
                 return;
             }
+
+             $(sliderValID).val(Math.round($(sliderValID).val() / 10) * 10);
 
             if ($(sliderValID).val() > $(sliderID).slider("option", "max")) {
                 //alert("Max value " + $(sliderID).slider("option", "max"))
@@ -74,7 +83,7 @@ $(document).ready(function () {
             } else {
                 $(sliderID).slider("value", $(sliderValID).val());
             }
-            $(sliderID + " > span").text($(sliderValID).val());
+            $(sliderID + " > span div").text($(sliderValID).val());
         });
 
         ++index;
