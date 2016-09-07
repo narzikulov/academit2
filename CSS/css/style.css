@@ -252,6 +252,8 @@ div #booking-table {
 /* удаление рамки вокруг значения над слайдером */
 .ui-slider .ui-slider-handle:focus {
     outline: none;
+    background: #ededed;
+    border: 1px solid #cccccc;
 }
 
 #booking-table td .comment {
