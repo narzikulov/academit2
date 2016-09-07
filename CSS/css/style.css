@@ -252,8 +252,8 @@ div #booking-table {
 /* удаление рамки вокруг значения над слайдером */
 .ui-slider .ui-slider-handle:focus {
     outline: none;
-    background: #ededed;
-    border: 1px solid #cccccc;
+    background: #ededed; /* ползунок при нажатии мышкой не окрашивает фон, остается без изменений */
+    border: 1px solid #cccccc; /* при перетаскивании мышкой ползунок не меняет цвет границы */
 }
 
 #booking-table td .comment {
