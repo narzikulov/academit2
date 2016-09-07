@@ -230,7 +230,7 @@ div #booking-table {
 
 #booking-table tr td div > span {
    	font-weight: bold;
-   	color: black;
+   	color: grey;
 }
 
 /* Параметры div над ползунком слайдера. div для вывода значения слайдера над ним */
