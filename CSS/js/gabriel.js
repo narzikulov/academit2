@@ -64,6 +64,13 @@ $(document).ready(function () {
             }
         });
 
+        // Если поле ET пустое, то скрипт заменяет на 0
+        $(sliderValID).blur(function () {
+            if ($(sliderValID).val() === "") {
+                $(sliderValID).val("0");
+            }
+        });
+
         $(sliderValID).change(function () {
              $(sliderValID).val(Math.round($(sliderValID).val() / 10) * 10);
 
