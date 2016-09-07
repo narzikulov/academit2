@@ -31,7 +31,7 @@ $(document).ready(function () {
                 value = $(sliderID).slider("value");
                 $(sliderValID).val(ui.val);//Заполняем этим значением элемент с id
 
-                var sliderValueTooltipTag = "<div class='tooltip" + index + "' style='position: relative; bottom: 20px;'></div>";
+                var sliderValueTooltipTag = "<div class='tooltip'></div>";
                 //var sliderValueTooltipTag = "<div class='tooltip" + index + "'></div>";
                 //alert(sliderValueTooltipTag);
                 $(sliderID + " > span").append(sliderValueTooltipTag);

@@ -228,9 +228,7 @@ div #booking-table {
     height: 2px;
 }
 
-#booking-table tr td div > span:active {
-    border: 1px solid #003eff;
-   	background: #007fff;
+#booking-table tr td div > span {
    	font-weight: bold;
    	color: black;
 }
@@ -239,16 +237,12 @@ div #booking-table {
 #booking-table tr td div > span div{
     position: relative;
     bottom: 20px;
+    /* height: 20px;
+    width: 30px;
+    background-color: #007fff; */
     border: none;
-    background-color: none;
     text-align: center;
     margin-left: -15px;
-}
-
-.ui-slider .ui-slider-handle {
-    height: 15px;
-    width: 5px;
-    padding-left: 5px; //add this
 }
 
 #booking-table td .comment {
