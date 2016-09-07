@@ -245,6 +245,15 @@ div #booking-table {
     margin-left: -15px;
 }
 
+.ui-slider .ui-slider-handle {
+    padding-left: 5px; //add this
+}
+
+/* удаление рамки вокруг значения над слайдером */
+.ui-slider .ui-slider-handle:focus {
+    outline: none;
+}
+
 #booking-table td .comment {
     width: 95%;
 }
