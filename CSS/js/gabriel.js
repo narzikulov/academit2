@@ -57,19 +57,14 @@ $(document).ready(function () {
         value = $(sliderID).slider("value");
         $(sliderValID).val(value);
 
-        filterInt = function (value) {
-            if (/^(\-|\+)?([0-9]+|Infinity)$/.test(value))
-                return Number(value);
-            return NaN;
-        };
+        // Проверка на ввод числа. Бездействие при попытке ввести не цифры или вставить не фийры с помощью мыши
+        $(sliderValID).bind("change keyup input click", function() {
+            if (this.value.match(/[^0-9]/g)) {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            }
+        });
 
         $(sliderValID).change(function () {
-            //Проверка вводимого значения на число
-            if (isNaN(filterInt($(sliderValID).val()))) {
-                $(sliderValID).val($(sliderID).slider("value"));
-                return;
-            }
-
              $(sliderValID).val(Math.round($(sliderValID).val() / 10) * 10);
 
             if ($(sliderValID).val() > $(sliderID).slider("option", "max")) {
