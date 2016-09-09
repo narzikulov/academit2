@@ -1,8 +1,8 @@
 .gradient {
     margin: 0.5em;
     width: 100%;
-    background: #ffffff;
-    background: linear-gradient(to bottom, #ffffff, #dfe4e8);
+    background: #d6ffe4;
+    background: linear-gradient(to bottom, #d6ffe4, #dfe4e8);
     padding: 20px;
     border-radius: 6px 6px 6px 6px;
 }
