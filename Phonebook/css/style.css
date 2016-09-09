@@ -13,7 +13,7 @@ body {
     font-family: Arial;
 }
 
-#phoneBookTable {
+#phoneBookTableFixedTitle table {
     table-layout: fixed;
     border-collapse: separate;
     width: 90%;
@@ -23,34 +23,38 @@ body {
     border: 1px solid grey;
     padding: 5px;
 }
-#phoneBookTable th {
+#phoneBookTableFixedTitle table th {
     height: 100%;
     font-weight: bold;
-    border-right: 1px solid grey;
 }
 
 .indexNumber {
-    width: 5%;
+    width: 3%;
+    border-right: 1px solid grey;
 }
 
 .firstName {
     width: 17%;
+    border-right: 1px solid grey;
 }
 
 .lastName {
     width: 17%;
+    border-right: 1px solid grey;
 }
 
 .middleName {
     width: 17%;
+    border-right: 1px solid grey;
 }
 
 .phoneNumber {
-    width: 15%;
+    width: 17%;
+    border-right: 1px solid grey;
 }
 
-.comments {
-    border: none;
+.comments{
+    border-right: none;
 }
 
 .inputFormTable {
