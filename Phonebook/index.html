@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/reset.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+
+    <title>Phonebook</title>
+</head>
+<body>
+<div class="gradient">
+    <table id="phoneBookTable">
+        <thead>
+            <tr>
+                <th class="indexNumber">№</th>
+                <th class="firstName">Имя</th>
+                <th class="lastName">Фамилия</th>
+                <th class="middleName">Отчество</th>
+                <th class="phoneNumber">Номер телефона</th>
+                <th class="comments">Комментарий</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        </tbody>
+    </table>
+
+    Введите данные для сохранения в телефонной книге:
+    <table class="inputFormTable">
+        <tr>
+            <td class="titleTD"><label for="firstName">Имя</label></td>
+            <td><input class="inputTD" type="text" id="firstName"></td>
+        </tr>
+        <tr>
+            <td class="titleTD"><label for="lastName">Фамилия</label></td>
+            <td><input class="inputTD" type="text" id="lastName"></td>
+        </tr>
+        <tr>
+            <td class="titleTD"><label for="middleName">Отчество</label></td>
+            <td><input class="inputTD" type="text" id="middleName"></td>
+        </tr>
+        <tr>
+            <td class="titleTD"><label for="phoneNumber">Номер телефона</label></td>
+            <td><input class="inputTD" type="text" id="phoneNumber"></td>
+        </tr>
+        <tr>
+            <td class="titleTD"><label for="comments">Комментарий</label></td>
+            <td><input class="inputTD" type="text" id="comments"></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="button" id="saveToPhoneBookButton" value="Сохранить">
+                <span class="beetwenButtonSpace"></span><input type="button" id="clearForm" value="Очистить">
+            </td>
+        </tr>
+    </table>
+
+</div>
+
+<script src="js/jquery-3.1.0.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/jquery.nicescroll.js"></script>
+<script src="js/gabriel.js"></script>
+</body>
+</html>
