@@ -13,24 +13,29 @@ body {
     font-family: Arial;
 }
 
-#phoneBookTableFixedTitle table {
+div #phoneBookTableFixedTitle table, #phoneBookTable table {
     table-layout: fixed;
     border-collapse: separate;
-    width: 90%;
-    margin: 0;
+    width: 95%;
     margin: 1%;
     border-spacing: 0;
     border: 1px solid grey;
-    padding: 5px;
+    padding: 10px;
+    margin-bottom: 0;
 }
+
 #phoneBookTableFixedTitle table th {
-    height: 100%;
     font-weight: bold;
+}
+
+div #phoneBookTable table tr {
+    border-top: 1px solid grey;
 }
 
 .indexNumber {
     width: 3%;
     border-right: 1px solid grey;
+    text-align: center;
 }
 
 .firstName {
@@ -54,7 +59,17 @@ body {
 }
 
 .comments{
+    width: 20%;
+    border-right: 1px solid grey;
+}
+
+.deleteRecord{
+    text-align: center;
     border-right: none;
+}
+
+.deleteRecord img{
+    cursor: pointer;
 }
 
 .inputFormTable {
