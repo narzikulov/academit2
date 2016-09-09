@@ -23,21 +23,26 @@ body {
     border: 1px solid grey;
     padding: 5px;
 }
+#phoneBookTable th {
+    height: 100%;
+    font-weight: bold;
+    border-right: 1px solid grey;
+}
 
 .indexNumber {
-    width: 1%;
+    width: 5%;
 }
 
 .firstName {
-    width: 15%;
+    width: 17%;
 }
 
 .lastName {
-    width: 15%;
+    width: 17%;
 }
 
 .middleName {
-    width: 15%;
+    width: 17%;
 }
 
 .phoneNumber {
@@ -45,6 +50,7 @@ body {
 }
 
 .comments {
+    border: none;
 }
 
 .inputFormTable {
