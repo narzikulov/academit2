@@ -2,8 +2,8 @@
  * Created by tim on 31.08.2016.
  */
 $(document).ready(function () {
-    //$("html").niceScroll({cursorcolor:"#a19f98", autohidemode: true});
-    //$("#phoneBookTable").niceScroll({cursorcolor:"#a19f98", autohidemode: false});
+    $("html").niceScroll({cursorcolor:"#a19f98", autohidemode: true});
+    $("div #phoneBookTable").niceScroll({cursorcolor:"#a19f98", autohidemode: false, cursorwidth: '10px'});
 
     var index = 1;
     $("#saveToPhoneBookButton").click(function (){
@@ -19,19 +19,33 @@ $(document).ready(function () {
         var middleNameTDTag = "<td class='middleName'>" + middleName + "</td>";
         var phoneNumberTDTag = "<td class='phoneNumber'>" + phoneNumber + "</td>";
         var commentsTDTag = "<td class='comments'>" + comments + "</td>";
-        var delRecTDTag = "<td class='deleteRecord'><img src='img/basket.png'></td>";
+        var delRecTDTag = "<td class='deleteRecord'><img src='img/basket.png'><input type='checkbox' class='deleteRecordCheckBox'></td>";
 
-        $("#phoneBookTable tbody").append("<tr>" + indexTDTag + firstNameTDTag + secondNameTDTag + middleNameTDTag + phoneNumberTDTag + commentsTDTag + delRecTDTag + "</tr>");
-        ++index;
+        var filledTRTag = "<tr>";
+        if (index % 2 === 0) {
+            filledTRTag = "<tr class='filled'>";
+        }
+
+        if ((firstName != "" || lastName != "") && phoneNumber != "") {
+            $("#phoneBookTable tbody").append(filledTRTag + indexTDTag + firstNameTDTag + secondNameTDTag + middleNameTDTag + phoneNumberTDTag + commentsTDTag + delRecTDTag + "</tr>");
+            ++index;
+            //clearForm();
+        } else {
+            $("div #errorMessage").text("Не заполнены обязательные поля, помеченные звездочкой!");
+        }
+
+
     });
 
-    $("#clearForm").click(function (){
-            var firstName = $("#firstName").val("");
-            var lastName = $("#lastName").val("");
-            var middleName = $("#middleName").val("");
-            var phoneNumber = $("#phoneNumber").val("");
-            var comments = $("#comments").val("");
-        });
+    var clearForm = function clearForm(){
+                var firstName = $("#firstName").val("");
+                var lastName = $("#lastName").val("");
+                var middleName = $("#middleName").val("");
+                var phoneNumber = $("#phoneNumber").val("");
+                var comments = $("#comments").val("");
+    }
+
+    $("#clearForm").click(clearForm);
 
     $("#phoneBookTable td img").click(function (){
 

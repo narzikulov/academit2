@@ -5,8 +5,8 @@
 .gradient {
     margin: 0.5em;
     width: 99%;
-    background: #d6ffe4;
-    background: linear-gradient(to bottom, #d6ffe4, #dfe4e8);
+    background: RGB(173, 217, 83);
+    background: linear-gradient(to bottom, RGB(173, 217, 83), RGB(255, 255, 255));
     padding: 20px;
     border-radius: 6px 6px 6px 6px;
 }
@@ -18,83 +18,166 @@ body {
 }
 
 div #phoneBookTable {
-    overflow: auto;
+    overflow: scroll;
     overflow-x: hidden;
     height: 200px;
     width: 100%;
 }
 
-#phoneBookTableFixedTitle table, #phoneBookTable table {
+#phoneBookTableFixedTitle table {
     table-layout: fixed;
     border-collapse: separate;
     width: 98%;
-    margin: 1%;
-    border-spacing: 0;
-    border: 1px solid grey;
-    padding: 10px;
+    margin: 5px;
     margin-bottom: 0;
+    border-spacing: 0;
+    padding: 10px;
+    border-radius: 6px 6px 6px 6px;
+    background-color: RGB(243, 245, 194);
 }
 
-#phoneBookTableFixedTitle table th {
+#phoneBookTable table {
+    table-layout: fixed;
+    border-collapse: separate;
+    width: 98%;
+    margin: 0;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-spacing: 0;
+    padding: 10px;
+    padding-top: 0;
+}
+
+#phoneBookTable table tr.filled{
+    background-color: RGB(243, 245, 194);
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
+}
+
+#phoneBookTableFixedTitle table th{
+    font-size: 18px;
     font-weight: bold;
-}
-
-div #phoneBookTable table tr {
-    border-top: 1px solid grey;
 }
 
 div #phoneBookTable table tr td{
     padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 6px 6px 6px 6px;
 }
 
-.indexNumber {
+th.indexNumber {
     width: 3%;
+    text-align: center;
+    padding-left: 0;
+    border-right: 1px solid grey;
+}
+
+td.indexNumber {
+    width: 3%;
+    border-left: 1px solid grey;
     border-right: 1px solid grey;
     text-align: center;
     padding-left: 0;
 }
 
-.firstName {
+th.firstName {
     width: 17%;
     border-right: 1px solid grey;
 }
 
-.lastName {
+td.firstName {
+    width: 17%;
+    border-right: 1px solid grey;
+    border-left: 1px solid grey;
+}
+
+th.lastName {
     width: 17%;
     border-right: 1px solid grey;
 }
 
-.middleName {
+td.lastName {
+    width: 17%;
+    border-right: 1px solid grey;
+    border-left: 1px solid grey;
+}
+
+th.middleName {
     width: 17%;
     border-right: 1px solid grey;
 }
 
-.phoneNumber {
+td.middleName {
+    width: 17%;
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
+}
+
+th.phoneNumber {
     width: 17%;
     border-right: 1px solid grey;
 }
 
-.comments{
+td.phoneNumber {
+    width: 17%;
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
+}
+
+th.comments{
     width: 20%;
     border-right: 1px solid grey;
 }
 
-.deleteRecord{
+td.comments{
+    width: 20%;
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
+}
+
+th.deleteRecord{
     text-align: center;
     border-right: none;
+}
+
+td.deleteRecord{
+    text-align: center;
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
 }
 
 .deleteRecord img{
     cursor: pointer;
 }
 
+#inputFormTableDiv {
+    display: inline-block;
+    width: 50%;
+}
+
 .inputFormTable {
     table-layout: fixed;
     border-collapse: separate;
-    width: 100%;
+    width: 250%;
     margin: 0;
     padding: 10px;
     border-spacing: 10px;
+}
+
+.inputFormTable caption{
+    caption-side: top;
+    text-align: left;
+}
+
+.atention{
+    font-size: 26px;
+    font-weight: bold;
+    color: red;
+}
+
+div #errorMessage {
+    color: red;
+    text-align: right;
 }
 
 .titleTD {
@@ -109,17 +192,23 @@ div #phoneBookTable table tr td{
 }
 
 #saveToPhoneBookButton {
-    margin: 10px 10px 10px 40px;
+    margin: 0;
     padding: 10px;
     cursor: pointer;
 }
 
 #clearForm {
-    margin: 10px 10px 10px 40px;
+    margin: 10px 10px 10px 20px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#delChecked{
+    margin: 10px 10px 10px 20px;
     padding: 10px;
     cursor: pointer;
 }
 
 .beetwenButtonSpace {
-    padding-left: 30px;
+    padding-left: 10px;
 }

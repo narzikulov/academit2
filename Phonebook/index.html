@@ -40,37 +40,43 @@
                 </tbody>
             </table>
         </div>
+    <hr><br>
 
-    Введите данные для сохранения в телефонной книге:
-    <table class="inputFormTable">
-        <tr>
-            <td class="titleTD"><label for="firstName">Имя</label></td>
-            <td><input class="inputTD" type="text" id="firstName" value="Имя"></td>
-        </tr>
-        <tr>
-            <td class="titleTD"><label for="lastName">Фамилия</label></td>
-            <td><input class="inputTD" type="text" id="lastName" value="Фамилия"></td>
-        </tr>
-        <tr>
-            <td class="titleTD"><label for="middleName">Отчество</label></td>
-            <td><input class="inputTD" type="text" id="middleName" value="Отчество"></td>
-        </tr>
-        <tr>
-            <td class="titleTD"><label for="phoneNumber">Номер телефона</label></td>
-            <td><input class="inputTD" type="text" id="phoneNumber" value="Номер телефона"></td>
-        </tr>
-        <tr>
-            <td class="titleTD"><label for="comments">Комментарий</label></td>
-            <td><input class="inputTD" type="text" id="comments" value="Комментарий"></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="button" id="saveToPhoneBookButton" value="Сохранить">
-                <span class="beetwenButtonSpace"></span><input type="button" id="clearForm" value="Очистить">
-            </td>
-        </tr>
-    </table>
 
+    <div id="inputFormTableDiv">
+        <table class="inputFormTable">
+            <caption>Введите данные для сохранения в телефонной книге:</caption>
+            <tr>
+                <td class="titleTD"><label for="firstName">Имя <span class="atentiion">*</span></label></td>
+                <td><input class="inputTD" type="text" id="firstName" value="Имя"></td>
+            </tr>
+            <tr>
+                <td class="titleTD"><label for="lastName">Фамилия <span class="atentiion">*</span></label></td>
+                <td><input class="inputTD" type="text" id="lastName" value="Фамилия"></td>
+            </tr>
+            <tr>
+                <td class="titleTD"><label for="middleName">Отчество</label></td>
+                <td><input class="inputTD" type="text" id="middleName" value="Отчество"></td>
+            </tr>
+            <tr>
+                <td class="titleTD"><label for="phoneNumber">Номер телефона <span class="atentiion">*</span></label></td>
+                <td><input class="inputTD" type="text" id="phoneNumber" value="Номер телефона"></td>
+            </tr>
+            <tr>
+                <td class="titleTD"><label for="comments">Комментарий</label></td>
+                <td><input class="inputTD" type="text" id="comments" value="Комментарий"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="button" id="saveToPhoneBookButton" value="Сохранить">
+                    <span class="beetwenButtonSpace"></span><input type="button" id="clearForm" value="Очистить">
+                    <span class="beetwenButtonSpace"></span><input type="button" id="delChecked" value="Удалить отмеченные">
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="errorMessage"></div>
 </div>
 
 <script src="js/jquery-3.1.0.js"></script>
