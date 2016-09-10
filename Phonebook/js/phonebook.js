@@ -6,6 +6,19 @@ $(document).ready(function () {
     $("div #phoneBookTable").niceScroll({cursorcolor:"#a19f98", autohidemode: false, cursorwidth: '10px'});
 
     var index = 1;
+
+    var reorderRows = function() {
+        var rows = $("#phoneBookTable table").find("tbody").find("tr");
+        index = rows.length + 1;
+
+        $(rows).each(function(i) {
+            $(this).find("td").eq(0).text(i + 1);
+            //if ((i + 1) % 2 === 0) {
+//                $(this).setAttribute("class", "filled");
+//            }
+        });
+    };
+
     $("#saveToPhoneBookButton").click(function (){
         var firstName = $("#firstName").val();
         var lastName = $("#lastName").val();
@@ -29,15 +42,21 @@ $(document).ready(function () {
         if ((firstName != "" || lastName != "") && phoneNumber != "") {
             $("#phoneBookTable tbody").append(filledTRTag + indexTDTag + firstNameTDTag + secondNameTDTag + middleNameTDTag + phoneNumberTDTag + commentsTDTag + delRecTDTag + "</tr>");
             ++index;
-            //clearForm();
+            //clearForm;
+            $("div #errorMessage").text("");
         } else {
             $("div #errorMessage").text("Не заполнены обязательные поля, помеченные звездочкой!");
         }
 
+        $(".deleteRecord img").click(function () {
+            $(this).closest("tr").remove();
+            reorderRows();
+        });
 
     });
 
-    var clearForm = function clearForm(){
+
+    var clearForm = function (){
                 var firstName = $("#firstName").val("");
                 var lastName = $("#lastName").val("");
                 var middleName = $("#middleName").val("");
