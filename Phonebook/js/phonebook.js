@@ -2,8 +2,8 @@
  * Created by tim on 31.08.2016.
  */
 $(document).ready(function () {
-    $("html").niceScroll({cursorcolor:"#a19f98", autohidemode: true});
-    $("#phoneBookTable").niceScroll({cursorcolor:"#a19f98", autohidemode: false});
+    //$("html").niceScroll({cursorcolor:"#a19f98", autohidemode: true});
+    //$("#phoneBookTable").niceScroll({cursorcolor:"#a19f98", autohidemode: false});
 
     var index = 1;
     $("#saveToPhoneBookButton").click(function (){
@@ -22,9 +22,19 @@ $(document).ready(function () {
         var delRecTDTag = "<td class='deleteRecord'><img src='img/basket.png'></td>";
 
         $("#phoneBookTable tbody").append("<tr>" + indexTDTag + firstNameTDTag + secondNameTDTag + middleNameTDTag + phoneNumberTDTag + commentsTDTag + delRecTDTag + "</tr>");
-        //$("div #phoneBookTable table td). {
         ++index;
-        //alert(firstName + lastName + middleName + phoneNumber + comments);
+    });
+
+    $("#clearForm").click(function (){
+            var firstName = $("#firstName").val("");
+            var lastName = $("#lastName").val("");
+            var middleName = $("#middleName").val("");
+            var phoneNumber = $("#phoneNumber").val("");
+            var comments = $("#comments").val("");
+        });
+
+    $("#phoneBookTable td img").click(function (){
+
     });
 
 });

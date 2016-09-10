@@ -1,6 +1,10 @@
+* {
+    box-sizing: border-box;
+}
+
 .gradient {
     margin: 0.5em;
-    width: 96%;
+    width: 99%;
     background: #d6ffe4;
     background: linear-gradient(to bottom, #d6ffe4, #dfe4e8);
     padding: 20px;
@@ -13,10 +17,17 @@ body {
     font-family: Arial;
 }
 
-div #phoneBookTableFixedTitle table, #phoneBookTable table {
+div #phoneBookTable {
+    overflow: auto;
+    overflow-x: hidden;
+    height: 200px;
+    width: 100%;
+}
+
+#phoneBookTableFixedTitle table, #phoneBookTable table {
     table-layout: fixed;
     border-collapse: separate;
-    width: 95%;
+    width: 98%;
     margin: 1%;
     border-spacing: 0;
     border: 1px solid grey;
@@ -32,10 +43,15 @@ div #phoneBookTable table tr {
     border-top: 1px solid grey;
 }
 
+div #phoneBookTable table tr td{
+    padding-left: 10px;
+}
+
 .indexNumber {
     width: 3%;
     border-right: 1px solid grey;
     text-align: center;
+    padding-left: 0;
 }
 
 .firstName {
