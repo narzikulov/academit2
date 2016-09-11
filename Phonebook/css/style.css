@@ -168,6 +168,8 @@ td.deleteRecord{
 .inputFormTable caption{
     caption-side: top;
     text-align: left;
+    font-weight: bold;
+    text-decoration: underline;
 }
 
 .inputFormTable .attention{
