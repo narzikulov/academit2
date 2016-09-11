@@ -1,0 +1,54 @@
+body {
+    color: red;
+    font-weight: bold;
+    font-size: 26px;
+    text-align: center;
+}
+
+div
+
+.table1 {
+    font-size: 32px;
+    border: 1px solid green;
+    border-spacing: 3px;
+}
+
+
+
+.table1 td{
+    border: 1px solid black;
+    margin: 50px;
+    padding: 40px;
+    color: green;
+}
+
+.td1 {
+    background-color: cyan;
+}
+
+.td3 {
+    background-color: yellow;
+}
+
+.text {
+    border: 2px solid black;
+    border-radius: 160px 0px 160px 0px;
+}
+
+.text .button1 {
+    height: 50px;
+    width: 400px;
+}
+
+.pic1 {
+    border-radius: 25px 25px 25px 25px;
+}
+
+#td2 {
+    color: white;
+    background-color: black;
+}
+
+.hi {
+    color: green;
+}

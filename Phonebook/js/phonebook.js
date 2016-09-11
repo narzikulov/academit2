@@ -13,11 +13,22 @@ $(document).ready(function () {
 
         $(rows).each(function(i) {
             $(this).find("td").eq(0).text(i + 1);
-            //if ((i + 1) % 2 === 0) {
-//                $(this).setAttribute("class", "filled");
-//            }
         });
     };
+
+     var reFillTable = function() {
+        $("#phoneBookTable table").find("tbody").find("tr").each(function(i) {
+            if ((i + 1) % 2 === 0) {
+                this.setAttribute("class", "filled");
+            } else {
+                this.setAttribute("class", "unfilled");
+            }
+        });
+     };
+
+    $(".inputFormTable .inputTD").focus(function() {
+        $(this).select();
+    });
 
     $("#saveToPhoneBookButton").click(function (){
         var firstName = $("#firstName").val();
@@ -42,15 +53,21 @@ $(document).ready(function () {
         if ((firstName != "" || lastName != "") && phoneNumber != "") {
             $("#phoneBookTable tbody").append(filledTRTag + indexTDTag + firstNameTDTag + secondNameTDTag + middleNameTDTag + phoneNumberTDTag + commentsTDTag + delRecTDTag + "</tr>");
             ++index;
-            //clearForm;
+            clearForm();
             $("div #errorMessage").text("");
+            $("div #errorMessage").text("");
+            $(".inputFormTable .attention").css("color", "black");
         } else {
             $("div #errorMessage").text("Не заполнены обязательные поля, помеченные звездочкой!");
+            $(".inputFormTable .attention").css("color", "red");
         }
 
         $(".deleteRecord img").click(function () {
+            $("div #errorMessage").text("");
+            $(".inputFormTable .attention").css("color", "black");
             $(this).closest("tr").remove();
             reorderRows();
+            reFillTable();
         });
 
     });
@@ -62,13 +79,11 @@ $(document).ready(function () {
                 var middleName = $("#middleName").val("");
                 var phoneNumber = $("#phoneNumber").val("");
                 var comments = $("#comments").val("");
-    }
+                $("div #errorMessage").text("");
+                $(".inputFormTable .attention").css("color", "black");
+    };
 
     $("#clearForm").click(clearForm);
-
-    $("#phoneBookTable td img").click(function (){
-
-    });
 
 });
 

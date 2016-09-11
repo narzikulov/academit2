@@ -63,6 +63,7 @@ div #phoneBookTable table tr td{
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 6px 6px 6px 6px;
+    border-bottom: 1px solid grey;
 }
 
 th.indexNumber {
@@ -167,6 +168,10 @@ td.deleteRecord{
 .inputFormTable caption{
     caption-side: top;
     text-align: left;
+}
+
+.inputFormTable .attention{
+    color: black;
 }
 
 .atention{
