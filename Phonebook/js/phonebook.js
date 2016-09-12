@@ -30,17 +30,18 @@ $(document).ready(function () {
         $(this).select();
     });
 
-    var firstName = $("#firstName").val();
-    var lastName = $("#lastName").val();
-    var middleName = $("#middleName").val();
-    var phoneNumber = $("#phoneNumber").val();
-    var comments = $("#comments").val();
-
-    function isContactInPhonebook () {
-        //var findFirstName = alert($("#phoneBookTable .firstName").has(firstName).length);
-    }
 
     $("#saveToPhoneBookButton").click(function () {
+        var firstName = $("#firstName").val();
+        var lastName = $("#lastName").val();
+        var middleName = $("#middleName").val();
+        var phoneNumber = $("#phoneNumber").val();
+        var comments = $("#comments").val();
+
+        function isContactInPhonebook () {
+            //var findFirstName = alert($("#phoneBookTable .firstName").has(firstName).length);
+        }
+
         var indexTDTag = "<td class='indexNumber'>" + index + "</td>";
         var firstNameTDTag = "<td class='firstName'>" + firstName + "</td>";
         var secondNameTDTag = "<td class='lastName'>" + lastName + "</td>";
@@ -76,19 +77,17 @@ $(document).ready(function () {
             $("div #errorMessage").text("Не заполнены обязательные поля, помеченные звездочкой!");
             attention.attr("class", "attention");
         }
-
-
-    }); // конец функции нажатия кнопки записи
-
-    $(".deleteRecord img").click(function () {
-        if (confirm("Удалить?")) {
+        $(".deleteRecord img").click(function () {
             $("div #errorMessage").text("");
             attention.attr("class", "");
             $(this).closest("tr").remove();
             reorderRows();
             reFillTable();
-        }
-    });
+        });
+
+    }); // конец функции нажатия кнопки записи
+
+
 
     $("#phoneBookTableFixedTitle .deleteRecordCheckBox").click(
         function () {
