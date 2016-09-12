@@ -38,7 +38,7 @@ $(document).ready(function () {
         var comments = $("#comments").val();
 
         var indexTDTag = "<td class='indexNumber'>" + index + "</td>";
-        var firstNameTDTag = "<td class='firstName'>" + firstName + "</td>";
+        var firstNameTDTag = "<td class='firstName'>" + $.text(firstName) + "</td>";
         var secondNameTDTag = "<td class='lastName'>" + lastName + "</td>";
         var middleNameTDTag = "<td class='middleName'>" + middleName + "</td>";
         var phoneNumberTDTag = "<td class='phoneNumber'>" + phoneNumber + "</td>";
