@@ -172,13 +172,7 @@ td.deleteRecord{
     text-decoration: underline;
 }
 
-.inputFormTable .attention{
-    color: black;
-}
-
-.atention{
-    font-size: 26px;
-    font-weight: bold;
+.attention{
     color: red;
 }
 
