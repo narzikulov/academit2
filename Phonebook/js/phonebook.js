@@ -42,7 +42,7 @@ $(document).ready(function () {
         var secondNameTDTag = "<td class='lastName'>" + lastName + "</td>";
         var middleNameTDTag = "<td class='middleName'>" + middleName + "</td>";
         var phoneNumberTDTag = "<td class='phoneNumber'>" + phoneNumber + "</td>";
-        var commentsTDTag = "<td class='comments'>" + comments + "</td>";
+        var commentsTDTag = "<td class='comments'>" + $(comments).text() + "</td>";
         var delRecTDTag = "<td class='deleteRecord'><img src='img/basket.png'><input type='checkbox' class='deleteRecordCheckBox'></td>";
 
         $("#phoneBookTable .deleteRecordCheckBox").click(
@@ -72,13 +72,17 @@ $(document).ready(function () {
             attention.attr("class", "attention");
         }
 
-        $(".deleteRecord img").click(function () {
+
+    }); // конец функции нажатия кнопки записи
+
+    $(".deleteRecord img").click(function () {
+        if (confirm("Удалить?")) {
             $("div #errorMessage").text("");
             attention.attr("class", "");
             $(this).closest("tr").remove();
             reorderRows();
             reFillTable();
-        });
+        }
     });
 
     $("#phoneBookTableFixedTitle .deleteRecordCheckBox").click(
