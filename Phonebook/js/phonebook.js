@@ -30,19 +30,23 @@ $(document).ready(function () {
         $(this).select();
     });
 
-    $("#saveToPhoneBookButton").click(function () {
-        var firstName = $("#firstName").val();
-        var lastName = $("#lastName").val();
-        var middleName = $("#middleName").val();
-        var phoneNumber = $("#phoneNumber").val();
-        var comments = $("#comments").val();
+    var firstName = $("#firstName").val();
+    var lastName = $("#lastName").val();
+    var middleName = $("#middleName").val();
+    var phoneNumber = $("#phoneNumber").val();
+    var comments = $("#comments").val();
 
+    function isContactInPhonebook () {
+        //var findFirstName = alert($("#phoneBookTable .firstName").has(firstName).length);
+    }
+
+    $("#saveToPhoneBookButton").click(function () {
         var indexTDTag = "<td class='indexNumber'>" + index + "</td>";
-        var firstNameTDTag = "<td class='firstName'>" + $.text(firstName) + "</td>";
+        var firstNameTDTag = "<td class='firstName'>" + firstName + "</td>";
         var secondNameTDTag = "<td class='lastName'>" + lastName + "</td>";
         var middleNameTDTag = "<td class='middleName'>" + middleName + "</td>";
         var phoneNumberTDTag = "<td class='phoneNumber'>" + phoneNumber + "</td>";
-        var commentsTDTag = "<td class='comments'>" + $(comments).text() + "</td>";
+        var commentsTDTag = "<td class='comments'>" + comments + "</td>";
         var delRecTDTag = "<td class='deleteRecord'><img src='img/basket.png'><input type='checkbox' class='deleteRecordCheckBox'></td>";
 
         $("#phoneBookTable .deleteRecordCheckBox").click(
@@ -62,6 +66,7 @@ $(document).ready(function () {
 
         var attention = $(".inputFormTable .titleTD span");
         if ((firstName != "" || lastName != "") && phoneNumber != "") {
+            isContactInPhonebook();
             $("#phoneBookTable tbody").append(filledTRTag + indexTDTag + firstNameTDTag + secondNameTDTag + middleNameTDTag + phoneNumberTDTag + commentsTDTag + delRecTDTag + "</tr>");
             ++index;
             //clearForm();
