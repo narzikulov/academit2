@@ -108,7 +108,8 @@ $(document).ready(function () {
     }); // конец функции нажатия кнопки записи
 
     $("#filterApply").click(function () {
-        var filterValue = $("#filter input").val().toLowerCase();
+        var filterValue = $("#filter input").val().toLowerCase().replace(/\s+/g, '');
+        alert(filterValue);
         var allPhonebookRecords = $("#phoneBookTable tr");
         $(allPhonebookRecords).each(function (i, str) {
             //alert($(str).text().indexOf(filterValue));
