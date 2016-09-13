@@ -17,6 +17,24 @@ body {
     font-family: Arial;
 }
 
+div #filter {
+    width: 100%;
+}
+
+#filter input {
+    width: auto;
+}
+
+#filterApply {
+    cursor: pointer;
+    border-radius: 6px 6px 6px 6px;
+}
+
+#filterClear {
+    cursor: pointer;
+    border-radius: 6px 6px 6px 6px;
+}
+
 div #phoneBookTable {
     overflow: scroll;
     overflow-x: hidden;
@@ -48,18 +66,18 @@ div #phoneBookTable {
     padding-top: 0;
 }
 
-#phoneBookTable table tr.filled{
+#phoneBookTable table tr.filled {
     background-color: RGB(243, 245, 194);
     border-left: 1px solid grey;
     border-right: 1px solid grey;
 }
 
-#phoneBookTableFixedTitle table th{
+#phoneBookTableFixedTitle table th {
     font-size: 18px;
     font-weight: bold;
 }
 
-div #phoneBookTable table tr td{
+div #phoneBookTable table tr td {
     padding-left: 10px;
     padding-right: 10px;
     border-radius: 6px 6px 6px 6px;
@@ -125,29 +143,29 @@ td.phoneNumber {
     border-right: 1px solid grey;
 }
 
-th.comments{
+th.comments {
     width: 20%;
     border-right: 1px solid grey;
 }
 
-td.comments{
+td.comments {
     width: 20%;
     border-left: 1px solid grey;
     border-right: 1px solid grey;
 }
 
-th.deleteRecord{
+th.deleteRecord {
     text-align: center;
     border-right: none;
 }
 
-td.deleteRecord{
+td.deleteRecord {
     text-align: center;
     border-left: 1px solid grey;
     border-right: 1px solid grey;
 }
 
-.deleteRecord img{
+.deleteRecord img {
     cursor: pointer;
 }
 
@@ -165,14 +183,14 @@ td.deleteRecord{
     border-spacing: 10px;
 }
 
-.inputFormTable caption{
+.inputFormTable caption {
     caption-side: top;
     text-align: left;
     font-weight: bold;
     text-decoration: underline;
 }
 
-.attention{
+.attention {
     color: red;
 }
 
@@ -193,23 +211,23 @@ div #errorMessage {
 }
 
 #saveToPhoneBookButton {
-    margin: 0;
     padding: 10px;
     cursor: pointer;
+    border-radius: 6px 6px 6px 6px;
 }
 
 #clearForm {
-    margin: 10px 10px 10px 20px;
     padding: 10px;
     cursor: pointer;
+    border-radius: 6px 6px 6px 6px;
 }
 
-#delChecked{
-    margin: 10px 10px 10px 20px;
+#delChecked {
     padding: 10px;
     cursor: pointer;
+    border-radius: 6px 6px 6px 6px;
 }
 
 .beetwenButtonSpace {
-    padding-left: 10px;
+    padding-left: 5px;
 }

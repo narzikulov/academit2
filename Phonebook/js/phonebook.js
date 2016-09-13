@@ -30,7 +30,6 @@ $(document).ready(function () {
         $(this).select();
     });
 
-
     $("#saveToPhoneBookButton").click(function () {
         var firstName = $("#firstName").val();
         var lastName = $("#lastName").val();
@@ -39,7 +38,10 @@ $(document).ready(function () {
         var comments = $("#comments").val();
 
         function isContactInPhonebook () {
-            //var findFirstName = alert($("#phoneBookTable .firstName").has(firstName).length);
+            var phoneNumbersArray = $("#phoneBookTable").find(".phoneNumber").map(function () {
+                return $(this).text();
+                });
+            return $.inArray(phoneNumber, phoneNumbersArray) < 0;
         }
 
         var indexTDTag = "<td class='indexNumber'>" + index + "</td>";
@@ -50,7 +52,7 @@ $(document).ready(function () {
         var commentsTDTag = "<td class='comments'>" + comments + "</td>";
         var delRecTDTag = "<td class='deleteRecord'><img src='img/basket.png'><input type='checkbox' class='deleteRecordCheckBox'></td>";
 
-        $("#phoneBookTable .deleteRecordCheckBox").click(
+        $("#phoneBookTable").find(".deleteRecordCheckBox").click(
             function () {
                 if ($(this).prop('checked')) {
                     $(this).attr("checked", "checked");
@@ -66,17 +68,22 @@ $(document).ready(function () {
         }
 
         var attention = $(".inputFormTable .titleTD span");
-        if ((firstName != "" || lastName != "") && phoneNumber != "") {
-            isContactInPhonebook();
-            $("#phoneBookTable tbody").append(filledTRTag + indexTDTag + firstNameTDTag + secondNameTDTag + middleNameTDTag + phoneNumberTDTag + commentsTDTag + delRecTDTag + "</tr>");
-            ++index;
-            //clearForm();
-            $("#errorMessage").text("");
-            attention.attr("class", "");
+
+        if (isContactInPhonebook()) {
+            if ((firstName != "" || lastName != "") && phoneNumber != "") {
+                $("#phoneBookTable tbody").append(filledTRTag + indexTDTag + firstNameTDTag + secondNameTDTag + middleNameTDTag + phoneNumberTDTag + commentsTDTag + delRecTDTag + "</tr>");
+                ++index;
+                //clearForm();
+                $("#errorMessage").text("");
+                attention.attr("class", "");
+            } else {
+                $("div #errorMessage").text("Не заполнены обязательные поля, помеченные звездочкой!");
+                attention.attr("class", "attention");
+            }
         } else {
-            $("div #errorMessage").text("Не заполнены обязательные поля, помеченные звездочкой!");
-            attention.attr("class", "attention");
+            $("div #errorMessage").text("Адресат с таким номером телефона уже в адресной книге!");
         }
+
         $(".deleteRecord img").click(function () {
             $("div #errorMessage").text("");
             attention.attr("class", "");
@@ -85,11 +92,27 @@ $(document).ready(function () {
             reFillTable();
         });
 
+        $("#phoneBookTable").find("tr").click(function () {
+            $("#firstName").val($(this).find('td.firstName:eq(0)').text());
+            $("#lastName").val($(this).find('td.lastName:eq(0)').text());
+            $("#middleName").val($(this).find('td.middleName:eq(0)').text());
+            $("#phoneNumber").val($(this).find('td.phoneNumber:eq(0)').text());
+            $("#comments").val($(this).find('td.comments:eq(0)').text());
+        });
+
+
     }); // конец функции нажатия кнопки записи
 
+    $("#filterApply").click(function () {
+        var filterValue = $("#filter input").val();
+        alert(filterValue);
+    });
 
+    $("#filterClear").click(function () {
+        $("#filter input.filter").val("");
+    });
 
-    $("#phoneBookTableFixedTitle .deleteRecordCheckBox").click(
+    $("#phoneBookTableFixedTitle").find(".deleteRecordCheckBox").click(
         function () {
             var allCheckboxes = $("#phoneBookTable").find(".deleteRecordCheckBox");
             if ($(this).prop('checked')) {
@@ -115,6 +138,7 @@ $(document).ready(function () {
         reorderRows();
         reFillTable();
         document.getElementById('delAllCheckbox').checked = false;
+        $("div #errorMessage").text("");
     });
 
     function clearForm() {
@@ -126,7 +150,7 @@ $(document).ready(function () {
         $("div #errorMessage").text("");
         var attention = $(".inputFormTable .titleTD span");
         attention.attr("class", "");
-    };
+    }
 
     $("#clearForm").click(function () {
         clearForm();
