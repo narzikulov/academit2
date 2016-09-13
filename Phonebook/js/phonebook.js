@@ -87,6 +87,18 @@ $(document).ready(function () {
             $("div #errorMessage").text("Адресат с таким номером телефона уже в адресной книге!");
         }
 
+        // :last потому что событие навешивается на каждый элемент группы, а нужно на один - последний
+        // без :last получается, что на первой строке навешивается столько событий, сколько строк в Phonebook
+        $("#phoneBookTable .deleteRecord img:last").click(function () {
+        if (confirm("Вы уверены, что хотите удалить запись?")) {
+             $(this).closest("tr").remove();
+                $("div #errorMessage").text("");
+                attention.attr("class", "");
+                reorderRows();
+                reFillTable();
+        }
+        });
+
         //Подстановка значений записи тел. книги в поля ввода при клике на строку
         /*$("#phoneBookTable").find("tr").click(function () {
             $("#lastName").val($(this).find("td.lastName:eq(0)").text());
@@ -128,16 +140,6 @@ $(document).ready(function () {
             $("#delAllCheckbox").prop("checked", false);
             $("div #errorMessage").text("");
         }
-    });
-
-    $(".confirmed").click(function () {
-        //if (confirm("Вы уверены, что хотите удалить запись?")) {
-            $(this).closest("tr").remove();
-            $("div #errorMessage").text("");
-            attention.attr("class", "");
-            reorderRows();
-            reFillTable();
-        //}
     });
 
     function clearForm() {
