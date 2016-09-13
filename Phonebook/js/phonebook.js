@@ -78,7 +78,7 @@ $(document).ready(function () {
             if ((firstName != "" || lastName != "") && phoneNumber != "") {
                 $("#phoneBookTable tbody").append(filledTRTag + markTDTag + indexTDTag + secondNameTDTag + firstNameTDTag + middleNameTDTag + phoneNumberTDTag + commentsTDTag + delRecTDTag + "</tr>");
                 ++index;
-                //clearForm();
+                clearForm();
                 $("#errorMessage").text("");
                 attention.attr("class", "");
             } else {
@@ -110,10 +110,8 @@ $(document).ready(function () {
     $("#filterApply").click(function () {
         $("#phoneBookTable tr").show("slow");
         var filterValue = $("#filter input").val().toLowerCase().replace(/\s+/g, '');
-        //alert(filterValue);
         var allPhonebookRecords = $("#phoneBookTable tr");
         $(allPhonebookRecords).each(function (i, str) {
-            //alert($(str).text().indexOf(filterValue));
             if ($(str).text().toLowerCase().indexOf(filterValue) === -1) {
                 $(this).hide("slow");
             }
@@ -145,11 +143,6 @@ $(document).ready(function () {
     });
 
     function clearForm() {
-        /*$("#lastName").val("");
-        $("#firstName").val("");
-        $("#middleName").val("");
-        $("#phoneNumber").val("");
-        $("#comments").val("");*/
         $("#inputFormTableDiv .inputFormTable .inputTD").val("");
         $("div #errorMessage").text("");
         var attention = $(".inputFormTable .titleTD span");
