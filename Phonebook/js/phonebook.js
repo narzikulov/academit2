@@ -12,7 +12,7 @@ $(document).ready(function () {
         index = rows.length + 1;
 
         $(rows).each(function (i) {
-            $(this).find("td").eq(0).text(i + 1);
+            $(this).find("td").eq(1).text(i + 1);
         });
     };
 
@@ -48,13 +48,14 @@ $(document).ready(function () {
             return $.inArray(phoneNumber, phoneNumbersArray) < 0;
         }
 
+        var markTDTag = "<td class='mark'><input type='checkbox' class='deleteRecordCheckBox'></td>";
         var indexTDTag = "<td class='indexNumber'>" + index + "</td>";
         var secondNameTDTag = "<td class='lastName'>" + lastName + "</td>";
         var firstNameTDTag = "<td class='firstName'>" + firstName + "</td>";
         var middleNameTDTag = "<td class='middleName'>" + middleName + "</td>";
         var phoneNumberTDTag = "<td class='phoneNumber'>" + phoneNumber + "</td>";
         var commentsTDTag = "<td class='comments'>" + comments + "</td>";
-        var delRecTDTag = "<td class='deleteRecord'><img src='img/basket.png'><input type='checkbox' class='deleteRecordCheckBox'></td>";
+        var delRecTDTag = "<td class='deleteRecord'><img src='img/basket.png'></td>";
 
         $("#phoneBookTable").find(".deleteRecordCheckBox").click(
             function () {
@@ -75,7 +76,7 @@ $(document).ready(function () {
 
         if (isContactInPhonebook()) {
             if ((firstName != "" || lastName != "") && phoneNumber != "") {
-                $("#phoneBookTable tbody").append(filledTRTag + indexTDTag + secondNameTDTag + firstNameTDTag + middleNameTDTag + phoneNumberTDTag + commentsTDTag + delRecTDTag + "</tr>");
+                $("#phoneBookTable tbody").append(filledTRTag + markTDTag + indexTDTag + secondNameTDTag + firstNameTDTag + middleNameTDTag + phoneNumberTDTag + commentsTDTag + delRecTDTag + "</tr>");
                 ++index;
                 //clearForm();
                 $("#errorMessage").text("");
@@ -96,18 +97,18 @@ $(document).ready(function () {
             reFillTable();
         });
 
-        $("#phoneBookTable").find("tr").click(function () {
+        //Подстановка значений записи тел. книги в поля ввода при клике на строку
+        /*$("#phoneBookTable").find("tr").click(function () {
             $("#lastName").val($(this).find("td.lastName:eq(0)").text());
             $("#firstName").val($(this).find("td.firstName:eq(0)").text());
             $("#middleName").val($(this).find("td.middleName:eq(0)").text());
             $("#phoneNumber").val($(this).find("td.phoneNumber:eq(0)").text());
             $("#comments").val($(this).find("td.comments:eq(0)").text());
-        });
-
-
+        });*/
     }); // конец функции нажатия кнопки записи
 
     $("#filterApply").click(function () {
+        $("#phoneBookTable tr").show("slow");
         var filterValue = $("#filter input").val().toLowerCase().replace(/\s+/g, '');
         //alert(filterValue);
         var allPhonebookRecords = $("#phoneBookTable tr");
@@ -124,20 +125,10 @@ $(document).ready(function () {
         $("#phoneBookTable tr").show("slow");
     });
 
-    $("#phoneBookTableFixedTitle").find(".deleteRecordCheckBox").click(
-        function () {
+    $("#phoneBookTableFixedTitle").find(".deleteRecordCheckBox").click(function () {
             var allCheckboxes = $("#phoneBookTable").find(".deleteRecordCheckBox");
-            if ($(this).prop('checked')) {
-                allCheckboxes.each(function () {
-                    this.checked = true;
-                });
-            } else {
-                allCheckboxes.each(function () {
-                    this.checked = false;
-                });
-            }
-        }
-    );
+            allCheckboxes.prop('checked', $(this).prop('checked'));
+        });
 
     $("#delChecked").click(function () {
         var allCheckboxes = $("#phoneBookTable").find(".deleteRecordCheckBox");
@@ -154,11 +145,12 @@ $(document).ready(function () {
     });
 
     function clearForm() {
-        $("#lastName").val("");
+        /*$("#lastName").val("");
         $("#firstName").val("");
         $("#middleName").val("");
         $("#phoneNumber").val("");
-        $("#comments").val("");
+        $("#comments").val("");*/
+        $("#inputFormTableDiv .inputFormTable .inputTD").val("");
         $("div #errorMessage").text("");
         var attention = $(".inputFormTable .titleTD span");
         attention.attr("class", "");

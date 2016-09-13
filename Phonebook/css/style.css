@@ -84,6 +84,21 @@ div #phoneBookTable table tr td {
     border-bottom: 1px solid grey;
 }
 
+th.mark {
+    width: 3%;
+    text-align: center;
+    padding-left: 0;
+    border-right: 1px solid grey;
+}
+
+td.mark {
+    width: 3%;
+    border-left: 1px solid grey;
+    border-right: 1px solid grey;
+    text-align: center;
+    padding-left: 0;
+}
+
 th.indexNumber {
     width: 3%;
     text-align: center;
