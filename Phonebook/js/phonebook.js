@@ -4,7 +4,7 @@
 $(document).ready(function () {
     $("html").niceScroll({cursorcolor: "#a19f98", autohidemode: true});
     $("div #phoneBookTable").niceScroll({cursorcolor: "#a19f98", autohidemode: false, cursorwidth: '10px'});
-
+    var attention = $(".inputFormTable .titleTD span");
     var index = 1;
 
     var reorderRows = function () {
@@ -55,7 +55,7 @@ $(document).ready(function () {
         var middleNameTDTag = "<td class='middleName'>" + middleName + "</td>";
         var phoneNumberTDTag = "<td class='phoneNumber'>" + phoneNumber + "</td>";
         var commentsTDTag = "<td class='comments'>" + comments + "</td>";
-        var delRecTDTag = "<td class='deleteRecord'><img src='img/basket.png'></td>";
+        var delRecTDTag = "<td class='deleteRecord'><img src='img/basket.png' class='confirmed'></td>";
 
         $("#phoneBookTable").find(".deleteRecordCheckBox").click(
             function () {
@@ -72,13 +72,11 @@ $(document).ready(function () {
             filledTRTag = "<tr class='filled'>";
         }
 
-        var attention = $(".inputFormTable .titleTD span");
-
         if (isContactInPhonebook()) {
             if ((firstName != "" || lastName != "") && phoneNumber != "") {
                 $("#phoneBookTable tbody").append(filledTRTag + markTDTag + indexTDTag + secondNameTDTag + firstNameTDTag + middleNameTDTag + phoneNumberTDTag + commentsTDTag + delRecTDTag + "</tr>");
                 ++index;
-                clearForm();
+                //clearForm();
                 $("#errorMessage").text("");
                 attention.attr("class", "");
             } else {
@@ -88,14 +86,6 @@ $(document).ready(function () {
         } else {
             $("div #errorMessage").text("Адресат с таким номером телефона уже в адресной книге!");
         }
-
-        $(".deleteRecord img").click(function () {
-            $("div #errorMessage").text("");
-            attention.attr("class", "");
-            $(this).closest("tr").remove();
-            reorderRows();
-            reFillTable();
-        });
 
         //Подстановка значений записи тел. книги в поля ввода при клике на строку
         /*$("#phoneBookTable").find("tr").click(function () {
@@ -129,17 +119,25 @@ $(document).ready(function () {
         });
 
     $("#delChecked").click(function () {
-        var allCheckboxes = $("#phoneBookTable").find(".deleteRecordCheckBox");
-        var allCheckedCheckboxes = allCheckboxes.filter(
-            function () {
-                return $(this).prop("checked");
-            }
-        );
-        $(allCheckedCheckboxes).closest("tr").remove();
-        reorderRows();
-        reFillTable();
-        document.getElementById('delAllCheckbox').checked = false;
-        $("div #errorMessage").text("");
+        if (confirm("Вы уверены, что хотите удалить все отмеченные записи?")) {
+            var allCheckboxes = $("#phoneBookTable").find(".deleteRecordCheckBox");
+            var allCheckedCheckboxes = allCheckboxes.filter(":checked");
+            $(allCheckedCheckboxes).closest("tr").remove();
+            reorderRows();
+            reFillTable();
+            $("#delAllCheckbox").prop("checked", false);
+            $("div #errorMessage").text("");
+        }
+    });
+
+    $(".confirmed").click(function () {
+        //if (confirm("Вы уверены, что хотите удалить запись?")) {
+            $(this).closest("tr").remove();
+            $("div #errorMessage").text("");
+            attention.attr("class", "");
+            reorderRows();
+            reFillTable();
+        //}
     });
 
     function clearForm() {
