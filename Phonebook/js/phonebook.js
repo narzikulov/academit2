@@ -35,11 +35,20 @@ $(document).ready(function () {
     });
 
     $("#saveToPhoneBookButton").click(function () {
-        var lastName = $("#lastName").val();
-        var firstName = $("#firstName").val();
-        var middleName = $("#middleName").val();
-        var phoneNumber = $("#phoneNumber").val();
-        var comments = $("#comments").val();
+
+        //Экранирование пользовательского ввода данных
+        function htmlEncode(val){
+          return $("<div/>").text(val).html();
+        }
+        function htmlDecode(val){
+          return $("<div/>").html(val).text();
+        }
+
+        var lastName = htmlEncode($("#lastName").val());
+        var firstName = htmlEncode($("#firstName").val());
+        var middleName = htmlEncode($("#middleName").val());
+        var phoneNumber = htmlEncode($("#phoneNumber").val());
+        var comments = htmlEncode($("#comments").val());
 
         function isContactInPhonebook () {
             var phoneNumbersArray = $("#phoneBookTable").find(".phoneNumber").map(function () {
@@ -50,7 +59,7 @@ $(document).ready(function () {
 
         var markTDTag = "<td class='mark'><input type='checkbox' class='deleteRecordCheckBox'></td>";
         var indexTDTag = "<td class='indexNumber'>" + index + "</td>";
-        var secondNameTDTag = "<td class='lastName'>" + lastName + "</td>";
+        var lastNameTDTag = "<td class='lastName'>" + lastName + "</td>";
         var firstNameTDTag = "<td class='firstName'>" + firstName + "</td>";
         var middleNameTDTag = "<td class='middleName'>" + middleName + "</td>";
         var phoneNumberTDTag = "<td class='phoneNumber'>" + phoneNumber + "</td>";
@@ -74,7 +83,7 @@ $(document).ready(function () {
 
         if (isContactInPhonebook()) {
             if ((firstName != "" || lastName != "") && phoneNumber != "") {
-                $("#phoneBookTable tbody").append(filledTRTag + markTDTag + indexTDTag + secondNameTDTag + firstNameTDTag + middleNameTDTag + phoneNumberTDTag + commentsTDTag + delRecTDTag + "</tr>");
+                $("#phoneBookTable tbody").append(filledTRTag + markTDTag + indexTDTag + lastNameTDTag + firstNameTDTag + middleNameTDTag + phoneNumberTDTag + commentsTDTag + delRecTDTag + "</tr>");
                 ++index;
                 //clearForm();
                 $("#errorMessage").text("");
