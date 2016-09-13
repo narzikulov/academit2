@@ -35,8 +35,8 @@ $(document).ready(function () {
     });
 
     $("#saveToPhoneBookButton").click(function () {
-        var firstName = $("#firstName").val();
         var lastName = $("#lastName").val();
+        var firstName = $("#firstName").val();
         var middleName = $("#middleName").val();
         var phoneNumber = $("#phoneNumber").val();
         var comments = $("#comments").val();
@@ -49,8 +49,8 @@ $(document).ready(function () {
         }
 
         var indexTDTag = "<td class='indexNumber'>" + index + "</td>";
-        var firstNameTDTag = "<td class='firstName'>" + firstName + "</td>";
         var secondNameTDTag = "<td class='lastName'>" + lastName + "</td>";
+        var firstNameTDTag = "<td class='firstName'>" + firstName + "</td>";
         var middleNameTDTag = "<td class='middleName'>" + middleName + "</td>";
         var phoneNumberTDTag = "<td class='phoneNumber'>" + phoneNumber + "</td>";
         var commentsTDTag = "<td class='comments'>" + comments + "</td>";
@@ -75,7 +75,7 @@ $(document).ready(function () {
 
         if (isContactInPhonebook()) {
             if ((firstName != "" || lastName != "") && phoneNumber != "") {
-                $("#phoneBookTable tbody").append(filledTRTag + indexTDTag + firstNameTDTag + secondNameTDTag + middleNameTDTag + phoneNumberTDTag + commentsTDTag + delRecTDTag + "</tr>");
+                $("#phoneBookTable tbody").append(filledTRTag + indexTDTag + secondNameTDTag + firstNameTDTag + middleNameTDTag + phoneNumberTDTag + commentsTDTag + delRecTDTag + "</tr>");
                 ++index;
                 //clearForm();
                 $("#errorMessage").text("");
@@ -97,8 +97,8 @@ $(document).ready(function () {
         });
 
         $("#phoneBookTable").find("tr").click(function () {
-            $("#firstName").val($(this).find("td.firstName:eq(0)").text());
             $("#lastName").val($(this).find("td.lastName:eq(0)").text());
+            $("#firstName").val($(this).find("td.firstName:eq(0)").text());
             $("#middleName").val($(this).find("td.middleName:eq(0)").text());
             $("#phoneNumber").val($(this).find("td.phoneNumber:eq(0)").text());
             $("#comments").val($(this).find("td.comments:eq(0)").text());
@@ -154,8 +154,8 @@ $(document).ready(function () {
     });
 
     function clearForm() {
-        $("#firstName").val("");
         $("#lastName").val("");
+        $("#firstName").val("");
         $("#middleName").val("");
         $("#phoneNumber").val("");
         $("#comments").val("");
