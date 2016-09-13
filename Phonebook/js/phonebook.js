@@ -85,7 +85,7 @@ $(document).ready(function () {
             if ((firstName != "" || lastName != "") && phoneNumber != "") {
                 $("#phoneBookTable tbody").append(filledTRTag + markTDTag + indexTDTag + lastNameTDTag + firstNameTDTag + middleNameTDTag + phoneNumberTDTag + commentsTDTag + delRecTDTag + "</tr>");
                 ++index;
-                //clearForm();
+                clearForm();
                 $("#errorMessage").text("");
                 attention.attr("class", "");
             } else {
