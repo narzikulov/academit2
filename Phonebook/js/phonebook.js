@@ -108,11 +108,11 @@ $(document).ready(function () {
     }); // конец функции нажатия кнопки записи
 
     $("#filterApply").click(function () {
-        var filterValue = $("#filter input").val();
+        var filterValue = $("#filter input").val().toLowerCase();
         var allPhonebookRecords = $("#phoneBookTable tr");
         $(allPhonebookRecords).each(function (i, str) {
             //alert($(str).text().indexOf(filterValue));
-            if ($(str).text().indexOf(filterValue) === -1) {
+            if ($(str).text().toLowerCase().indexOf(filterValue) === -1) {
                 $(this).hide("slow");
             }
         });
