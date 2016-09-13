@@ -97,11 +97,11 @@ $(document).ready(function () {
         });
 
         $("#phoneBookTable").find("tr").click(function () {
-            $("#firstName").val($(this).find('td.firstName:eq(0)').text());
-            $("#lastName").val($(this).find('td.lastName:eq(0)').text());
-            $("#middleName").val($(this).find('td.middleName:eq(0)').text());
-            $("#phoneNumber").val($(this).find('td.phoneNumber:eq(0)').text());
-            $("#comments").val($(this).find('td.comments:eq(0)').text());
+            $("#firstName").val($(this).find("td.firstName:eq(0)").text());
+            $("#lastName").val($(this).find("td.lastName:eq(0)").text());
+            $("#middleName").val($(this).find("td.middleName:eq(0)").text());
+            $("#phoneNumber").val($(this).find("td.phoneNumber:eq(0)").text());
+            $("#comments").val($(this).find("td.comments:eq(0)").text());
         });
 
 
@@ -109,11 +109,18 @@ $(document).ready(function () {
 
     $("#filterApply").click(function () {
         var filterValue = $("#filter input").val();
-        alert(filterValue);
+        var allPhonebookRecords = $("#phoneBookTable tr");
+        $(allPhonebookRecords).each(function (i, str) {
+            //alert($(str).text().indexOf(filterValue));
+            if ($(str).text().indexOf(filterValue) === -1) {
+                $(this).hide("slow");
+            }
+        });
     });
 
     $("#filterClear").click(function () {
         $("#filter input.filter").val("");
+        $("#phoneBookTable tr").show("slow");
     });
 
     $("#phoneBookTableFixedTitle").find(".deleteRecordCheckBox").click(
