@@ -109,7 +109,7 @@ $(document).ready(function () {
 
     $("#filterApply").click(function () {
         var filterValue = $("#filter input").val().toLowerCase().replace(/\s+/g, '');
-        alert(filterValue);
+        //alert(filterValue);
         var allPhonebookRecords = $("#phoneBookTable tr");
         $(allPhonebookRecords).each(function (i, str) {
             //alert($(str).text().indexOf(filterValue));
