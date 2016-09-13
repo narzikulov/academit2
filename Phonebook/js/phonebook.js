@@ -19,9 +19,13 @@ $(document).ready(function () {
     var reFillTable = function () {
         $("#phoneBookTable table").find("tbody").find("tr").each(function (i) {
             if ((i + 1) % 2 === 0) {
-                this.setAttribute("class", "filled");
+                //this.setAttribute("class", "filled");
+                $(this).toggleClass("filled", true);
+                $(this).toggleClass("unfilled", false);
             } else {
-                this.setAttribute("class", "unfilled");
+                //this.setAttribute("class", "unfilled");
+                $(this).toggleClass("filled", false);
+                $(this).toggleClass("unfilled", true);
             }
         });
     };
