@@ -27,14 +27,6 @@ $(document).ready(function () {
         $(this).select();
     });
 
-
-    function isContactInPhonebook () {
-        var phoneNumbersArray = $("#phoneBookTable").find(".phoneNumber").map(function () {
-            return $(this).text();
-        });
-        return $.inArray(phoneNumber, phoneNumbersArray) < 0;
-    }
-
     $("#saveToPhoneBookButton").click(function () {
         //Экранирование пользовательского ввода данных
         function htmlEncode(val){
@@ -46,6 +38,13 @@ $(document).ready(function () {
         var middleName = htmlEncode($("#middleName").val());
         var phoneNumber = htmlEncode($("#phoneNumber").val());
         var comments = htmlEncode($("#comments").val());
+
+        function isContactInPhonebook () {
+            var phoneNumbersArray = $("#phoneBookTable").find(".phoneNumber").map(function () {
+                return $(this).text();
+            });
+            return $.inArray(phoneNumber, phoneNumbersArray) < 0;
+        }
 
         var markTDTag = "<td class='mark'><input type='checkbox' class='deleteRecordCheckBox'></td>";
         var indexTDTag = "<td class='indexNumber'>" + index + "</td>";
