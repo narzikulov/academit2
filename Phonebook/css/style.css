@@ -35,6 +35,13 @@ div #filter {
     border-radius: 6px 6px 6px 6px;
 }
 
+div #allPhoneBookTable {
+    border-radius: 6px 6px 6px 6px;
+    border: 1px solid grey;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
 div #phoneBookTable {
     overflow: scroll;
     overflow-x: hidden;

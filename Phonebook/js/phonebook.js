@@ -88,13 +88,26 @@ $(document).ready(function () {
         // :last потому что событие навешивается на каждый элемент группы, а нужно на один - последний
         // без :last получается, что на первой строке навешивается столько событий, сколько строк в Phonebook
         $("#phoneBookTable .deleteRecord img:last").click(function () {
-            if (confirm("Вы уверены, что хотите удалить запись?")) {
-                $(this).closest("tr").remove();
-                $("div #errorMessage").text("");
-                attention.attr("class", "");
-                reorderRows();
-                reFillTable();
-            }
+            var el = this;
+            $.confirm({
+                title: "Удаление записи!",
+                content: "Вы уверены, что хотите удалить запись?",
+                confirmButton: "Да",
+                cancelButton: "Нет",
+                backgroundDismiss: true,
+                theme: "supervan",
+                confirm: function(){
+                    //$.alert('Confirmed!');
+                    $(el).closest("tr").remove();
+                    $("div #errorMessage").text("");
+                    attention.attr("class", "");
+                    reorderRows();
+                    reFillTable();
+                },
+                cancel: function(){
+                    //$.alert('Canceled!')
+                }
+            })
         });
 
         //Подстановка значений записи тел. книги в поля ввода при клике на строку
@@ -133,16 +146,28 @@ $(document).ready(function () {
     });
 
     $("#delChecked").click(function () {
-        if (confirm("Вы уверены, что хотите удалить все отмеченные записи?")) {
-            var allCheckboxes = $("#phoneBookTable").find(".deleteRecordCheckBox");
-            var allCheckedCheckboxes = allCheckboxes.filter(":checked");
-            $(allCheckedCheckboxes).closest("tr").remove();
-            reorderRows();
-            reFillTable();
-            $("#delAllCheckbox").prop("checked", false);
-            $("div #errorMessage").text("");
-            $("#delChecked").prop("disabled", true);
-        }
+        $.confirm({
+            title: "Удаление помеченных записей!",
+            content: "Вы действительно хотите удалить помеченные записи?",
+            confirmButton: "Да",
+            cancelButton: "Нет",
+            backgroundDismiss: true,
+            theme: "supervan",
+            confirm: function(){
+                //$.alert('Confirmed!');
+                var allCheckboxes = $("#phoneBookTable").find(".deleteRecordCheckBox");
+                var allCheckedCheckboxes = allCheckboxes.filter(":checked");
+                $(allCheckedCheckboxes).closest("tr").remove();
+                reorderRows();
+                reFillTable();
+                $("#delAllCheckbox").prop("checked", false);
+                $("div #errorMessage").text("");
+                $("#delChecked").prop("disabled", true);
+            },
+            cancel: function(){
+                //$.alert('Canceled!')
+            }
+        })
     });
 
     function clearForm() {
@@ -155,5 +180,4 @@ $(document).ready(function () {
     $("#clearForm").click(function () {
         clearForm();
     });
-
 });
