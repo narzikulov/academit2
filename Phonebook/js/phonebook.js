@@ -3,7 +3,7 @@
  */
 $(document).ready(function () {
     $("html").niceScroll({cursorcolor: "#a19f98", autohidemode: true});
-    $("div #phoneBookTable").niceScroll({cursorcolor: "#a19f98", autohidemode: false, cursorwidth: '10px'});
+    $("#phoneBookTable").niceScroll({cursorcolor: "#a19f98", autohidemode: false, cursorwidth: '10px'});
     var attention = $(".inputFormTable .titleTD span");
     var index = 1;
 
@@ -18,15 +18,8 @@ $(document).ready(function () {
 
     var reFillTable = function () {
         $("#phoneBookTable table").find("tbody").find("tr").each(function (i) {
-            if ((i + 1) % 2 === 0) {
-                //this.setAttribute("class", "filled");
-                $(this).toggleClass("filled", true);
-                $(this).toggleClass("unfilled", false);
-            } else {
-                //this.setAttribute("class", "unfilled");
-                $(this).toggleClass("filled", false);
-                $(this).toggleClass("unfilled", true);
-            }
+            $(this).toggleClass("filled", (i + 1) % 2 === 0);
+            $(this).toggleClass("unfilled", (i + 1) % 2 !== 0);
         });
     };
 
@@ -35,13 +28,9 @@ $(document).ready(function () {
     });
 
     $("#saveToPhoneBookButton").click(function () {
-
         //Экранирование пользовательского ввода данных
         function htmlEncode(val){
-          return $("<div/>").text(val).html();
-        }
-        function htmlDecode(val){
-          return $("<div/>").html(val).text();
+            return $("<div/>").text(val).html();
         }
 
         var lastName = htmlEncode($("#lastName").val());
@@ -53,7 +42,7 @@ $(document).ready(function () {
         function isContactInPhonebook () {
             var phoneNumbersArray = $("#phoneBookTable").find(".phoneNumber").map(function () {
                 return $(this).text();
-                });
+            });
             return $.inArray(phoneNumber, phoneNumbersArray) < 0;
         }
 
@@ -66,15 +55,15 @@ $(document).ready(function () {
         var commentsTDTag = "<td class='comments'>" + comments + "</td>";
         var delRecTDTag = "<td class='deleteRecord'><img src='img/basket.png' class='confirmed'></td>";
 
-        $("#phoneBookTable").find(".deleteRecordCheckBox").click(
-            function () {
-                if ($(this).prop('checked')) {
-                    $(this).attr("checked", "checked");
-                } else {
-                    $(this).removeAttr("checked");
-                }
+        $("#phoneBookTable").find(".deleteRecordCheckBox:last").change(function () {
+            if ($(this).prop('checked')) {
+                $(this).attr("checked", "checked");
+                $("#delChecked").prop("disabled", false);
+            } else {
+                $(this).removeAttr("checked");
+                $("#delChecked").prop("disabled", true);
             }
-        );
+        });
 
         var filledTRTag = "<tr>";
         if (index % 2 === 0) {
@@ -85,27 +74,27 @@ $(document).ready(function () {
             if ((firstName != "" || lastName != "") && phoneNumber != "") {
                 $("#phoneBookTable tbody").append(filledTRTag + markTDTag + indexTDTag + lastNameTDTag + firstNameTDTag + middleNameTDTag + phoneNumberTDTag + commentsTDTag + delRecTDTag + "</tr>");
                 ++index;
-                clearForm();
+                //clearForm();
                 $("#errorMessage").text("");
                 attention.attr("class", "");
             } else {
-                $("div #errorMessage").text("Не заполнены обязательные поля, помеченные звездочкой!");
+                $("#errorMessage").text("Не заполнены обязательные поля, помеченные звездочкой!");
                 attention.attr("class", "attention");
             }
         } else {
-            $("div #errorMessage").text("Адресат с таким номером телефона уже в адресной книге!");
+            $("#errorMessage").text("Адресат с таким номером телефона уже в адресной книге!");
         }
 
         // :last потому что событие навешивается на каждый элемент группы, а нужно на один - последний
         // без :last получается, что на первой строке навешивается столько событий, сколько строк в Phonebook
         $("#phoneBookTable .deleteRecord img:last").click(function () {
-        if (confirm("Вы уверены, что хотите удалить запись?")) {
-             $(this).closest("tr").remove();
+            if (confirm("Вы уверены, что хотите удалить запись?")) {
+                $(this).closest("tr").remove();
                 $("div #errorMessage").text("");
                 attention.attr("class", "");
                 reorderRows();
                 reFillTable();
-        }
+            }
         });
 
         //Подстановка значений записи тел. книги в поля ввода при клике на строку
@@ -135,9 +124,13 @@ $(document).ready(function () {
     });
 
     $("#phoneBookTableFixedTitle").find(".deleteRecordCheckBox").click(function () {
-            var allCheckboxes = $("#phoneBookTable").find(".deleteRecordCheckBox");
-            allCheckboxes.prop('checked', $(this).prop('checked'));
-        });
+        var allCheckboxes = $("#phoneBookTable").find(".deleteRecordCheckBox");
+        allCheckboxes.prop('checked', $(this).prop('checked'));
+    });
+
+    $(":checkbox").change(function() {
+        $("#delChecked").prop("disabled", $(this).is(":not(:checked)"));
+    });
 
     $("#delChecked").click(function () {
         if (confirm("Вы уверены, что хотите удалить все отмеченные записи?")) {
@@ -148,12 +141,13 @@ $(document).ready(function () {
             reFillTable();
             $("#delAllCheckbox").prop("checked", false);
             $("div #errorMessage").text("");
+            $("#delChecked").prop("disabled", true);
         }
     });
 
     function clearForm() {
         $("#inputFormTableDiv .inputFormTable .inputTD").val("");
-        $("div #errorMessage").text("");
+        $("#errorMessage").text("");
         var attention = $(".inputFormTable .titleTD span");
         attention.attr("class", "");
     }
