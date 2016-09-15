@@ -139,9 +139,7 @@ $(document).ready(function () {
         });
 
         var allVisibleCheckedCheckboxes = $("#phoneBookTable").find(".deleteRecordCheckBox").filter(":checked").filter(":visible");
-        if (allVisibleCheckedCheckboxes.length === 0) {
-            $("#delChecked").prop("disabled", true);
-        }
+        $("#delChecked").prop("disabled", allVisibleCheckedCheckboxes.length === 0);
 
     });
 
@@ -154,9 +152,9 @@ $(document).ready(function () {
         }
     });
 
-    $("#phoneBookTableFixedTitle").find(".deleteRecordCheckBox").click(function () {
-        var allCheckboxes = $("#phoneBookTable").find(".deleteRecordCheckBox");
-        allCheckboxes.prop('checked', $(this).prop('checked'));
+    $("#phoneBookTableFixedTitle").find(".deleteRecordCheckBox").change(function () {
+        var allCheckboxes = $("#phoneBookTable").find(".deleteRecordCheckBox").filter(":checked").filter(":visible");
+        $("#delChecked").prop("disabled", allVisibleCheckedCheckboxes.length > 0);
     });
 
     $("#delChecked").click(function () {
