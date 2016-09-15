@@ -33,6 +33,12 @@ $(document).ready(function () {
         attention.toggleClass("attention", false);
         reorderRows();
         reFillTable();
+        var allVisibleCheckedCheckboxes = $("#phoneBookTable").find(".deleteRecordCheckBox").filter(":checked").filter(":visible");
+        if (allVisibleCheckedCheckboxes.length === 0) {
+            $("#delAllCheckbox").prop("checked", false);
+        }
+        $("#delChecked").prop("disabled", allVisibleCheckedCheckboxes.length === 0);
+
     }
 
     var delSelectedRecordsFunction = function delSelectedRecords (el){
