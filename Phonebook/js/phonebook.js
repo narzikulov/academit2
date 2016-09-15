@@ -121,11 +121,10 @@ $(document).ready(function () {
                     var allVisibleCheckedCheckboxes = $("#phoneBookTable").find(".deleteRecordCheckBox").filter(":checked").filter(":visible");
                     if (allVisibleCheckedCheckboxes.length === 0) {
                         $("#delAllCheckbox").prop("checked", false);
+                        if ($("#delAllCheckbox").is(":not(:checked)")) {
+                            $("#delChecked").prop("disabled", true);
+                        }
                     }
-                    if ($("#delAllCheckbox").is(":not(:checked)") && allVisibleCheckedCheckboxes.length === 0) {
-                        $("#delChecked").prop("disabled", true);
-                    }
-
                 });
             } else {
                 $("#errorMessage").text("Не заполнены обязательные поля, помеченные звездочкой!");
