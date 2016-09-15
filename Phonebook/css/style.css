@@ -192,20 +192,24 @@ td.deleteRecord {
 }
 
 #inputFormTableDiv {
+    width: 100%;
     display: inline-block;
-    width: 50%;
+    padding: 20px 10px 10px 10px;
+    border-radius: 6px 6px 6px 6px;
+    border: 1px solid grey;
 }
 
 .inputFormTable {
     table-layout: fixed;
     border-collapse: separate;
-    width: 200%;
+    width: 100%;
     margin: 0;
     padding: 10px;
     border-spacing: 10px;
 }
 
 .inputFormTable caption {
+    padding-left: 20px;
     caption-side: top;
     text-align: left;
     font-weight: bold;
@@ -229,7 +233,7 @@ div #errorMessage {
 }
 
 .inputTD {
-    width: 30%;
+    width: 50%;
 }
 
 #saveToPhoneBookButton {
