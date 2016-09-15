@@ -3,7 +3,7 @@
  */
 $(document).ready(function () {
     $("html").niceScroll({cursorcolor: "#a19f98", autohidemode: true});
-    $("#phoneBookTable").niceScroll({cursorcolor: "#a19f98", autohidemode: false, cursorwidth: '10px'});
+    $("#phoneBookTable").niceScroll({cursorcolor: "RGB(173, 217, 83", autohidemode: false, cursorwidth: '10px'});
     var attention = $(".inputFormTable .titleTD span");
     var index = 1;
 
@@ -26,6 +26,39 @@ $(document).ready(function () {
     $(".inputFormTable .inputTD").focus(function () {
         $(this).select();
     });
+
+    var delRecordFunction = function delRecord (el){
+        $(el).closest("tr").remove();
+        $("div #errorMessage").text("");
+        attention.toggleClass("attention", false);
+        reorderRows();
+        reFillTable();
+    }
+
+    var delSelectedRecords = function delSelectedRecords (el){
+        var allCheckboxes = $("#phoneBookTable").find(".deleteRecordCheckBox");
+        var allCheckedCheckboxes = allCheckboxes.filter(":checked").filter(":visible");
+        $(allCheckedCheckboxes).closest("tr").remove();
+        reorderRows();
+        reFillTable();
+        $("#delAllCheckbox").prop("checked", false);
+        $("div #errorMessage").text("");
+        $("#delChecked").prop("disabled", true);
+    }
+
+    function showConfirm(el, func) {
+        $.confirm({
+            title: "Удаление записи!",
+            content: "Вы уверены, что хотите удалить запись?",
+            confirmButton: "Да",
+            cancelButton: "Нет",
+            backgroundDismiss: true,
+            theme: "supervan",
+            confirm: function(){func(el)},
+            cancel: function(){
+            }
+        })
+    }
 
     $("#saveToPhoneBookButton").click(function () {
         //Экранирование пользовательского ввода данных
@@ -60,16 +93,18 @@ $(document).ready(function () {
             filledTRTag = "<tr class='filled'>";
         }
 
-        if (isContactInPhonebook()) {
+        //TODO uncomment
+        if (true /*isContactInPhonebook()*/) {
             if ((firstName != "" || lastName != "") && phoneNumber != "") {
                 $("#phoneBookTable tbody").append(filledTRTag + markTDTag + indexTDTag + lastNameTDTag + firstNameTDTag + middleNameTDTag + phoneNumberTDTag + commentsTDTag + delRecTDTag + "</tr>");
                 ++index;
-                clearForm();
+                //TODO uncomment
+                //clearForm();
                 $("#errorMessage").text("");
-                attention.attr("class", "");
+                attention.toggleClass("attention", false);
             } else {
                 $("#errorMessage").text("Не заполнены обязательные поля, помеченные звездочкой!");
-                attention.attr("class", "attention");
+                attention.toggleClass("attention", true);
             }
         } else {
             $("#errorMessage").text("Адресат с таким номером телефона уже в адресной книге!");
@@ -79,39 +114,12 @@ $(document).ready(function () {
         // без :last получается, что на первой строке навешивается столько событий, сколько строк в Phonebook
         $("#phoneBookTable .deleteRecord img:last").click(function () {
             var el = this;
-            $.confirm({
-                title: "Удаление записи!",
-                content: "Вы уверены, что хотите удалить запись?",
-                confirmButton: "Да",
-                cancelButton: "Нет",
-                backgroundDismiss: true,
-                theme: "supervan",
-                confirm: function(){
-                    //$.alert('Confirmed!');
-                    $(el).closest("tr").remove();
-                    $("div #errorMessage").text("");
-                    attention.attr("class", "");
-                    reorderRows();
-                    reFillTable();
-                },
-                cancel: function(){
-                    //$.alert('Canceled!')
-                }
-            })
+            showConfirm(el, delRecordFunction);
         });
 
         $(":checkbox").change(function () {
             $("#delChecked").prop("disabled", $(":checked").length === 0);
         });
-
-        //Подстановка значений записи тел. книги в поля ввода при клике на строку
-        /*$("#phoneBookTable").find("tr").click(function () {
-            $("#lastName").val($(this).find("td.lastName:eq(0)").text());
-            $("#firstName").val($(this).find("td.firstName:eq(0)").text());
-            $("#middleName").val($(this).find("td.middleName:eq(0)").text());
-            $("#phoneNumber").val($(this).find("td.phoneNumber:eq(0)").text());
-            $("#comments").val($(this).find("td.comments:eq(0)").text());
-        });*/
     }); // конец функции нажатия кнопки записи
 
     $("#filterApply").click(function () {
@@ -137,35 +145,15 @@ $(document).ready(function () {
     });
 
     $("#delChecked").click(function () {
-        $.confirm({
-            title: "Удаление помеченных записей!",
-            content: "Вы действительно хотите удалить помеченные записи?",
-            confirmButton: "Да",
-            cancelButton: "Нет",
-            backgroundDismiss: true,
-            theme: "supervan",
-            confirm: function(){
-                //$.alert('Confirmed!');
-                var allCheckboxes = $("#phoneBookTable").find(".deleteRecordCheckBox");
-                var allCheckedCheckboxes = allCheckboxes.filter(":checked").filter(":visible");
-                $(allCheckedCheckboxes).closest("tr").remove();
-                reorderRows();
-                reFillTable();
-                $("#delAllCheckbox").prop("checked", false);
-                $("div #errorMessage").text("");
-                $("#delChecked").prop("disabled", true);
-            },
-            cancel: function(){
-                //$.alert('Canceled!')
-            }
-        })
+    var el = 0;
+        showConfirm(el, delSelectedRecords);
     });
 
     function clearForm() {
         $("#inputFormTableDiv .inputFormTable .inputTD").val("");
         $("#errorMessage").text("");
         var attention = $(".inputFormTable .titleTD span");
-        attention.attr("class", "");
+        attention.toggleClass("attention", false);
     }
 
     $("#clearForm").click(function () {
