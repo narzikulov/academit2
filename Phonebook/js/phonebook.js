@@ -27,18 +27,21 @@ $(document).ready(function () {
         $(this).select();
     });
 
+    function disableEnableAllCheckedDeleteButton () {
+        var allVisibleCheckedCheckboxes = $("#phoneBookTable").find(".deleteRecordCheckBox").filter(":checked").filter(":visible");
+        if (allVisibleCheckedCheckboxes.length === 0) {
+            $("#delAllCheckbox").prop("checked", false);
+        }
+        $("#delChecked").prop("disabled", allVisibleCheckedCheckboxes.length === 0);
+    }
+
     var delRecordFunction = function delRecord (el){
         $(el).closest("tr").remove();
         $("#errorMessage").text("");
         attention.toggleClass("attention", false);
         reorderRows();
         reFillTable();
-        var allVisibleCheckedCheckboxes = $("#phoneBookTable").find(".deleteRecordCheckBox").filter(":checked").filter(":visible");
-        if (allVisibleCheckedCheckboxes.length === 0) {
-            $("#delAllCheckbox").prop("checked", false);
-        }
-        $("#delChecked").prop("disabled", allVisibleCheckedCheckboxes.length === 0);
-
+        disableEnableAllCheckedDeleteButton();
     }
 
     var delSelectedRecordsFunction = function delSelectedRecords (el){
@@ -164,10 +167,7 @@ $(document).ready(function () {
     $("#filterClear").click(function () {
         $("#filter input.filter").val("");
         $("#phoneBookTable tr").show("slow");
-        var allVisibleCheckedCheckboxes = $("#phoneBookTable").find(".deleteRecordCheckBox").filter(":checked").filter(":visible");
-        if (allVisibleCheckedCheckboxes.length > 0) {
-            $("#delChecked").prop("disabled", false);
-        }
+        disableEnableAllCheckedDeleteButton();
     });
 
     $("#phoneBookTableFixedTitle").find(".deleteRecordCheckBox").click(function () {
