@@ -107,6 +107,7 @@ $(document).ready(function () {
                 clearForm();
                 $("#errorMessage").text("");
                 attention.toggleClass("attention", false);
+                $("#delChecked").prop("disabled", true);
 
                 // :last потому что событие навешивается на каждый элемент группы, а нужно на один - последний
                 // без :last получается, что на первой строке навешивается столько событий, сколько строк в Phonebook
@@ -117,6 +118,10 @@ $(document).ready(function () {
 
                 $(":checkbox").change(function () {
                     $("#delChecked").prop("disabled", $(":checked").length === 0);
+                    var allVisibleCheckedCheckboxes = $("#phoneBookTable").find(".deleteRecordCheckBox").filter(":checked").filter(":visible");
+                    if (allVisibleCheckedCheckboxes.length === 0) {
+                        $("#delAllCheckbox").prop("checked", false);
+                    }
                 });
             } else {
                 $("#errorMessage").text("Не заполнены обязательные поля, помеченные звездочкой!");
@@ -136,9 +141,13 @@ $(document).ready(function () {
             if ($(str).text().toLowerCase().indexOf(filterValue) === -1) {
                 $(this).hide();
             }
+
         });
 
         var allVisibleCheckedCheckboxes = $("#phoneBookTable").find(".deleteRecordCheckBox").filter(":checked").filter(":visible");
+        if (allVisibleCheckedCheckboxes.length === 0) {
+            $("#delAllCheckbox").prop("checked", false);
+        }
         $("#delChecked").prop("disabled", allVisibleCheckedCheckboxes.length === 0);
 
     });
