@@ -55,26 +55,16 @@ $(document).ready(function () {
         var commentsTDTag = "<td class='comments'>" + comments + "</td>";
         var delRecTDTag = "<td class='deleteRecord'><img src='img/basket.png' class='confirmed'></td>";
 
-        $("#phoneBookTable").find(".deleteRecordCheckBox:last").change(function () {
-            if ($(this).prop('checked')) {
-                $(this).attr("checked", "checked");
-                $("#delChecked").prop("disabled", false);
-            } else {
-                $(this).removeAttr("checked");
-                $("#delChecked").prop("disabled", true);
-            }
-        });
-
         var filledTRTag = "<tr>";
         if (index % 2 === 0) {
             filledTRTag = "<tr class='filled'>";
         }
 
-        if (isContactInPhonebook()) {
+        if (true /* isContactInPhonebook() */) {
             if ((firstName != "" || lastName != "") && phoneNumber != "") {
                 $("#phoneBookTable tbody").append(filledTRTag + markTDTag + indexTDTag + lastNameTDTag + firstNameTDTag + middleNameTDTag + phoneNumberTDTag + commentsTDTag + delRecTDTag + "</tr>");
                 ++index;
-                clearForm();
+                //clearForm();
                 $("#errorMessage").text("");
                 attention.attr("class", "");
             } else {
@@ -110,6 +100,10 @@ $(document).ready(function () {
             })
         });
 
+        $(":checkbox").change(function () {
+            $("#delChecked").prop("disabled", $(":checked").length === 0);
+        });
+
         //Подстановка значений записи тел. книги в поля ввода при клике на строку
         /*$("#phoneBookTable").find("tr").click(function () {
             $("#lastName").val($(this).find("td.lastName:eq(0)").text());
@@ -134,15 +128,12 @@ $(document).ready(function () {
     $("#filterClear").click(function () {
         $("#filter input.filter").val("");
         $("#phoneBookTable tr").show("slow");
+        $(":checked").prop("checked", false);
     });
 
     $("#phoneBookTableFixedTitle").find(".deleteRecordCheckBox").click(function () {
         var allCheckboxes = $("#phoneBookTable").find(".deleteRecordCheckBox");
         allCheckboxes.prop('checked', $(this).prop('checked'));
-    });
-
-    $(":checkbox").change(function() {
-        $("#delChecked").prop("disabled", $(this).is(":not(:checked)"));
     });
 
     $("#delChecked").click(function () {
@@ -156,7 +147,7 @@ $(document).ready(function () {
             confirm: function(){
                 //$.alert('Confirmed!');
                 var allCheckboxes = $("#phoneBookTable").find(".deleteRecordCheckBox");
-                var allCheckedCheckboxes = allCheckboxes.filter(":checked");
+                var allCheckedCheckboxes = allCheckboxes.filter(":checked").filter(":visible");
                 $(allCheckedCheckboxes).closest("tr").remove();
                 reorderRows();
                 reFillTable();
