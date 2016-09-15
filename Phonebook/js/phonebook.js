@@ -152,9 +152,11 @@ $(document).ready(function () {
         }
     });
 
-    $("#phoneBookTableFixedTitle").find(".deleteRecordCheckBox").change(function () {
-        var allCheckboxes = $("#phoneBookTable").find(".deleteRecordCheckBox").filter(":checked").filter(":visible");
-        $("#delChecked").prop("disabled", allVisibleCheckedCheckboxes.length > 0);
+    $("#phoneBookTableFixedTitle").find(".deleteRecordCheckBox").click(function () {
+        var allCheckboxes = $("#phoneBookTable").find(".deleteRecordCheckBox");
+        allCheckboxes.prop('checked', $(this).prop('checked'));
+        var allVisibleCheckboxes = allCheckboxes.filter(":checked").filter(":visible");
+        $("#delChecked").prop("disabled", allVisibleCheckboxes.length > 0);
     });
 
     $("#delChecked").click(function () {
