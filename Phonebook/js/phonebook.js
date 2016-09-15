@@ -122,6 +122,10 @@ $(document).ready(function () {
                     if (allVisibleCheckedCheckboxes.length === 0) {
                         $("#delAllCheckbox").prop("checked", false);
                     }
+                    if ($("#delAllCheckbox").is(":not(:checked)") && allVisibleCheckedCheckboxes.length === 0) {
+                        $("#delChecked").prop("disabled", true);
+                    }
+
                 });
             } else {
                 $("#errorMessage").text("Не заполнены обязательные поля, помеченные звездочкой!");
@@ -162,10 +166,13 @@ $(document).ready(function () {
     });
 
     $("#phoneBookTableFixedTitle").find(".deleteRecordCheckBox").click(function () {
-        var allCheckboxes = $("#phoneBookTable").find(".deleteRecordCheckBox");
-        allCheckboxes.prop('checked', $(this).prop('checked'));
-        var allVisibleCheckboxes = allCheckboxes.filter(":checked").filter(":visible");
-        $("#delChecked").prop("disabled", allVisibleCheckboxes.length > 0);
+        var allCheckboxes = $("#phoneBookTable").find(".deleteRecordCheckBox").filter(":visible");
+        allCheckboxes.prop('checked', $(this).prop("checked"));
+        var allVisibleCheckedCheckboxes = allCheckboxes.filter(":checked").filter(":visible");
+        $("#delAllCheckbox").prop("checked", allVisibleCheckedCheckboxes.length > 0);
+        if ($("#delAllCheckbox").is(":not(:checked)") && allVisibleCheckedCheckboxes.length === 0) {
+            $("#delChecked").prop("disabled", true);
+        }
     });
 
     $("#delChecked").click(function () {
